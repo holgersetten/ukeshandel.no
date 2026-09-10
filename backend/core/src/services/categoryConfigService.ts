@@ -1,85 +1,18 @@
-import fs from 'fs';
-import path from 'path';
 import categoryService from './categoryService';
+import { CATEGORY_HIERARCHY, saveHierarchy, type CategoryHierarchy } from '../config/categories';
 
-export interface CategoryHierarchyData {
-  [mainCategory: string]: string[];
-}
+export type CategoryHierarchyData = CategoryHierarchy;
 
 class CategoryConfigService {
-  private configPath: string;
-
-  constructor() {
-    this.configPath = path.join(__dirname, '../config/categories.ts');
-  }
-
-  /**
-   * Leser nåværende kategoristruktur fra categories.ts
-   */
   getCurrentHierarchy(): CategoryHierarchyData {
-    try {
-      // Les filen og parser CATEGORY_HIERARCHY objektet
-      const content = fs.readFileSync(this.configPath, 'utf-8');
-      const match = content.match(/export const CATEGORY_HIERARCHY = ({[\s\S]*?}) as const;/);
-      
-      if (!match) {
-        throw new Error('Kunne ikke finne CATEGORY_HIERARCHY i filen');
-      }
-
-      // Parse JSON-strukturen (må erstatte " med " for gyldig JSON)
-      const jsonStr = match[1]
-        .replace(/"/g, '"')
-        .replace(/"/g, '"')
-        .replace(/,(\s*[}\]])/g, '$1'); // Fjern trailing commas
-      
-      return JSON.parse(jsonStr);
-    } catch (error) {
-      console.error('Feil ved lesing av kategorier:', error);
-      throw error;
-    }
+    return structuredClone(CATEGORY_HIERARCHY);
   }
 
-  /**
-   * Skriver ny kategoristruktur til categories.ts
-   * ADVARSEL: Dette overskriver filen!
-   */
-  updateHierarchy(newHierarchy: CategoryHierarchyData): boolean {
-    try {
-      // Valider at alle hovedkategorier har minst én underkategori
-      for (const [mainCat, subCats] of Object.entries(newHierarchy)) {
-        if (!Array.isArray(subCats) || subCats.length === 0) {
-          throw new Error(`Hovedkategori "${mainCat}" må ha minst én underkategori`);
-        }
-      }
-
-      // Les eksisterende fil
-      const content = fs.readFileSync(this.configPath, 'utf-8');
-
-      // Generer ny CATEGORY_HIERARCHY string
-      const hierarchyStr = JSON.stringify(newHierarchy, null, 2)
-        .replace(/"/g, '"')
-        .replace(/"/g, '"');
-
-      // Erstatt kun CATEGORY_HIERARCHY delen
-      const newContent = content.replace(
-        /export const CATEGORY_HIERARCHY = {[\s\S]*?} as const;/,
-        `export const CATEGORY_HIERARCHY = ${hierarchyStr} as const;`
-      );
-
-      // Skriv tilbake
-      fs.writeFileSync(this.configPath, newContent, 'utf-8');
-
-      console.log('✅ Kategoristruktur oppdatert i categories.ts');
-      return true;
-    } catch (error) {
-      console.error('❌ Feil ved skriving av kategorier:', error);
-      throw error;
-    }
+  updateHierarchy(hierarchy: CategoryHierarchyData): boolean {
+    saveHierarchy(hierarchy);
+    return true;
   }
 
-  /**
-   * Legger til en ny underkategori under en hovedkategori
-   */
   addSubCategory(mainCategory: string, newSubCategory: string): boolean {
     const hierarchy = this.getCurrentHierarchy();
     

@@ -1,10 +1,9 @@
 import express, { Request, Response } from 'express';
 import offerService from '../../../core/src/services/offerService';
+import { updateOffers } from '../../../core/src/services/offerUpdateService';
 import categoryService from '../../../core/src/services/categoryService';
 import categoryConfigService from '../../../core/src/services/categoryConfigService';
-import imageService from '../../../persistence/src/services/imageService';
 import { MainCategory, SubCategory, CATEGORY_HIERARCHY } from '../../../core/src/config/categories';
-import * as priceHistoryRepo from '../../../core/src/db/priceHistoryRepo';
 
 const router = express.Router();
 
@@ -107,25 +106,6 @@ router.post('/offers/categorize', async (req: Request, res: Response) => {
     }
 });
 
-// POST /api/offers/update - Manuelt oppdater tilbud
-router.post('/offers/update', async (req: Request, res: Response) => {
-    try {
-        console.log('🔄 Manuell oppdatering av tilbud trigget');
-        offerService.updateAllStoreOffers();
-        
-        res.json({
-            message: 'Oppdatering av tilbud startet',
-            timestamp: new Date().toISOString()
-        });
-    } catch (error) {
-        console.error('❌ Feil ved oppdatering av tilbud:', (error as Error).message);
-        res.status(500).json({
-            error: 'Kunne ikke oppdatere tilbud',
-            message: (error as Error).message
-        });
-    }
-});
-
 // POST /api/categories/subcategory/add - Legg til ny underkategori
 router.post('/categories/subcategory/add', async (req: Request, res: Response) => {
     try {
@@ -145,7 +125,7 @@ router.post('/categories/subcategory/add', async (req: Request, res: Response) =
             return res.json({
                 success: true,
                 message: 'Underkategori lagt til',
-                note: 'Server må restartes for at endringer skal tre i kraft'
+                note: 'Endringene gjelder umiddelbart'
             });
         } else {
             return res.status(500).json({
@@ -180,7 +160,7 @@ router.post('/categories/subcategory/remove', async (req: Request, res: Response
             return res.json({
                 success: true,
                 message: 'Underkategori fjernet',
-                note: 'Server må restartes for at endringer skal tre i kraft'
+                note: 'Endringene gjelder umiddelbart'
             });
         } else {
             return res.status(500).json({
@@ -215,7 +195,7 @@ router.post('/categories/subcategory/rename', async (req: Request, res: Response
             return res.json({
                 success: true,
                 message: 'Underkategori omdøpt',
-                note: 'Server må restartes for at endringer skal tre i kraft'
+                note: 'Endringene gjelder umiddelbart'
             });
         } else {
             return res.status(500).json({
@@ -250,7 +230,7 @@ router.post('/categories/main/add', async (req: Request, res: Response) => {
             return res.json({
                 success: true,
                 message: 'Hovedkategori lagt til',
-                note: 'Server må restartes for at endringer skal tre i kraft'
+                note: 'Endringene gjelder umiddelbart'
             });
         } else {
             return res.status(500).json({
@@ -285,7 +265,7 @@ router.post('/categories/main/remove', async (req: Request, res: Response) => {
             return res.json({
                 success: true,
                 message: 'Hovedkategori fjernet',
-                note: 'Server må restartes for at endringer skal tre i kraft'
+                note: 'Endringene gjelder umiddelbart'
             });
         } else {
             return res.status(500).json({
@@ -320,7 +300,7 @@ router.post('/categories/main/rename', async (req: Request, res: Response) => {
             return res.json({
                 success: true,
                 message: 'Hovedkategori omdøpt',
-                note: 'Server må restartes for at endringer skal tre i kraft'
+                note: 'Endringene gjelder umiddelbart'
             });
         } else {
             return res.status(500).json({
@@ -336,138 +316,12 @@ router.post('/categories/main/rename', async (req: Request, res: Response) => {
     }
 });
 
-// GET /api/offers/:hotspotId/image - Hent bilde for et tilbud
-router.get('/offers/:hotspotId/image', async (req: Request, res: Response) => {
+// Manuell innhenting og kategorisering.
+router.post('/offers/update', async (_req: Request, res: Response) => {
     try {
-        const hotspotId = req.params.hotspotId;
-        
-        if (!hotspotId || typeof hotspotId !== 'string') {
-            return res.status(400).json({ error: 'hotspotId er påkrevd' });
-        }
-
-        const images = await imageService.getOfferImage(hotspotId);
-        const bestImage = imageService.getBestImage(images);
-
-        return res.json({
-            hotspotId,
-            images,
-            bestImage
-        });
+        res.json(await updateOffers());
     } catch (error) {
-        console.error('❌ Feil ved henting av bilde:', (error as Error).message);
-        return res.status(500).json({
-            error: 'Kunne ikke hente bilde',
-            message: (error as Error).message
-        });
-    }
-});
-
-// POST /api/offers/weekly-update - Komplett ukentlig oppdatering (tilbud + AI kategorisering)
-router.post('/offers/weekly-update', async (req: Request, res: Response) => {
-    const startTime = Date.now();
-    const timestamp = new Date().toISOString();
-    const errors: Record<string, string> = {};
-
-    try {
-        console.log('🔄 Ukentlig oppdatering startet:', timestamp);
-        
-        // Track existing productKeys before update
-        const existingOffers = await offerService.getAllOffers();
-        const existingProductKeys = new Set(existingOffers.map(o => o.productKey).filter(Boolean));
-        
-        // STEG 1: Hent nye tilbud
-        console.log('📥 Henter nye tilbudsaviser...');
-        const updateResult = await offerService.updateAllStoreOffersWithTracking();
-        Object.assign(errors, updateResult.errors);
-        
-        // STEG 2: Hent bilder for tilbudene
-        console.log('🖼️  Henter bilder...');
-        await offerService.enrichAllOffersWithImages();
-        
-        // STEG 3: Kjør AI kategorisering (2 iterasjoner)
-        console.log('🤖 AI kategorisering (2 iterasjoner)...');
-        
-        // Iterasjon 1: Første kategoriseringsforsøk
-        console.log('\n🔄 Iterasjon 1/2...');
-        let allOffers = await offerService.getAllOffers();
-        await categoryService.categorizeOffers(allOffers);
-        let pendingCount = categoryService.getPendingCount();
-        console.log(`   ➜ Resultat: ${pendingCount} pending produkter`);
-        
-        if (pendingCount > 0) {
-            // Iterasjon 2: Retry pending med fresh context
-            console.log('\n🔄 Iterasjon 2/2...');
-            categoryService.removePendingFromCache();
-            allOffers = await offerService.getAllOffers();
-            await categoryService.categorizeOffers(allOffers);
-            pendingCount = categoryService.getPendingCount();
-            console.log(`   ➜ Resultat: ${pendingCount} pending produkter`);
-        }
-        
-        // Calculate metrics
-        const duration = Date.now() - startTime;
-        const finalOffers = await offerService.getAllOffers();
-        const offersPerStore = offerService.getOffersPerStore(finalOffers);
-        const newProductKeys = finalOffers.filter(o => o.productKey && !existingProductKeys.has(o.productKey)).length;
-        const totalProductKeys = new Set(finalOffers.map(o => o.productKey).filter(Boolean)).size;
-        const stats = categoryService.getCacheStatistics();
-        
-        // Save metrics to database
-        const healthMetrics = await import('../../../core/src/db/healthMetricsRepo');
-        healthMetrics.saveWeeklyUpdateMetrics({
-            timestamp,
-            duration,
-            totalOffers: finalOffers.length,
-            totalProductKeys,
-            offersPerStore,
-            newProductKeys,
-            cacheHitRate: stats.cacheHitRate,
-            pendingRate: stats.pendingRate,
-            errors,
-            success: Object.keys(errors).length === 0
-        });
-        
-        // Rapporter resultat
-        const result = {
-            success: true,
-            timestamp,
-            duration,
-            pendingCount,
-            totalOffers: finalOffers.length,
-            newProductKeys,
-            message: pendingCount === 0 
-                ? 'Alle produkter kategorisert automatisk!' 
-                : `${pendingCount} produkter krever manuell review`
-        };
-        
-        res.json(result);
-    } catch (error) {
-        const duration = Date.now() - startTime;
-        console.error('❌ Feil ved ukentlig oppdatering:', (error as Error).message);
-        
-        // Save failed metrics
-        try {
-            const healthMetrics = await import('../../../core/src/db/healthMetricsRepo');
-            healthMetrics.saveWeeklyUpdateMetrics({
-                timestamp,
-                duration,
-                totalOffers: 0,
-                totalProductKeys: 0,
-                offersPerStore: {},
-                newProductKeys: 0,
-                cacheHitRate: 0,
-                pendingRate: 0,
-                errors: { ...errors, global: (error as Error).message },
-                success: false
-            });
-        } catch (e) {
-            console.error('Failed to save error metrics:', e);
-        }
-        
-        res.status(500).json({
-            error: 'Ukentlig oppdatering feilet',
-            message: (error as Error).message
-        });
+        res.status(500).json({ error: 'Oppdatering feilet', message: (error as Error).message });
     }
 });
 
@@ -505,182 +359,6 @@ router.get('/admin/health', async (req: Request, res: Response) => {
         console.error('❌ Feil ved henting av health metrics:', (error as Error).message);
         res.status(500).json({
             error: 'Kunne ikke hente health metrics',
-            message: (error as Error).message
-        });
-    }
-});
-
-// GET /api/price-history/:productKey - Hent prishistorikk for et produkt
-router.get('/price-history/:productKey', (req: Request, res: Response) => {
-    try {
-        const productKey = typeof req.params.productKey === 'string' ? req.params.productKey : req.params.productKey[0];
-        const { store, limit } = req.query;
-        
-        const history = priceHistoryRepo.getPriceHistory(
-            productKey,
-            typeof store === 'string' ? store : undefined,
-            typeof limit === 'string' ? parseInt(limit) : 30
-        );
-        
-        res.json({
-            productKey,
-            count: history.length,
-            history
-        });
-    } catch (error) {
-        console.error('❌ Feil ved henting av prishistorikk:', (error as Error).message);
-        res.status(500).json({
-            error: 'Kunne ikke hente prishistorikk',
-            message: (error as Error).message
-        });
-    }
-});
-
-// GET /api/price-history/:productKey/lowest - Finn laveste pris
-router.get('/price-history/:productKey/lowest', (req: Request, res: Response) => {
-    try {
-        const productKey = typeof req.params.productKey === 'string' ? req.params.productKey : req.params.productKey[0];
-        const { days } = req.query;
-        
-        const lowest = priceHistoryRepo.getLowestPrice(
-            productKey,
-            typeof days === 'string' ? parseInt(days) : 30
-        );
-        
-        if (!lowest) {
-            return res.status(404).json({ error: 'Ingen prishistorikk funnet' });
-        }
-        
-        return res.json({
-            productKey,
-            lowestPrice: lowest
-        });
-    } catch (error) {
-        console.error('❌ Feil ved henting av laveste pris:', (error as Error).message);
-        return res.status(500).json({
-            error: 'Kunne ikke hente laveste pris',
-            message: (error as Error).message
-        });
-    }
-});
-
-// GET /api/price-history/:productKey/trend - Hent prisutvikling
-router.get('/price-history/:productKey/trend', (req: Request, res: Response) => {
-    try {
-        const productKey = typeof req.params.productKey === 'string' ? req.params.productKey : req.params.productKey[0];
-        const { store, days } = req.query;
-        
-        const trend = priceHistoryRepo.getPriceTrend(
-            productKey,
-            typeof store === 'string' ? store : undefined,
-            typeof days === 'string' ? parseInt(days) : 30
-        );
-        
-        res.json({
-            productKey,
-            count: trend.length,
-            trend
-        });
-    } catch (error) {
-        console.error('❌ Feil ved henting av prisutvikling:', (error as Error).message);
-        res.status(500).json({
-            error: 'Kunne ikke hente prisutvikling',
-            message: (error as Error).message
-        });
-    }
-});
-
-// GET /api/price-changes - Finn produkter med prisendringer
-router.get('/price-changes', (req: Request, res: Response) => {
-    try {
-        const { days, limit } = req.query;
-        
-        const changes = priceHistoryRepo.getRecentPriceChanges(
-            typeof days === 'string' ? parseInt(days) : 7,
-            typeof limit === 'string' ? parseInt(limit) : 50
-        );
-        
-        res.json({
-            count: changes.length,
-            changes
-        });
-    } catch (error) {
-        console.error('❌ Feil ved henting av prisendringer:', (error as Error).message);
-        res.status(500).json({
-            error: 'Kunne ikke hente prisendringer',
-            message: (error as Error).message
-        });
-    }
-});
-
-// POST /api/offers/test-fetch - Test API-henting for én butikk uten AI/database
-router.post('/offers/test-fetch', async (req: Request, res: Response) => {
-    try {
-        const { dealerId, storeName } = req.body;
-        
-        if (!dealerId || !storeName) {
-            return res.status(400).json({
-                error: 'Mangler påkrevde felter',
-                required: { dealerId: '80742m', storeName: 'Coop Extra' }
-            });
-        }
-
-        console.log(`🧪 TEST-MODUS: Henter tilbud for ${storeName} (${dealerId})`);
-        console.log('=' .repeat(60));
-        
-        // Hent tilbud direkte fra API
-        const tjekApiService = require('../../../persistence/src/services/tjekApiService').default;
-        const offers = await tjekApiService.getStoreOffers(dealerId);
-        
-        // Lagre til test-fil (ikke overskriv production data)
-        const fs = require('fs');
-        const path = require('path');
-        const testFilePath = path.join(
-            __dirname,
-            '../../../persistence/src/resources/offers',
-            `TEST_${storeName.toLowerCase().replace(/\s+/g, '_')}_offers.json`
-        );
-        
-        fs.writeFileSync(testFilePath, JSON.stringify(offers, null, 2), 'utf-8');
-        
-        // Generer statistikk
-        const stats = {
-            storeName,
-            dealerId,
-            totalOffers: offers.length,
-            timestamp: new Date().toISOString(),
-            testFile: testFilePath,
-            sampleOffers: offers.slice(0, 5).map((o: any) => ({
-                title: o.title,
-                price: o.price,
-                currency: o.currency,
-                quantity: o.quantity,
-                catalogId: o.catalogId
-            })),
-            uniqueCatalogs: [...new Set(offers.map((o: any) => o.catalogId))].length,
-            priceRange: {
-                min: Math.min(...offers.map((o: any) => o.price || Infinity)),
-                max: Math.max(...offers.map((o: any) => o.price || 0))
-            }
-        };
-        
-        console.log('\n📊 RESULTAT:');
-        console.log(`   ✅ ${stats.totalOffers} tilbud hentet`);
-        console.log(`   📚 ${stats.uniqueCatalogs} unike kataloger`);
-        console.log(`   💰 Pris: ${stats.priceRange.min} - ${stats.priceRange.max} ${offers[0]?.currency || 'NOK'}`);
-        console.log(`   📁 Test-fil: ${testFilePath}`);
-        console.log('=' .repeat(60));
-        
-        return res.json({
-            success: true,
-            message: 'Test fullført - ingen data påvirket',
-            stats
-        });
-        
-    } catch (error) {
-        console.error('❌ Test feilet:', (error as Error).message);
-        return res.status(500).json({
-            error: 'Test feilet',
             message: (error as Error).message
         });
     }

@@ -36,26 +36,8 @@ export const offersApi = {
     return response.data;
   },
 
-  getOfferImage: async (hotspotId: string): Promise<{ hotspotId: string; images: { view: string | null; zoom: string | null; thumb: string | null }; bestImage: string | null }> => {
-    const response = await axios.get(`${API_BASE_URL}/offers/${hotspotId}/image`);
-    return response.data;
-  },
-
   getHealthMetrics: async (): Promise<any> => {
     const response = await axios.get(`${API_BASE_URL}/admin/health`);
-    return response.data;
-  },
-
-  runWeeklyUpdate: async (): Promise<any> => {
-    const response = await axios.post(`${API_BASE_URL}/offers/weekly-update`);
-    return response.data;
-  },
-
-  generateWeeklyPlan: async (stores?: string[], meals?: number): Promise<any> => {
-    const response = await axios.post(`${API_BASE_URL}/weekly-plan/generate`, {
-      stores,
-      meals
-    });
     return response.data;
   },
 

@@ -1,12 +1,13 @@
 import path from 'path';
+import { buildProductKey, buildCategoryKey } from '../utils/productKey';
 import tjekApiService from '../../../persistence/src/services/tjekApiService';
 import fileService from '../../../persistence/src/services/fileService';
-import imageService from '../../../persistence/src/services/imageService';
 import { getActiveStores, getStoreLogoUrl, Store } from '../../../rest/src/config/stores';
 import config from '../../../rest/src/config/index';
 import categoryService from './categoryService';
 import { MainCategory, SubCategory } from '../config/categories';
-import * as priceHistoryRepo from '../db/priceHistoryRepo';
+import { registerProductKeyAliases } from '../db/productKeyAliases';
+import { getDb } from '../db/db';
 
 interface Offer {
     title: string;
@@ -37,72 +38,7 @@ interface Offer {
 }
 
 class OfferService {
-    private updateInProgress: boolean;
-
-    constructor() {
-        this.updateInProgress = false;
-        this.setupPeriodicUpdates();
-    }
-
-    setupPeriodicUpdates(): void {
-        // Ukentlig automatisk oppdatering: Hver søndag kl 22:00
-        setInterval(() => {
-            const now = new Date();
-            const isSunday = now.getDay() === 0;
-            const isUpdateTime = now.getHours() === 22 && now.getMinutes() < 60;
-            
-            if (isSunday && isUpdateTime && !this.updateInProgress) {
-                console.log('⏰ Automatisk ukentlig oppdatering startet...');
-                this.runWeeklyUpdate();
-            }
-        }, 60 * 60 * 1000); // Sjekk hver time
-    }
-
-    async runWeeklyUpdate(): Promise<void> {
-        console.log('🔄 Ukentlig oppdatering: Henter nye tilbud og kjører AI kategorisering');
-        
-        try {
-            // Hent nye tilbud
-            await this.updateAllStoreOffers();
-            
-            // Trigger AI kategorisering via REST endpoint
-            // (dette gjøres via endpoint for å følge samme flow som manuell oppdatering)
-            console.log('✅ Tilbud oppdatert. AI kategorisering vil starte automatisk ved neste server-restart med SKIP_AI=false');
-        } catch (error) {
-            console.error('❌ Feil under ukentlig oppdatering:', (error as Error).message);
-        }
-    }
-
-    async updateAllStoreOffers(): Promise<boolean> {
-        if (this.updateInProgress) {
-            console.log('🔄 Oppdatering pågår allerede...');
-            return false;
-        }
-
-        this.updateInProgress = true;
-
-        try {
-            const stores = getActiveStores();
-            const updatePromises = stores.map(store => this.updateStoreOffers(store));
-            await Promise.allSettled(updatePromises);
-            
-            console.log('✅ Oppdatering av alle butikker fullført');
-            return true;
-        } catch (error) {
-            console.error('❌ Feil under oppdatering av tilbud:', (error as Error).message);
-            return false;
-        } finally {
-            this.updateInProgress = false;
-        }
-    }
-
     async updateAllStoreOffersWithTracking(): Promise<{ errors: Record<string, string> }> {
-        if (this.updateInProgress) {
-            console.log('🔄 Oppdatering pågår allerede...');
-            return { errors: {} };
-        }
-
-        this.updateInProgress = true;
         const errors: Record<string, string> = {};
 
         try {
@@ -124,8 +60,6 @@ class OfferService {
         } catch (error) {
             console.error('❌ Feil under oppdatering av tilbud:', (error as Error).message);
             return { errors: { global: (error as Error).message } };
-        } finally {
-            this.updateInProgress = false;
         }
     }
 
@@ -137,28 +71,6 @@ class OfferService {
             }
         });
         return counts;
-    }
-
-    async enrichAllOffersWithImages(): Promise<void> {
-        const stores = getActiveStores();
-        
-        for (const store of stores) {
-            const filename = `${store.name.toLowerCase().replace(/\s+/g, '_')}_offers.json`;
-            const filePath = path.join(config.offersDir, filename);
-            
-            try {
-                let offers = fileService.loadJSON<Offer[]>(filePath);
-                if (!Array.isArray(offers)) continue;
-
-                // Hent bilder
-                offers = await imageService.fetchImagesForOffers(offers);
-                
-                // Lagre tilbake
-                fileService.saveJSON(filePath, offers);
-            } catch (error) {
-                console.error(`❌ Feil ved bildhenting for ${store.name}:`, (error as Error).message);
-            }
-        }
     }
 
     async updateStoreOffers(store: Store): Promise<Offer[] | undefined> {
@@ -179,16 +91,16 @@ class OfferService {
                 ...offer,
                 store: store.name,
                 storeLogo: getStoreLogoUrl(store.name),
-                productKey: `${offer.title}|${offer.size || 0}|${offer.pieces || 1}|${store.name}`
+                productKey: buildProductKey({ ...offer, store: store.name })
             }));
+
+            registerProductKeyAliases(getDb(), enrichedOffers);
 
             const filename = `${store.name.toLowerCase().replace(/\s+/g, '_')}_offers.json`;
             const filePath = path.join(config.offersDir, filename);
-            fileService.saveJSON(filePath, enrichedOffers);
-
-            // Lagre prishistorikk kun når tilbud oppdateres
-            this.recordPriceHistory(enrichedOffers);
-
+            if (!fileService.saveJSON(filePath, enrichedOffers)) {
+                throw new Error('Kunne ikke lagre tilbud for ' + store.name);
+            }
             return enrichedOffers;
         } catch (error) {
             const storeName = store?.name || 'ukjent butikk';
@@ -220,7 +132,7 @@ class OfferService {
         const enrichedOffers = allOffers.map(offer => ({
             ...offer,
             ...categoryService.categorizeOffer(offer),
-            productKey: `${offer.title}|${offer.size || 0}|${offer.pieces || 1}|${offer.store || 'unknown'}`
+            productKey: buildProductKey(offer)
         }));
 
         return enrichedOffers;
@@ -235,7 +147,8 @@ class OfferService {
             // Bruk kun synkron kategorisering fra cache - kjør IKKE AI her
             return Array.isArray(offers) ? offers.map(offer => ({
                 ...offer,
-                ...categoryService.categorizeOffer(offer)
+                ...categoryService.categorizeOffer(offer),
+                productKey: buildProductKey(offer)
             })) : [];
         } catch (error) {
             console.log(`⚠️ Kunne ikke laste tilbud for ${storeName}`);
@@ -249,7 +162,7 @@ class OfferService {
         // Legg til productKey på alle aktive tilbud
         const withProductKeys = allOffers.map(offer => ({
             ...offer,
-            productKey: `${offer.title}|${offer.size || 0}|${offer.pieces || 1}|${offer.store || 'unknown'}`,
+            productKey: buildProductKey(offer),
             isActive: true
         }));
         
@@ -265,7 +178,7 @@ class OfferService {
         const inactiveUncategorized = uncategorizedFromCache
             .filter(({ productKey }) => {
                 // Ikke inkluder hvis allerede i aktive tilbud
-                return !withProductKeys.some(o => o.productKey === productKey);
+                return !withProductKeys.some(o => o.productKey === productKey || buildCategoryKey(o) === productKey);
             })
             .map(({ productKey, entry }) => {
                 // Parse productKey: title|store ELLER title|size|pieces|store
@@ -295,35 +208,7 @@ class OfferService {
         return combined;
     }
 
-    /**
-     * Lagrer prishistorikk for alle tilbud
-     */
-    private recordPriceHistory(offers: Offer[]): void {
-        let recorded = 0;
-        for (const offer of offers) {
-            if (!offer.productKey || !offer.price || !offer.store) continue;
-            
-            try {
-                priceHistoryRepo.recordPrice({
-                    productKey: offer.productKey,
-                    store: offer.store,
-                    price: offer.price,
-                    originalPrice: offer.originalPrice ?? undefined,
-                    discountPercent: offer.originalPrice 
-                        ? Math.round(((offer.originalPrice - offer.price) / offer.originalPrice) * 100)
-                        : undefined,
-                    validFrom: offer.validFrom ?? undefined,
-                    validTo: offer.validTo ?? undefined
-                });
-                recorded++;
-            } catch (err) {
-                // Ignorer duplikater (UNIQUE constraint)
-            }
-        }
-        if (recorded > 0) {
-            console.log(`💰 Lagret prishistorikk for ${recorded} tilbud`);
-        }
-    }
+
 }
 
 export default new OfferService();

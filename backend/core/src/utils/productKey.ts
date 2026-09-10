@@ -1,6 +1,6 @@
 import { normalizeTitle } from "./normalizeTitle";
 
-type OfferLike = {
+export type OfferLike = {
     title: string;
     store?: string | null;
     size?: number | null;
@@ -37,3 +37,15 @@ export const buildCategoryKey = (o: OfferLike): string => {
   const store = o.store ? normalizeStore(o.store) : "nostore";
   return `${title}|${store}`;
 };
+
+/** Godtar også gamle produktnøkler fra tidligere åpne adminvinduer. */
+export function categoryKeyFromProductKey(key: string): string {
+  const parts = key.split('|');
+  if (parts.length !== 2 && parts.length !== 4) throw new Error('Ugyldig produktnøkkel');
+  return buildCategoryKey({ title: parts[0], store: parts[parts.length - 1] });
+}
+
+/** Kun for å knytte eksisterende lagrede data til det felles formatet. */
+export function buildLegacyProductKey(o: OfferLike): string {
+  return `${o.title}|${o.size || 0}|${o.pieces || 1}|${o.store || 'unknown'}`;
+}

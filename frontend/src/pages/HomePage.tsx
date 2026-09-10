@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, ChefHat, Utensils } from 'lucide-react';
+import { ShoppingCart, Tags } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { offersApi } from '@/services/api';
 
@@ -32,15 +32,15 @@ export default function HomePage() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold tracking-tight text-foreground mb-4">
-            Lei av å tenke på middag?
+            Ukens dagligvaretilbud
           </h1>
           <p className="text-xl text-muted-foreground">
-            Sjekk ukens billigste meny
+            Finn tilbud fra dagligvarebutikkene
           </p>
         </div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 gap-6 mb-12">
           <Link to="/tilbud" className="cursor-pointer">
             <Card className="h-full hover:shadow-lg transition-shadow group">
               <CardHeader>
@@ -62,26 +62,6 @@ export default function HomePage() {
             </Card>
           </Link>
 
-          <Link to="/middagsforslag" className="cursor-pointer">
-            <Card className="h-full hover:shadow-lg transition-all group bg-gradient-to-br from-orange-50 to-yellow-50 border-orange-200">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 bg-orange-100 rounded-lg group-hover:bg-orange-200 transition-colors">
-                    <ChefHat className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <CardTitle className="text-2xl text-orange-900">Middagsforslag</CardTitle>
-                </div>
-                <CardDescription className="text-base text-orange-800">
-                  Lag ukemeny basert på ukens beste tilbud
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button variant="outline" className="w-full bg-orange-600 text-white hover:bg-orange-500 border-orange-600 transition-colors cursor-pointer">
-                  Lag ukemeny
-                </Button>
-              </CardContent>
-            </Card>
-          </Link>
         </div>
 
         {/* Stats Section */}
@@ -98,9 +78,9 @@ export default function HomePage() {
             </div>
             <div>
               <div className="flex items-center justify-center mb-2">
-                <Utensils className="h-8 w-8 text-primary" />
+                <Tags className="h-8 w-8 text-primary" />
               </div>
-              <div className="text-sm text-muted-foreground">Ukentlig menyforslag</div>
+              <div className="text-sm text-muted-foreground">Tilbud sortert etter kategori</div>
             </div>
           </div>
         </div>

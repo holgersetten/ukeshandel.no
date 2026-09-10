@@ -54,7 +54,7 @@ function CategoryManager() {
     try {
       setSaving(true);
       const result = await offersApi.addSubCategory(selectedMain, newSubCategory.trim());
-      alert(`✅ ${result.message}\n\n⚠️ ${result.note}`);
+      alert(`✅ ${result.message}\n\n${result.note}`);
       setNewSubCategory('');
       await loadCategories();
     } catch (err: any) {
@@ -77,7 +77,7 @@ function CategoryManager() {
     try {
       setSaving(true);
       const result = await offersApi.removeSubCategory(mainCat, subCat);
-      alert(`✅ ${result.message}\n\n⚠️ ${result.note}`);
+      alert(`✅ ${result.message}\n\n${result.note}`);
       await loadCategories();
     } catch (err: any) {
       alert(`❌ Feil: ${err.response?.data?.message || err.message}`);
@@ -95,7 +95,7 @@ function CategoryManager() {
     try {
       setSaving(true);
       const result = await offersApi.renameSubCategory(mainCat, oldName, newName.trim());
-      alert(`✅ ${result.message}\n\n⚠️ ${result.note}`);
+      alert(`✅ ${result.message}\n\n${result.note}`);
       setRenameMode(null);
       setNewName('');
       await loadCategories();
@@ -117,7 +117,7 @@ function CategoryManager() {
     try {
       setSaving(true);
       const result = await offersApi.addMainCategory(newMainCategory.trim());
-      alert(`✅ ${result.message}\n\n⚠️ ${result.note}`);
+      alert(`✅ ${result.message}\n\n${result.note}`);
       setNewMainCategory('');
       await loadCategories();
     } catch (err: any) {
@@ -135,7 +135,7 @@ function CategoryManager() {
     try {
       setSaving(true);
       const result = await offersApi.removeMainCategory(mainCat);
-      alert(`✅ ${result.message}\n\n⚠️ ${result.note}`);
+      alert(`✅ ${result.message}\n\n${result.note}`);
       await loadCategories();
     } catch (err: any) {
       alert(`❌ Feil: ${err.response?.data?.message || err.message}`);
@@ -153,7 +153,7 @@ function CategoryManager() {
     try {
       setSaving(true);
       const result = await offersApi.renameMainCategory(oldName, newMainName.trim());
-      alert(`✅ ${result.message}\n\n⚠️ ${result.note}`);
+      alert(`✅ ${result.message}\n\n${result.note}`);
       setRenameMainMode(null);
       setNewMainName('');
       await loadCategories();
@@ -270,7 +270,7 @@ function CategoryManager() {
             </form>
 
             <Badge variant="outline" className="w-full justify-start p-3 text-sm">
-              <strong className="mr-2">⚠️ Viktig:</strong> Backend må restartes etter endringer
+              Endringer lagres og gjelder umiddelbart
             </Badge>
           </div>
           </CardContent>

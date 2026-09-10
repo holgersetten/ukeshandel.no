@@ -1,6 +1,5 @@
 import { MainCategory, SubCategory, DEFAULT_MAIN_CATEGORY, DEFAULT_SUB_CATEGORY, CATEGORY_HIERARCHY } from '../config/categories';
-import { buildProductKey, buildCategoryKey } from '../utils/productKey';
-import { matchCategoryByRules } from './categoryRules';
+import { buildProductKey, buildCategoryKey, categoryKeyFromProductKey } from '../utils/productKey';
 import { batchCategorizeWithAI } from './aiCategorization';
 import * as categoryCacheRepo from '../db/categoryCacheRepo';
 
@@ -31,17 +30,8 @@ interface OfferLike {
 }
 
 class CategoryService {
-    private manualOverrides: Record<string, {
-        mainCategory: MainCategory;
-        subCategory: SubCategory;
-        ingredientKey: string;
-        reason?: string;
-    }> = {};
     private ongoingCategorization: Promise<any> | null = null;
 
-    constructor() {
-        // Cache er nå i SQLite, ingen in-memory loading nødvendig
-    }
 
 
     private calculateCacheStatus(entry: CategoryCacheEntry): CacheStatus {
@@ -111,7 +101,7 @@ class CategoryService {
     ): void {
         // Valider at subCategory tilhører mainCategory
         const validSubs = CATEGORY_HIERARCHY[mainCategory] as readonly SubCategory[];
-        if (!validSubs.includes(subCategory)) {
+        if (!validSubs?.includes(subCategory)) {
             console.warn(`⚠️ Ugyldig subCategory "${subCategory}" for "${mainCategory}", flytter til "Ukategorisert"`);
             mainCategory = 'Ukategorisert' as MainCategory;
             subCategory = 'Ukategorisert' as SubCategory;
@@ -132,69 +122,30 @@ class CategoryService {
         categoryCacheRepo.upsert(productKey, data);
     }
     
+    private getCachedCategory(offer: OfferLike): CategoryCacheEntry | null {
+        const shared = this.getCategoryForProduct(buildCategoryKey(offer));
+        // En manuell rettelse skal også overstyre eldre cache for en bestemt størrelse.
+        if (shared?.source === 'manual') return shared;
+        return this.getCategoryForProduct(buildProductKey(offer)) || shared;
+    }
+
     categorizeOffer(offer: OfferLike): { 
         mainCategory: MainCategory; 
         subCategory: SubCategory; 
         ingredientKey: string;
         cacheStatus?: CacheStatus;
     } {
-        // 0. Sjekk manuelle overrides først (høyeste prioritet)
-        const categoryKey = buildCategoryKey(offer);
-        const manualOverride = this.manualOverrides[categoryKey];
-        if (manualOverride) {
-            // Lagre i cache med source: manual
-            this.setCategoryForProduct(
-                categoryKey,
-                manualOverride.mainCategory,
-                manualOverride.subCategory,
-                manualOverride.ingredientKey,
-                'manual',
-                { main: 1.0, sub: 1.0, ingredientKey: 1.0 }
-            );
+        const cached = this.getCachedCategory(offer);
+        if (cached) {
             return {
-                mainCategory: manualOverride.mainCategory,
-                subCategory: manualOverride.subCategory,
-                ingredientKey: manualOverride.ingredientKey,
-                cacheStatus: 'trusted' as CacheStatus
+                mainCategory: cached.mainCategory,
+                subCategory: cached.subCategory,
+                ingredientKey: cached.ingredientKey,
+                cacheStatus: cached.cacheStatus
             };
         }
 
-        // 1. Prøv produktnøkkel (eksakt match) - bruk ALLE cache entries
-        const productKey = buildProductKey(offer);
-        const productEntry = this.getCategoryForProduct(productKey);
-        if (productEntry) {
-            return {
-                mainCategory: productEntry.mainCategory,
-                subCategory: productEntry.subCategory,
-                ingredientKey: productEntry.ingredientKey,
-                cacheStatus: this.calculateCacheStatus(productEntry)
-            };
-        }
-
-        // 2. Prøv kategorinøkkel (uten størrelse) - bruk ALLE cache entries
-        const categoryEntry = this.getCategoryForProduct(categoryKey);
-        if (categoryEntry) {
-            return {
-                mainCategory: categoryEntry.mainCategory,
-                subCategory: categoryEntry.subCategory,
-                ingredientKey: categoryEntry.ingredientKey,
-                cacheStatus: this.calculateCacheStatus(categoryEntry)
-            };
-        }
-
-        // 3. Prøv high-precision rules (deprecated, kan fjernes)
-        const ruleMatch = matchCategoryByRules(offer.title);
-        if (ruleMatch) {
-            // Legacy support - map old category to new structure
-            return {
-                mainCategory: ruleMatch as MainCategory,
-                subCategory: DEFAULT_SUB_CATEGORY,
-                ingredientKey: 'produkt',
-                cacheStatus: undefined
-            };
-        }
-
-        // 4. AI-kategorisering håndteres i batch av categorizeOffers()
+        // AI-kategorisering håndteres i batch av categorizeOffers()
         // For enkeltoppslag returnerer vi defaults
         return {
             mainCategory: DEFAULT_MAIN_CATEGORY,
@@ -225,8 +176,7 @@ class CategoryService {
             return offers.map(offer => {
                 const productKey = buildProductKey(offer);
                 const categorization = this.categorizeOffer(offer);
-                const cacheEntry = this.getCategoryForProduct(productKey) || 
-                                  this.getCategoryForProduct(buildCategoryKey(offer));
+                const cacheEntry = this.getCachedCategory(offer);
                 
                 const avgConfidence = cacheEntry 
                     ? (cacheEntry.confidence.main + cacheEntry.confidence.sub + cacheEntry.confidence.ingredientKey) / 3
@@ -263,12 +213,11 @@ class CategoryService {
         categoryConfidence: number;
         cacheStatus?: CacheStatus;
     })[]> {
-        // Steg 1: Kategoriser synkront (cache + rules)
+        // Steg 1: Kategoriser synkront (cache)
         const results = offers.map(offer => {
             const productKey = buildProductKey(offer);
             const categorization = this.categorizeOffer(offer);
-            const cacheEntry = this.getCategoryForProduct(productKey) || 
-                              this.getCategoryForProduct(buildCategoryKey(offer));
+            const cacheEntry = this.getCachedCategory(offer);
             
             // Beregn gjennomsnittlig confidence (0 hvis ikke cached)
             const avgConfidence = cacheEntry 
@@ -379,7 +328,7 @@ class CategoryService {
     ): boolean {
         // Konverter productKey til categoryKey for konsistent lagring
         // productKey: "title|size|pieces|store" → categoryKey: "title|store"
-        const categoryKey = this.extractCategoryKey(productKey);
+        const categoryKey = categoryKeyFromProductKey(productKey);
         
         console.log(`📝 Manuell kategorisering: ${productKey} → ${categoryKey}`);
         
@@ -396,19 +345,6 @@ class CategoryService {
         return true;
     }
     
-    // Hjelper-metode for å ekstrahere categoryKey fra productKey
-    // productKey format: "title|size|pieces|store"
-    // categoryKey format: "title|store" (normalisert til lowercase)
-    private extractCategoryKey(productKey: string): string {
-        const parts = productKey.split('|');
-        if (parts.length === 4) {
-            // Format: title|size|pieces|store → title|store (normalisert)
-            return buildCategoryKey({ title: parts[0], store: parts[3] });
-        }
-        // Allerede i categoryKey format eller ukjent format
-        return productKey;
-    }
-
     // Teller antall pending produkter i cache
     getPendingCount(): number {
         let count = 0;

@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbSeparator, BreadcrumbPage, BreadcrumbLink } from '@/components/ui/breadcrumb';
 import { OfferGrid } from '@/components/grocery/offer-grid';
-import { Search, Settings, ChevronRight, Home, ArrowDownUp, Store as StoreIcon, ChefHat } from 'lucide-react';
+import { Search, ChevronRight, Home, ArrowDownUp, Store as StoreIcon } from 'lucide-react';
 import { offersApi } from '../services/api';
 import type { Offer, CategoryHierarchy } from '../types/offer';
 
@@ -293,13 +293,6 @@ export default function OffersPage() {
                   >
                     <Home className="h-4 w-4" />
                     Hjem
-                  </Link>
-                  <Link
-                    to="/middagsforslag"
-                    className="flex items-center gap-2 w-full text-left px-3 py-2 text-sm rounded-md transition-all duration-200 cursor-pointer mt-1 text-foreground hover:bg-muted hover:translate-x-0.5"
-                  >
-                    <ChefHat className="h-4 w-4" />
-                    Middagsforslag
                   </Link>
                 </div>
 

@@ -19,6 +19,7 @@ interface HealthMetrics {
   } | null;
   currentState: {
     totalOffers: number;
+    totalProductKeys: number;
     offersPerStore: Record<string, number>;
     cacheHitRate: number;
     pendingRate: number;
@@ -41,7 +42,13 @@ function AdminReview() {
   const [selectedStores, setSelectedStores] = useState<string[]>([]);
   const [showAllOffers, setShowAllOffers] = useState(false);
   const [healthMetrics, setHealthMetrics] = useState<HealthMetrics | null>(null);
-  const [updatingWeekly, setUpdatingWeekly] = useState(false);
+  const [updating, setUpdating] = useState(false);
+
+  const handleStoreToggle = (store: string) => {
+    setSelectedStores(current => current.includes(store)
+      ? current.filter(selected => selected !== store)
+      : [...current, store]);
+  };
 
   useEffect(() => {
     loadData();
@@ -52,24 +59,17 @@ function AdminReview() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const [reviewData, allData, categoriesData] = await Promise.all([
         offersApi.getOffersNeedingReview(),
         offersApi.getAllOffers(),
         offersApi.getCategories()
       ]);
-      
+
       setOffers(reviewData.offers || []);
       setAllOffers(allData.offers || []);
       setCategories(categoriesData.categories);
 
-      // Debug: Log butikknavn
-      const uniqueStores = Array.from(new Set(allData.offers?.map(o => o.store).filter(Boolean)));
-      console.log('📊 Unike butikker lastet:', uniqueStores);
-      console.log('📊 Totalt antall tilbud:', allData.offers?.length);
-
-      // Bildehenting deaktivert - Tjek API krever autentisering
-      // De fleste tilbud har ikke tilgjengelige bilder via public API
     } catch (err) {
       setError('Kunne ikke hente data. Er backend-serveren kjørende?');
       console.error('Error loading admin data:', err);
@@ -87,28 +87,28 @@ function AdminReview() {
     }
   };
 
-  const handleWeeklyUpdate = async () => {
+  const handleUpdate = async () => {
     if (!confirm('Dette vil hente nye tilbud og kjøre AI-kategorisering. Kan ta flere minutter. Fortsette?')) {
       return;
     }
-    
+
     try {
-      setUpdatingWeekly(true);
-      await offersApi.runWeeklyUpdate();
-      alert('Ukentlig oppdatering fullført!');
+      setUpdating(true);
+      const result = await offersApi.updateOffers();
+      alert(result.message);
       await loadData();
       await loadHealthMetrics();
     } catch (err) {
-      alert('Feil ved ukentlig oppdatering: ' + (err as Error).message);
+      alert('Feil ved oppdatering: ' + (err as Error).message);
     } finally {
-      setUpdatingWeekly(false);
+      setUpdating(false);
     }
   };
 
   const handleCategorize = async (
-    offer: Offer, 
-    mainCategory: string, 
-    subCategory: string, 
+    offer: Offer,
+    mainCategory: string,
+    subCategory: string,
     ingredientKey: string
   ) => {
     if (!offer.productKey) {
@@ -118,7 +118,7 @@ function AdminReview() {
 
     try {
       setSaving(offer.productKey);
-      
+
       await offersApi.categorizeOffer({
         productKey: offer.productKey,
         mainCategory,
@@ -126,9 +126,10 @@ function AdminReview() {
         ingredientKey
       });
 
-      // Fjern fra listen når kategorisert
-      setOffers(prev => prev.filter(o => o.productKey !== offer.productKey));
-      
+      // Last begge lister på nytt slik at delte kategorirettelser vises.
+      await loadData();
+      await loadHealthMetrics();
+
     } catch (err) {
       alert('Kunne ikke lagre kategorisering');
       console.error('Error categorizing:', err);
@@ -142,7 +143,7 @@ function AdminReview() {
       <div className="max-w-7xl mx-auto p-4">
         <Card>
           <CardContent className="pt-4">
-            <div className="text-center py-8 text-base">Laster produkter som trenger review...</div>
+            <div className="text-center py-8 text-base">Laster produkter som trenger kontroll...</div>
           </CardContent>
         </Card>
       </div>
@@ -170,8 +171,8 @@ function AdminReview() {
     <div className="max-w-[1600px] mx-auto p-4">
       {/* Dashboard Header */}
       <div className="mb-4">
-        <h1 className="text-2xl font-bold mb-1">Admin Dashboard</h1>
-        <p className="text-sm text-muted-foreground">System oversikt og produktkategorisering</p>
+        <h1 className="text-2xl font-bold mb-1">Innhenting og kategorisering</h1>
+        <p className="text-sm text-muted-foreground">Hent tilbud, kontroller forslag og rett kategorier.</p>
       </div>
 
       {/* Health Metrics Dashboard */}
@@ -185,8 +186,8 @@ function AdminReview() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {healthMetrics.lastUpdate 
-                    ? new Date(healthMetrics.lastUpdate.timestamp).toLocaleTimeString('no-NO', { hour: '2-digit', minute: '2-digit' })
+                  {healthMetrics.lastUpdate
+                    ? new Date(healthMetrics.lastUpdate.timestamp).toLocaleString('no-NO', { dateStyle: 'short', timeStyle: 'short' })
                     : '-'}
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
@@ -199,7 +200,7 @@ function AdminReview() {
             {/* Total Offers Card */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-medium text-muted-foreground">Tilbud Denne Uka</CardTitle>
+                <CardTitle className="text-xs font-medium text-muted-foreground">Lagrede tilbud</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{healthMetrics.currentState.totalOffers}</div>
@@ -209,23 +210,23 @@ function AdminReview() {
               </CardContent>
             </Card>
 
-            {/* Cache Hit Rate Card */}
+            {/* Høy AI-sikkerhet / manuell Card */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-medium text-muted-foreground">Cache Hit Rate</CardTitle>
+                <CardTitle className="text-xs font-medium text-muted-foreground">Høy AI-sikkerhet / manuell</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{healthMetrics.currentState.cacheHitRate.toFixed(1)}%</div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {healthMetrics.currentState.trustedCount} trusted
+                  {healthMetrics.currentState.trustedCount} med høy sikkerhet / manuelt rettet
                 </p>
               </CardContent>
             </Card>
 
-            {/* Pending Rate Card */}
+            {/* Trenger kontroll i cache Card */}
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-medium text-muted-foreground">Pending Rate</CardTitle>
+                <CardTitle className="text-xs font-medium text-muted-foreground">Trenger kontroll i cache</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{healthMetrics.currentState.pendingRate.toFixed(1)}%</div>
@@ -236,11 +237,11 @@ function AdminReview() {
             </Card>
           </>
         ) : (
-          <div className="col-span-full text-center py-8 text-sm text-muted-foreground">Laster metrics...</div>
+          <div className="col-span-full text-center py-8 text-sm text-muted-foreground">Laster status...</div>
         )}
       </div>
 
-      {/* Store Overview & Actions */}
+      {/* Store Overview & Handlinger */}
       {healthMetrics && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-4">
           {/* Store Breakdown */}
@@ -262,36 +263,36 @@ function AdminReview() {
             </CardContent>
           </Card>
 
-          {/* Actions & Errors */}
+          {/* Handlinger & Errors */}
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-semibold">Actions</CardTitle>
+              <CardTitle className="text-sm font-semibold">Handlinger</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <Button 
-                onClick={handleWeeklyUpdate} 
-                disabled={updatingWeekly}
+              <Button
+                onClick={handleUpdate}
+                disabled={updating}
                 variant="outline"
                 className="w-full justify-start"
                 size="sm"
               >
                 <Play className="h-4 w-4 mr-2" />
-                {updatingWeekly ? 'Oppdaterer...' : 'Kjør Weekly Update'}
+                {updating ? 'Oppdaterer...' : 'Hent og kategoriser tilbud'}
               </Button>
-              <Button 
-                onClick={loadHealthMetrics} 
+              <Button
+                onClick={loadHealthMetrics}
                 variant="outline"
                 className="w-full justify-start"
                 size="sm"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
-                Oppdater Metrics
+                Oppdater status
               </Button>
-              
+
               <Separator className="my-2" />
-              
+
               <Link to="/kategorier" className="block">
-                <Button 
+                <Button
                   variant="outline"
                   className="w-full justify-start"
                   size="sm"
@@ -300,7 +301,7 @@ function AdminReview() {
                   Rediger Kategorier
                 </Button>
               </Link>
-              
+
               {Object.keys(healthMetrics.errors).length > 0 && (
                 <div className="mt-3 pt-3 border-t">
                   <h4 className="text-xs font-medium text-destructive mb-2">Feil</h4>
@@ -326,7 +327,7 @@ function AdminReview() {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-lg font-semibold">Produktkategorisering</CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">{offers.length} produkter trenger review</p>
+              <p className="text-sm text-muted-foreground mt-1">{offers.length} produkter trenger kontroll</p>
             </div>
           </div>
         </CardHeader>
@@ -345,7 +346,7 @@ function AdminReview() {
                 onClick={() => setShowAllOffers(!showAllOffers)}
                 variant={showAllOffers ? "default" : "outline"}
               >
-                {showAllOffers ? "Vis pending" : "Vis alle"}
+                {showAllOffers ? "Vis kontrollkø" : "Vis alle"}
               </Button>
             </div>
 
@@ -403,7 +404,7 @@ function AdminReview() {
 
           {/* Offers Display */}
           <div>
-            {showAllOffers && (
+            {showAllOffers && searchQuery.length < 2 && (
               <div className="mb-4">
                 <h3 className="text-sm font-medium mb-3">
                   Alle tilbud ({allOffers.filter(o => selectedStores.length === 0 || selectedStores.includes(o.store)).length})
@@ -453,15 +454,15 @@ function AdminReview() {
               </div>
             )}
 
-            {offers.length === 0 && searchQuery.length < 2 ? (
+            {offers.length === 0 && searchQuery.length < 2 && !showAllOffers ? (
               <div className="text-center py-12">
-                <p className="text-lg font-medium mb-2">Alt er kategorisert! 🎉</p>
+                <p className="text-lg font-medium mb-2">Ingen tilbud i kontrollkøen</p>
                 <p className="text-sm text-muted-foreground">Bruk søk for å rette feil-kategoriseringer</p>
               </div>
             ) : offers.length > 0 && searchQuery.length < 2 && !showAllOffers ? (
               <>
                 <h3 className="text-sm font-medium mb-3">
-                  Pending kategoriseringer ({offers.filter(o => selectedStores.length === 0 || selectedStores.includes(o.store)).length})
+                  Til kontroll ({offers.filter(o => selectedStores.length === 0 || selectedStores.includes(o.store)).length})
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                   {offers
@@ -505,7 +506,7 @@ function OfferReviewCard({ offer, categories, onCategorize, saving, allowUpdate 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!mainCategory || !subCategory || !ingredientKey.trim()) {
       alert('Vennligst fyll ut alle felt');
       return;
@@ -519,10 +520,10 @@ function OfferReviewCard({ offer, categories, onCategorize, saving, allowUpdate 
     <Card className="hover:shadow-lg transition-shadow">
       <CardHeader className="pb-3">
         {offer.imageUrl && (
-          <img 
-            src={offer.imageUrl} 
-            alt={offer.title} 
-            className="w-full h-48 object-cover rounded mb-3" 
+          <img
+            src={offer.imageUrl}
+            alt={offer.title}
+            className="w-full h-48 object-cover rounded mb-3"
           />
         )}
         <div className="flex items-center gap-2 mb-2">
@@ -563,8 +564,8 @@ function OfferReviewCard({ offer, categories, onCategorize, saving, allowUpdate 
 
       {!isEditing && allowUpdate ? (
         <div className="space-y-2">
-          <Button 
-            onClick={() => setIsEditing(true)} 
+          <Button
+            onClick={() => setIsEditing(true)}
             className="w-full"
             variant="outline"
           >
@@ -575,9 +576,9 @@ function OfferReviewCard({ offer, categories, onCategorize, saving, allowUpdate 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor={`mainCategory-${offer.productKey}`}>Hovedkategori</Label>
-            <select 
+            <select
               id={`mainCategory-${offer.productKey}`}
-              value={mainCategory} 
+              value={mainCategory}
               onChange={(e) => {
                 setMainCategory(e.target.value);
                 setSubCategory(''); // Reset subCategory når main endres
@@ -595,9 +596,9 @@ function OfferReviewCard({ offer, categories, onCategorize, saving, allowUpdate 
 
           <div className="space-y-2">
             <Label htmlFor={`subCategory-${offer.productKey}`}>Underkategori</Label>
-            <select 
+            <select
               id={`subCategory-${offer.productKey}`}
-              value={subCategory} 
+              value={subCategory}
               onChange={(e) => setSubCategory(e.target.value)}
               disabled={!mainCategory || saving}
               required
@@ -621,19 +622,19 @@ function OfferReviewCard({ offer, categories, onCategorize, saving, allowUpdate 
               disabled={saving}
               required
             />
-            <small className="text-xs text-muted-foreground">Brukes til middagsplanlegging</small>
+            <small className="text-xs text-muted-foreground">Brukes til å gruppere og filtrere produkter</small>
           </div>
 
           <div className="flex gap-2">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="flex-1"
               disabled={saving || !mainCategory || !subCategory || !ingredientKey.trim()}
             >
               {saving ? 'Lagrer...' : '✅ Lagre'}
             </Button>
             {allowUpdate && (
-              <Button 
+              <Button
                 type="button"
                 variant="outline"
                 onClick={() => {

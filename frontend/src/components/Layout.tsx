@@ -13,7 +13,7 @@ export default function Layout() {
           <div className="flex items-center justify-between">
             <Link to="/" className="hover:opacity-80 transition-opacity">
               <h1 className="text-2xl font-bold tracking-tight text-foreground">Ukeshandel.no</h1>
-              <p className="text-xs text-muted-foreground mt-0.5">Gjør ukesmenyen billig</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Oversikt over ukens dagligvaretilbud</p>
             </Link>
             <div className="flex items-center gap-2">
               {isAdminPage ? (

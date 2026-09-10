@@ -6,7 +6,6 @@ dotenv.config();
 
 import config from './config';
 import offersRouter from './routes/offers';
-import weeklyPlanRouter from './routes/weeklyPlan';
 import { initDb } from '../../core/src/db/db';
 
 // Initialiser database ved oppstart
@@ -20,7 +19,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Serve butikklogoer
-app.use('/store_logos', express.static(path.join(__dirname, '../../persistence/src/resources/img/store_logos')));
+app.use('/store_logos', express.static(path.join(__dirname, '../../../persistence/src/resources/img/store_logos')));
 
 // Logging (disabled for cleaner output)
 // app.use((req: Request, _res: Response, next: NextFunction) => {
@@ -33,13 +32,14 @@ app.use('/store_logos', express.static(path.join(__dirname, '../../persistence/s
 // Root endpoint
 app.get('/', (_req: Request, res: Response) => {
     res.json({
-        name: 'Middagstilbud API',
+        name: 'Ukeshandel API',
         version: '1.0.0',
         status: 'running',
         endpoints: {
             health: '/health',
             offers: '/api/offers',
-            storeOffers: '/api/offers/:store'
+            storeOffers: '/api/offers?store=Meny',
+            categories: '/api/categories'
         }
     });
 });
@@ -55,7 +55,6 @@ app.get('/health', (_req: Request, res: Response) => {
 
 // API Routes
 app.use('/api', offersRouter);
-app.use('/api/weekly-plan', weeklyPlanRouter);
 
 // 404 handler
 app.use((_req: Request, res: Response) => {
@@ -73,43 +72,15 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 // Start server
 const PORT = config.port || 5000;
-const server = app.listen(PORT, async () => {
+const server = app.listen(PORT, () => {
     console.log('🚀 =================================');
-    console.log('🚀 Middagstilbud API Server startet');
+    console.log('🚀 Ukeshandel API Server startet');
     console.log('🚀 =================================');
     console.log(`🚀 Port: ${PORT}`);
     console.log(`🚀 Environment: ${config.nodeEnv}`);
     console.log('🚀 =================================\n');
     
-    // Automatisk catalog-sjekk deaktivert (kjør manuelt: POST /api/offers/weekly-update)
-    // Kan aktiveres igjen når last_catalog_check.json fungerer korrekt
-    /*
-    // Sjekk om det er nye tilbudsaviser ved oppstart
-    try {
-        const hasNewCatalogs = await catalogService.hasNewCatalogs();
-        
-        if (hasNewCatalogs) {
-            console.log('✨ Nye tilbudsaviser - starter oppdatering...\n');
-            
-            // Trigger weekly-update endpoint
-            try {
-                const response = await axios.post(`http://localhost:${PORT}/api/offers/weekly-update`);
-                const { pendingCount } = response.data;
-                console.log(`✅ Oppdatering fullført - ${pendingCount} produkter krever review\n`);
-                
-                // Oppdater katalog-register
-                await catalogService.updateLastCheck();
-            } catch (error) {
-                console.error('❌ Feil ved automatisk oppdatering:', (error as Error).message);
-            }
-        } else {
-            console.log('📋 Ingen nye tilbudsaviser\n');
-        }
-    } catch (error) {
-        console.error('❌ Feil ved sjekk av kataloger:', (error as Error).message);
-        console.log('📋 Fortsetter med eksisterende data.\n');
-    }
-    */
+    // API og søndagstimeren bruker offerUpdateService.updateOffers().
 });
 
 // Graceful shutdown

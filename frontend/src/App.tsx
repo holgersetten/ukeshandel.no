@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage';
 import OffersPage from './pages/OffersPage';
 import AdminPage from './pages/AdminPage';
 import CategoriesPage from './pages/CategoriesPage';
-import MealSuggestionsPage from './pages/MealSuggestionsPage';
 
 function App() {
   return (
@@ -15,7 +14,6 @@ function App() {
           <Route path="tilbud" element={<OffersPage />} />
           <Route path="admin" element={<AdminPage />} />
           <Route path="kategorier" element={<CategoriesPage />} />
-          <Route path="middagsforslag" element={<MealSuggestionsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

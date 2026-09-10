@@ -60,11 +60,13 @@ function rowToData(row: CategoryCacheRow): CategoryCacheData {
 export function get(productKey: string): CategoryCacheData | null {
     const db = getDb();
     
-    const stmt = db.prepare<[string], CategoryCacheRow>(
-        'SELECT * FROM category_cache WHERE product_key = ?'
+    const stmt = db.prepare<[string, string], CategoryCacheRow>(
+        `SELECT * FROM category_cache WHERE product_key = ?
+         OR product_key IN (SELECT legacy_key FROM product_key_aliases WHERE product_key = ?)
+         ORDER BY CASE WHEN source = 'manual' THEN 0 ELSE 1 END, updated_at DESC LIMIT 1`
     );
     
-    const row = stmt.get(productKey);
+    const row = stmt.get(productKey, productKey);
     return row ? rowToData(row) : null;
 }
 

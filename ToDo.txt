@@ -1,0 +1,15 @@
+Gjenstående arbeid innenfor innhenting og korrekt kategorisering:
+- Verifisere at alle relevante aktive Tjek-kataloger blir hentet.
+- Skille tomt resultat fra innhentingsfeil og vise dette per butikk.
+- Vise gyldighetsperiode og skille lagrede tilbud fra aktive tilbud.
+- Måle kategoriseringskvalitet med et manuelt kontrollert utvalg.
+- Skille statistikk for gjeldende tilbud fra historisk cache.
+
+Fullført i forenklingen:
+- Gjenopprettet forsiden og tilbudssiden; innhenting og kontroll ligger på /admin.
+- Beholdt kategoriredigering og gjenbruk av eksisterende kategoriseringer.
+- Fjernet prishistorikk, automatisk oppdatering, ekstra bildeinnhenting,
+  og gamle ekstra API-er.
+- Fjernet reimport som erstattet kategoriseringscachen.
+- Oppdatert visningen etter manuell rettelse og rapportering av lagringsfeil.
+- Samlet systemoversikten i README.md.
