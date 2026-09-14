@@ -85,6 +85,7 @@ export function OfferCard({ offer, onClick, className }: OfferCardProps) {
             </span>
           )}
         </div>
+        {offer.category && <p className="mt-2 text-xs text-zinc-500">{offer.category}</p>}
       </CardContent>
     </Card>
   )

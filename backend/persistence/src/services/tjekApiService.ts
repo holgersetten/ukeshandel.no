@@ -213,12 +213,49 @@ class TjekApiService {
                     size: size,
                     validFrom: offer?.run_from || null,
                     validTo: offer?.run_till || null,
-                    imageUrl: offer?.images?.[0]?.view?.zoom?.url || null,
+                    imageUrl: this.extractImageUrl(offer?.images) || null,
                     offerId: offer?.id || null,
                     catalogId: hotspot.catalog_id,
                     hotspotId: hotspot.id
                 };
             });
+    }
+
+    private extractImageUrl(images: unknown): string | null {
+        if (!images) return null;
+
+        const visit = (value: unknown): string | null => {
+            if (!value) return null;
+
+            if (typeof value === 'string') {
+                return value.startsWith('http') ? value : null;
+            }
+
+            if (Array.isArray(value)) {
+                for (const item of value) {
+                    const url = visit(item);
+                    if (url) return url;
+                }
+                return null;
+            }
+
+            if (typeof value !== 'object') return null;
+
+            const object = value as Record<string, unknown>;
+            for (const key of ['view', 'zoom', 'thumb', 'url', 'src', 'image']) {
+                const found = visit(object[key]);
+                if (found) return found;
+            }
+
+            for (const nested of Object.values(object)) {
+                const found = visit(nested);
+                if (found) return found;
+            }
+
+            return null;
+        };
+
+        return visit(images);
     }
 }
 

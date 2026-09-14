@@ -7,9 +7,9 @@ export interface WeeklyUpdateMetrics {
     timestamp: string;
     duration: number; // milliseconds
     totalOffers: number;
-    totalProductKeys: number; // antall unike produkter totalt
+    totalNormalizedNames: number; // antall unike produkter totalt
     offersPerStore: Record<string, number>;
-    newProductKeys: number;
+    newNormalizedNames: number;
     cacheHitRate: number;
     pendingRate: number;
     errors: Record<string, string>; // store -> error message
@@ -27,9 +27,9 @@ export function saveWeeklyUpdateMetrics(metrics: WeeklyUpdateMetrics): void {
         metrics.timestamp,
         metrics.duration,
         metrics.totalOffers,
-        metrics.totalProductKeys,
+        metrics.totalNormalizedNames,
         JSON.stringify(metrics.offersPerStore),
-        metrics.newProductKeys,
+        metrics.newNormalizedNames,
         metrics.cacheHitRate,
         metrics.pendingRate,
         JSON.stringify(metrics.errors),
@@ -52,9 +52,9 @@ export function getLatestWeeklyUpdateMetrics(): WeeklyUpdateMetrics | null {
         timestamp: row.timestamp,
         duration: row.duration,
         totalOffers: row.totalOffers,
-        totalProductKeys: row.totalProductKeys,
+        totalNormalizedNames: row.totalProductKeys,
         offersPerStore: JSON.parse(row.offersPerStore),
-        newProductKeys: row.newProductKeys,
+        newNormalizedNames: row.newProductKeys,
         cacheHitRate: row.cacheHitRate,
         pendingRate: row.pendingRate,
         errors: JSON.parse(row.errors),
@@ -75,9 +75,9 @@ export function getAllWeeklyUpdateMetrics(limit: number = 10): WeeklyUpdateMetri
         timestamp: row.timestamp,
         duration: row.duration,
         totalOffers: row.totalOffers,
-        totalProductKeys: row.totalProductKeys,
+        totalNormalizedNames: row.totalProductKeys,
         offersPerStore: JSON.parse(row.offersPerStore),
-        newProductKeys: row.newProductKeys,
+        newNormalizedNames: row.newProductKeys,
         cacheHitRate: row.cacheHitRate,
         pendingRate: row.pendingRate,
         errors: JSON.parse(row.errors),

@@ -6,6 +6,7 @@ interface Config {
   
   // Paths
   offersDir: string;
+  storeLogosDir: string;
   categoriesFile: string;
   dbPath: string;
   
@@ -25,6 +26,7 @@ const config: Config = {
   
   // Paths
   offersDir: process.env.OFFERS_DIR || path.join(resourcesDir, 'offers'),
+  storeLogosDir: path.join(resourcesDir, 'img/store_logos'),
   categoriesFile: process.env.CATEGORIES_FILE || path.join(resourcesDir, 'categories.json'),
   dbPath: process.env.DB_PATH || path.resolve(backendDir, '../persistence/data/mattilbud.db'),
   

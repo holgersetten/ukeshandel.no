@@ -1,147 +1,139 @@
-# Ukeshandel.no
+﻿# Ukeshandel.no
 
-Henter dagligvaretilbud fra Tjek API, kategoriserer dem med AI og viser dem med søk, filter og manuell kontroll. Middagsplanleggingen er fjernet.
+Henter tilbud fra Tjek, gjenbruker lagret kategorisering og bruker OpenAI for nye varenavn. Forsiden, tilbudskortene, søk, filtre og admin er beholdt.
 
-## Start appen
+## Start og bruk
 
-Dobbeltklikk `run-app.bat` på Windows. Appen vises på http://localhost:5173; backend kjører på http://localhost:5000. Skriptet stopper først prosesser på disse portene og starter serverne med AI aktivert.
+Start med `run-app.bat`, eller kjør `npm run dev` i backend og frontend. Frontend bruker http://localhost:5173 og backend port 5000. Admin åpnes på `/admin` med det eksisterende lokale passordet `a`.
 
-Ved første oppsett: kjør `npm install` i både `backend/` og `frontend/`. Legg `OPENAI_API_KEY=...` i `backend/.env` for AI-kategorisering. 
+1. Trykk «Hent og kategoriser tilbud» i admin.
+2. Kontroller usikre forslag, også historiske navn og migreringskonflikter.
+3. Velg 1–3 direkte kategorier og lagre. Rettelsen gjelder samme normaliserte navn på tvers av butikker.
+4. «Vis alle» og søk lar deg rette også resultater som ikke ligger i kontrollkøen.
+5. På `/kategorier` kan du opprette, omdøpe, flytte og slette kategorier.
 
-Alternativ oppstart: kjør `npm run dev` i hver mappe, i to terminaler. `SKIP_AI=true` deaktiverer AI-kall.
+`OPENAI_API_KEY` legges i backend/.env. `SKIP_AI=true` deaktiverer AI. Vanlig visning av tilbud gjør ingen Tjek- eller AI-kall. Det finnes ingen automatisk søndagsoppdatering.
 
-## Systemet i fire deler
+## Én oppslagsnøkkel: normalizedName
 
-| Del | Ansvar | Start her |
-| --- | --- | --- |
-| Frontend | Viser tilbud og lar deg rette kategorier | `frontend/src/App.tsx` |
-| API | Tar imot forespørsler fra frontend | `backend/rest/src/routes/offers.ts` |
-| Tjenester | Henter tilbud og utfører kategorisering | `backend/core/src/services/` |
-| Lagring og eksterne kall | Leser/skriver filer og database; kontakter Tjek | `backend/persistence/src/services/`, `backend/core/src/db/` |
+Original `title` beholdes urørt. `normalizeTitle.ts` beregner `normalizedName`: små bokstaver, tegnsetting erstattet av mellomrom, sammenslåtte mellomrom og trimming. Ingen AI brukes til normalisering.
 
-## 1. Når appen starter
+Eksempel: `  TINE   Mellommelk! ` gir `tine mellommelk`. Butikk, mengde, pris og periode inngår ikke i kategorioppslaget. Ulike navn for samme vare kan fortsatt gi ulike oppslag.
 
-`frontend/src/main.tsx` starter React. `App.tsx` velger side etter nettadressen, og `Layout.tsx` viser den felles toppen.
+`productKey`, `categoryKey` og `ingredientKey` er fjernet fra aktiv kategorisering og API-modellen. Historiske tilbudsfiler kan fremdeles inneholde gamle felter; de utelates ved lesing. Nye tilbudsfiler lagrer ikke konstruerte produktnøkler. Andre tilbudsfelter som ID, tittel, pris, mengde, butikk, bilde og dato beholdes.
 
-`backend/rest/src/server.ts` laster miljøvariabler, initialiserer SQLite, registrerer API-et og starter oppdateringstimeren eksplisitt. Å importere tilbudstjenesten starter ingen timer.
+## Flere kategorier og automatisk arv
 
-Sidene er `/`, `/tilbud`, `/admin` og `/kategorier`. Den eksisterende lokale passordskjermen på admin bruker `a`.
+Kategorier lagres med stabil `id`, `name` og valgfri `parentId`. Samme navn kan forekomme under forskjellige foreldre; oppslag og koblinger bruker ID, ikke kategorinavn.
 
-## 2. Når du ser på tilbud
+Et normalisert varenavn har en liste med direkte kategori-ID-er. Alle foreldre beregnes når kategoriene leses. Dermed fungerer også filtre på overordnede kategorier.
 
-```text
-OffersPage.tsx → frontend/src/services/api.ts → GET /api/offers
-  → offerService.getAllOffers()
-  → les tilbudsfilene
-  → slå opp kategorier i SQLite-cachen
-  → send resultatet til frontend
-  → filtrer, sorter og vis tilbudskort
-```
-
-Vanlig visning gjør ingen innhenting fra Tjek og ingen AI-kall.
-
-## 3. Når tilbud oppdateres
-
-Admin-knappen og søndagstimeren kaller samme funksjon: `offerUpdateService.updateOffers()`.
+Eksempel med eksisterende kategorinavn:
 
 ```text
-Admin-knapp ─────┐
-                ├→ offerUpdateService.updateOffers()
-Søndagstimer ────┘    1. Hent tilbud via offerService og tjekApiService.
-                     2. Lagre tilbudsfiler og prishistorikk.
-                     3. Hent og lagre bilder via imageService.
-                     4. Kategoriser nye produkter via categoryService.
-                     5. Forsøk usikre kategoriseringer én gang til.
-                     6. Lagre statistikk og returner resultatet.
+vegetarlasagne
+  ├─ Ferdigretter → Middag (arves)
+  └─ Vegetar
 ```
 
-Samtidige oppdateringskall deler den pågående jobben. Feil som rapporteres fra butikkinnhentingen følger med i resultatet og statistikken.
+«Ferdigretter» under «Middag» er beholdt fra den eksisterende kategorilisten. «Vegetar» er lagt til som selvstendig kategori. Kategorier kan ha flere nivåer. Sykluser, ukjente foreldre og duplikater under samme forelder avvises.
 
-`offerUpdateScheduler.ts` sjekker hver time om det er søndag i timen 22–23 etter serverens lokale klokke. Serveren må kjøre for at timeren skal utløses. Dette er ingen ekstern tidsstyrt tjeneste.
+Bare direkte kategorier lagres. Velges både en forelder og dens underkategori, beholdes bare underkategorien som direkte kobling. Omdøping beholder ID-en og alle koblinger. Flytting endrer arvede kategorier automatisk. Ved sletting merkes berørte navn for kontroll. Flytt eller slett underkategoriene før du sletter en forelder.
 
-## 4. Hvordan kategorisering fungerer
+## AI og gjenbruk
 
-`categoryService.ts` sjekker i denne rekkefølgen:
+```mermaid
+flowchart TD
+    A[Manuell oppdatering] --> B[Tjek API]
+    B --> C[(Tilbudsfiler: original title)]
+    C --> D[Normaliser title i kode]
+    D --> E{Finnes normalizedName i SQLite?}
+    E -->|Ja| F[Gjenbruk direkte kategorier]
+    E -->|Nei| G[Samle unike navn]
+    G --> H[OpenAI: 1–3 direkte kategorier]
+    H --> I[Valider ID-er og sikkerhetsverdi]
+    I --> J[(SQLite: klassifisering og kategorikoblinger)]
+    J --> F
+    F --> K[Beregn alle foreldre]
+    K --> L[Tilbudsside og kategorifiltre]
+    J --> M[Manuell kontroll]
+    M --> J
+```
 
-1. Manuell rettelse for varen på tvers av størrelser.
-2. Lagret kategorisering for den konkrete produktnøkkelen.
-3. Lagret kategorisering for varen på tvers av størrelser.
-4. Hvis ingenting finnes, vises varen som ukategorisert. Under oppdateringsjobben kan den sendes til AI.
+- Identiske normaliserte navn i samme oppdatering sendes bare én gang.
+- AI returnerer `normalizedName`, `categoryIds` og `confidence` (0–1).
+- Kun eksisterende kategori-ID-er godtas. 1–3 forslag kreves; ukjente ID-er, duplikater og ugyldig sikkerhetsverdi avvises.
+- Under 0,90 merkes for kontroll. Modellens egen sikkerhet er ikke dokumentert treffsikkerhet.
+- Usikre, tomme og ugyldige svar lagres for kontroll og sendes ikke automatisk på nytt neste uke.
+- Ved teknisk API-feil feiler oppdateringen; ubesvarte navn kan forsøkes ved neste manuelle oppdatering.
+- AI overskriver ikke en eksisterende klassifisering, heller ikke en manuell rettelse som gjøres mens AI-kallet pågår.
+- Foreldre velges ikke av AI; de beregnes av koden.
 
-`aiCategorization.ts` gjør AI-kallene. Resultatene lagres i SQLite og gjenbrukes. Usikre resultater kan kontrolleres i `AdminReview.tsx`. Den tidligere regelfilen gjorde ingen kategorisering og er fjernet.
-
-### To nøkkeltyper med hvert sitt formål
-
-Alle nye produktnøkler lages i `core/src/utils/productKey.ts`.
-
-| Nøkkel | Eksempel | Bruk |
-| --- | --- | --- |
-| Produktnøkkel | `testprodukt|500g|x1|meny` | Identifiserer varen med størrelse og butikk, blant annet i prishistorikk og API |
-| Kategorinøkkel | `testprodukt|meny` | Deler kategorisering mellom størrelser av samme vare i samme butikk |
-
-Manuelle rettelser lagres på kategorinøkkelen og har prioritet over eldre AI-cache for en bestemt størrelse.
-
-Gamle prisrader slettes eller omskrives ikke. `productKeyAliases.ts` kobler kjente gamle nøkler fra tilbudsfilene til det felles formatet. Prishistorikk kan da hentes med gammel eller ny nøkkel. Historiske nøkler uten tilstrekkelig tilbudsinformasjon, eller med tvetydig enhet, beholdes på gammel nøkkel uten gjetting.
-
-## 5. Endring av kategorier
-
-Å rette kategorien på en vare og å endre kategorilisten er to ulike operasjoner:
-
-- `AdminReview.tsx` → `POST /api/offers/categorize` → `categoryService.ts` → SQLite.
-- `CategoryManager.tsx` → kategoriendepunktene → `categoryConfigService.ts` → `categories.json`.
-
-`core/src/config/categories.ts` leser og validerer JSON-filen og holder kategorilisten tilgjengelig for API og AI. Endringer gjelder umiddelbart og overlever omstart. Kildekoden blir ikke skrevet om.
-
-Ved omdøping oppdateres kategoriene i cachen. Ved sletting flyttes berørte cacheoppføringer til «Ukategorisert». Denne standardkategorien kan ikke slettes.
-
-## Hvor dataene ligger
+## Lagring og migrering
 
 | Data | Plassering |
 | --- | --- |
-| Tilbud per butikk | `backend/persistence/src/resources/offers/*_offers.json` |
-| Tillatte hoved- og underkategorier | `backend/persistence/src/resources/categories.json` |
-| Kategoriseringscache, prishistorikk, nøkkelkoblinger og statistikk | `persistence/data/mattilbud.db` |
-| Butikkjeder og Tjek-ID-er | `backend/rest/src/config/stores.ts` |
-| Butikklogoer | `backend/persistence/src/resources/img/store_logos/` |
+| Tilbud per butikk | backend/persistence/src/resources/offers/*_offers.json |
+| Klassifisering, kategorier, koblinger og oppdateringsstatus | persistence/data/mattilbud.db |
+| Gammelt kategorihierarki, kun førstegangsimport | backend/persistence/src/resources/categories.json |
+| Butikker og Tjek-ID-er | backend/rest/src/config/stores.ts |
 
-Datastiene bestemmes i `backend/rest/src/config/index.ts` og er de samme fra TypeScript og bygget backend. `DB_PATH`, `OFFERS_DIR` og `CATEGORIES_FILE` kan overstyres, blant annet for isolerte tester.
+SQLite-tabeller:
 
-## Hvilken fil endrer jeg?
+- `categories`: kategori-ID, navn og forelder.
+- `classifications`: ett oppslag per normalizedName, kilde og kontrollstatus.
+- `classification_categories`: mange-til-mange-kobling mellom navn og direkte kategorier.
+- `category_migration_conflicts`: eldre rader ved migreringskonflikter, for sporbarhet.
+- `schema_migrations`: versjon og migreringsrapport.
 
-| Jeg vil endre … | Fil |
+Migreringen er additiv og transaksjonell. Den tar databasebackup og beholder `category_cache` og andre gamle tabeller som arkiv. De gamle tabellene brukes ikke til aktive oppslag. Manuelle rader prioriteres over AI. Motstridende kategoriseringer innen den prioriterte gruppen merkes for kontroll; ingen gamle kategoriseringer sendes til AI under migrering.
+
+Resultat fra den lokale databasen: 2 582 gamle rader → 2 195 normaliserte navn. 115 manuelle rader er samlet i 107 manuelle navn. 44 navnekonflikter; totalt 46 navn krevde kontroll ved migrering. Dette er et historisk øyeblikksbilde, ikke løpende statistikk.
+
+Fra backend:
+
+- `npm run categories:preview`: prøv migrering på en midlertidig databasekopi og vis rapport/integritetskontroll.
+- `npm run categories:migrate`: bruk migreringen på konfigurert database. Gjentatt kjøring endrer ikke allerede migrerte data.
+
+Serveroppstart utfører samme migrering ved behov. Ikke kjør gammel og ny backend samtidig mot samme database. `DB_PATH`, `OFFERS_DIR` og `CATEGORIES_FILE` kan overstyres for isolerte miljøer. Etter migrering redigeres kategorier via appen, ikke JSON-filen.
+
+## Viktige filer
+
+| Ansvar | Fil |
 | --- | --- |
-| Oppdateringsrekkefølge | `backend/core/src/services/offerUpdateService.ts` |
-| Tidspunkt for automatisk oppdatering | `backend/core/src/services/offerUpdateScheduler.ts` |
-| Hvordan Tjek-data leses og tolkes | `backend/persistence/src/services/tjekApiService.ts` |
-| Hvordan tilbud lagres og leses | `backend/core/src/services/offerService.ts` |
-| AI-instruksjoner | `backend/core/src/services/aiCategorization.ts` |
-| Cacheoppslag og krav til kategorisering | `backend/core/src/services/categoryService.ts` |
-| Produktidentitet | `backend/core/src/utils/productKey.ts` |
-| Søk, sortering og filtre | `frontend/src/pages/OffersPage.tsx` |
-| Manuell kontroll | `frontend/src/components/AdminReview.tsx` |
-| Utseendet på et tilbud | `frontend/src/components/grocery/offer-card.tsx` |
+| Normalisering | backend/core/src/utils/normalizeTitle.ts |
+| Migrering | backend/core/src/db/categoryMigration.ts |
+| Klassifiseringsoppslag | backend/core/src/db/categoryCacheRepo.ts |
+| Kategorihierarki og validering | backend/core/src/config/categories.ts |
+| AI-instruksjon og svarvalidering | backend/core/src/services/aiCategorization.ts |
+| Gjenbruk og koordinering | backend/core/src/services/categoryService.ts |
+| Oppdateringsjobb | backend/core/src/services/offerUpdateService.ts |
+| API | backend/rest/src/routes/offers.ts |
+| Tilbudsvisning | frontend/src/pages/OffersPage.tsx |
+| Manuell kontroll | frontend/src/components/AdminReview.tsx |
+| Flerkategorivalg | frontend/src/components/CategoryPicker.tsx |
+| Kategoriadministrasjon | frontend/src/components/CategoryManager.tsx |
 
-## Viktige API-endepunkter
+## API
 
-| Metode | Sti | Funksjon |
+| Metode | Adresse | Bruk |
 | --- | --- | --- |
-| GET | `/health` | Serverstatus |
-| GET | `/api/offers` | Tilbud; valgfritt `?store=Meny` |
-| POST | `/api/offers/update` eller `/api/offers/weekly-update` | Samme komplette oppdatering; svar når den er ferdig |
-| GET | `/api/offers/review` | Tilbud som trenger kontroll |
-| POST | `/api/offers/categorize` | Lagre manuell kategorisering |
-| GET | `/api/categories` | Gjeldende kategoriliste |
-| POST | `/api/categories/main/{add,remove,rename}` | Administrer hovedkategorier |
-| POST | `/api/categories/subcategory/{add,remove,rename}` | Administrer underkategorier |
-| GET | `/api/admin/health` | Oppdateringsstatistikk |
+| GET | /api/offers | Lagrede tilbud, eventuelt ?store=Meny |
+| POST | /api/offers/update | Hent og kategoriser |
+| GET | /api/offers/review | Lagrede tilbud som trenger kontroll |
+| GET | /api/classifications/review | Alle navn som trenger kontroll, inkludert historiske |
+| POST | /api/offers/categorize | `{normalizedName, categoryIds: [...]}` |
+| GET | /api/categories | `{categories: [{id,name,parentId}]}` |
+| POST | /api/categories | Opprett med `{name,parentId}` |
+| PUT | /api/categories/:id | Endre navn/forelder |
+| DELETE | /api/categories/:id | Slett en kategori uten barn |
+| GET | /api/admin/health | Oppdateringsstatus |
+| GET | /api/admin/migration | Historisk migreringsrapport |
 
-Se `routes/offers.ts` for bilde-, prishistorikk- og diagnoseendepunkter.
+Tilbudssvar har `normalizedName`, `categoryIds` (direkte), `effectiveCategoryIds` (inkludert foreldre), `categories`, `categorySource`, `categoryConfidence`, `needsReview` og `reviewReason`. Gamle kategoriendepunkter basert på hoved-/underkategorinavn er erstattet av ID-baserte endepunkter.
 
-## Verifisering og vedlikehold
+## Kontroll og begrensninger
 
-- `npm run build` i backend og frontend kontrollerer TypeScript og bygger appen.
-- `npm test` i backend tester oppdatering, kategorier og kompatibilitet med eksisterende data. Testene bruker midlertidige filer og egen SQLite-database, uten eksterne API-kall.
-- `backend/analyze_catalogs.js` og `backend/analyze_catalog_diff.js` er diagnoseverktøy for Tjek-kataloger.
-- `npm run reimport` i backend erstatter SQLite-cachen med gammel JSON-cache. Dette er et vedlikeholdsverktøy, ikke et oppstartssteg.
+`npm test` og `npm run build` i backend; `npm run build` i frontend. Testene bruker egne databaser, lokale HTTP-kall og mockede AI-/Tjek-kall. Ingen eksterne AI-kall gjøres i testene.
 
-Videre oppfølgingspunkter står i [ToDo.txt](ToDo.txt).
+Navnebasert gjenbruk er ingen sikker produktidentitet: generiske navn kan dekke forskjellige produkter. AI skal ikke gjette vegetar eller andre egenskaper uten grunnlag. Komplett katalogdekning, gyldighetsfiltrering og målt kategoriseringskvalitet gjenstår. Appen er satt opp for lokal bruk og har ikke serverautentisering.

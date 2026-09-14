@@ -9,7 +9,8 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbSeparator, Breadc
 import { OfferGrid } from '@/components/grocery/offer-grid';
 import { Search, ChevronRight, Home, ArrowDownUp, Store as StoreIcon } from 'lucide-react';
 import { offersApi } from '../services/api';
-import type { Offer, CategoryHierarchy } from '../types/offer';
+import { ancestors, categoryPath, offerIdentity } from '../lib/categories';
+import type { Offer, Category } from '../types/offer';
 
 const STORE_LOGOS: Record<string, string> = {
   'Bunnpris': 'http://localhost:5000/store_logos/bunnpris_logo.png',
@@ -30,7 +31,9 @@ export default function OffersPage() {
   const navigate = useNavigate();
   const [offers, setOffers] = useState<Offer[]>([]);
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState<CategoryHierarchy | null>(null);
+  const [categoryList, setCategories] = useState<Category[]>([]);
+  const categories: Record<string,string[]> = Object.fromEntries(categoryList.filter(c=>!c.parentId).map(root=>[root.id,categoryList.filter(c=>ancestors(c.id,categoryList).includes(root.id)).map(c=>c.id)]));
+  const categoryLabel = (id:string) => id === 'uncategorized' ? 'Ukategorisert' : categoryList.find(c=>c.id===id)?.name || id;
   const [selectedMainCategory, setSelectedMainCategory] = useState<string>('');
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -122,27 +125,7 @@ export default function OffersPage() {
       setLoading(true);
       const data = await offersApi.getAllOffers();
       
-      // Dedupliser tilbud basert på productKey + store + quantity
-      // Dette sikrer at samme produkt i ulike størrelser/pakker ikke fjernes
-      const uniqueOffers = data.offers?.reduce((acc: Offer[], offer: Offer) => {
-        const key = `${offer.productKey}_${offer.store}_${offer.quantity || ''}_${offer.size || ''}`;
-        const existingIndex = acc.findIndex(o => 
-          `${o.productKey}_${o.store}_${o.quantity || ''}_${o.size || ''}` === key
-        );
-        
-        if (existingIndex === -1) {
-          acc.push(offer);
-        } else {
-          // Behold tilbudet med lavest pris hvis duplikat
-          if (offer.price < acc[existingIndex].price) {
-            acc[existingIndex] = offer;
-          }
-        }
-        
-        return acc;
-      }, []);
-      
-      setOffers(uniqueOffers || []);
+      setOffers(data.offers || []);
     } catch (err) {
       console.error('Error fetching offers:', err);
     } finally {
@@ -159,59 +142,16 @@ export default function OffersPage() {
     }
   };
 
-  const filteredOffers = offers
-    .filter(offer => {
-      if (filterStore.length > 0 && !filterStore.includes(offer.store)) return false;
-
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        return offer.title.toLowerCase().includes(query) || 
-               offer.ingredientKey?.toLowerCase().includes(query) ||
-               offer.subCategory?.toLowerCase().includes(query) ||
-               offer.description?.toLowerCase().includes(query) ||
-               offer.store.toLowerCase().includes(query);
-      }
-      
-      if (!selectedMainCategory) return false;
-      if (offer.mainCategory !== selectedMainCategory) return false;
-      if (selectedSubCategory === 'all' || offer.subCategory === selectedSubCategory) {
-        return true;
-      }
-      return false;
-    })
-    .sort((a, b) => {
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        const aTitle = a.title.toLowerCase();
-        const bTitle = b.title.toLowerCase();
-        const aIngredientKey = a.ingredientKey?.toLowerCase() || '';
-        const bIngredientKey = b.ingredientKey?.toLowerCase() || '';
-        const aSubCategory = a.subCategory?.toLowerCase() || '';
-        const bSubCategory = b.subCategory?.toLowerCase() || '';
-        
-        const aTitleMatch = aTitle.includes(query);
-        const bTitleMatch = bTitle.includes(query);
-        const aIngredientMatch = aIngredientKey.includes(query);
-        const bIngredientMatch = bIngredientKey.includes(query);
-        const aSubMatch = aSubCategory.includes(query);
-        const bSubMatch = bSubCategory.includes(query);
-        
-        if (aTitleMatch && !bTitleMatch) return -1;
-        if (!aTitleMatch && bTitleMatch) return 1;
-        
-        if (aIngredientMatch && !bIngredientMatch) return -1;
-        if (!aIngredientMatch && bIngredientMatch) return 1;
-        
-        if (aSubMatch && !bSubMatch) return -1;
-        if (!aSubMatch && bSubMatch) return 1;
-      }
-
-      if (sortByPrice) {
-        return a.price - b.price;
-      }
-      
-      return 0;
-    });
+  const filteredOffers = offers.filter(offer => {
+    if(filterStore.length && !filterStore.includes(offer.store)) return false;
+    if(searchQuery) {
+      const query=searchQuery.toLowerCase();
+      return [offer.title,offer.description,offer.store,...offer.categories.map(c=>c.name)].some(text=>text?.toLowerCase().includes(query));
+    }
+    if(selectedMainCategory==='uncategorized') return !offer.categoryIds.length;
+    return !!selectedMainCategory && offer.effectiveCategoryIds.includes(selectedMainCategory) &&
+      (selectedSubCategory==='all' || offer.effectiveCategoryIds.includes(selectedSubCategory));
+  }).sort((a,b)=>sortByPrice ? a.price-b.price : 0);
 
   const handleMainCategoryChange = (category: string) => {
     setShowRecommendations(false);
@@ -252,11 +192,11 @@ export default function OffersPage() {
       'Ukategorisert'
     ];
 
-    const allCategories = Object.keys(categories);
+    const allCategories = [...Object.keys(categories), 'uncategorized'];
     
     return allCategories.sort((a, b) => {
-      const indexA = categoryPriority.indexOf(a);
-      const indexB = categoryPriority.indexOf(b);
+      const indexA = categoryPriority.indexOf(categoryLabel(a));
+      const indexB = categoryPriority.indexOf(categoryLabel(b));
       
       if (indexA !== -1 && indexB !== -1) {
         return indexA - indexB;
@@ -265,7 +205,7 @@ export default function OffersPage() {
       if (indexA !== -1) return -1;
       if (indexB !== -1) return 1;
       
-      return a.localeCompare(b, 'nb-NO');
+      return categoryLabel(a).localeCompare(categoryLabel(b), 'nb-NO');
     });
   };
 
@@ -354,7 +294,7 @@ export default function OffersPage() {
                                 : 'text-foreground hover:bg-muted hover:translate-x-0.5'
                             }`}
                           >
-                            {cat}
+                            {categoryLabel(cat)}
                           </button>
                           {subCats.length > 0 && (
                             <div className={`ml-4 mt-1 space-y-1 subcategory-container ${
@@ -370,7 +310,7 @@ export default function OffersPage() {
                                       : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground hover:translate-x-0.5'
                                   }`}
                                 >
-                                  {subCat}
+                                  {categoryPath(subCat,categoryList).split(' → ').slice(1).join(' → ')}
                                 </button>
                               ))}
                             </div>
@@ -443,10 +383,10 @@ export default function OffersPage() {
                               setSelectedSubCategory('all');
                             }}
                           >
-                            {selectedMainCategory}
+                            {categoryLabel(selectedMainCategory)}
                           </BreadcrumbLink>
                         ) : (
-                          <BreadcrumbPage>{selectedMainCategory}</BreadcrumbPage>
+                          <BreadcrumbPage>{categoryLabel(selectedMainCategory)}</BreadcrumbPage>
                         )}
                       </BreadcrumbItem>
                     </>
@@ -457,7 +397,7 @@ export default function OffersPage() {
                         <ChevronRight className="h-4 w-4" />
                       </BreadcrumbSeparator>
                       <BreadcrumbItem>
-                        <BreadcrumbPage>{selectedSubCategory}</BreadcrumbPage>
+                        <BreadcrumbPage>{categoryLabel(selectedSubCategory)}</BreadcrumbPage>
                       </BreadcrumbItem>
                     </>
                   )}
@@ -586,7 +526,8 @@ export default function OffersPage() {
             {showRecommendations ? (
               <OfferGrid 
                 offers={getTopOffers().map(offer => ({
-                  id: offer.offerId || offer.productKey || '',
+                  id: offerIdentity(offer),
+                  category: offer.categoryIds.map(id=>categoryLabel(id)).join(' · '),
                   title: offer.title,
                   price: offer.price,
                   originalPrice: offer.originalPrice,
@@ -605,7 +546,8 @@ export default function OffersPage() {
                   .filter(offer => filterStore.length === 0 || filterStore.includes(offer.store))
                   .sort((a, b) => sortByPrice ? a.price - b.price : 0)
                   .map(offer => ({
-                    id: offer.offerId || offer.productKey || '',
+                    id: offerIdentity(offer),
+                  category: offer.categoryIds.map(id=>categoryLabel(id)).join(' · '),
                     title: offer.title,
                     price: offer.price,
                     originalPrice: offer.originalPrice,
@@ -621,7 +563,8 @@ export default function OffersPage() {
             ) : searchQuery || selectedMainCategory ? (
               <OfferGrid 
                 offers={filteredOffers.map(offer => ({
-                  id: offer.offerId || offer.productKey || '',
+                  id: offerIdentity(offer),
+                  category: offer.categoryIds.map(id=>categoryLabel(id)).join(' · '),
                   title: offer.title,
                   price: offer.price,
                   originalPrice: offer.originalPrice,

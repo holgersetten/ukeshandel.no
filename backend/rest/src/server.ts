@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -19,7 +18,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Serve butikklogoer
-app.use('/store_logos', express.static(path.join(__dirname, '../../../persistence/src/resources/img/store_logos')));
+app.use('/store_logos', express.static(config.storeLogosDir));
 
 // Logging (disabled for cleaner output)
 // app.use((req: Request, _res: Response, next: NextFunction) => {

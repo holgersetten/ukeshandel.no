@@ -1,54 +1,63 @@
-import fs from 'fs';
-import config from '../../../rest/src/config';
+﻿import { randomUUID } from 'crypto';
+import { getDb } from '../db/db';
 
-export type MainCategory = string;
-export type SubCategory = string;
-export type CategoryHierarchy = Record<string, string[]>;
-export const DEFAULT_MAIN_CATEGORY = 'Ukategorisert';
-export const DEFAULT_SUB_CATEGORY = 'Ukategorisert';
-
-export function validateHierarchy(value: unknown): asserts value is CategoryHierarchy {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) {
-    throw new Error('Kategoristrukturen må være et objekt');
-  }
-  for (const [main, subs] of Object.entries(value)) {
-    if (!main.trim() || ['__proto__', 'constructor', 'prototype'].includes(main) ||
-        !Array.isArray(subs) || subs.some(sub => typeof sub !== 'string' || !sub.trim()) ||
-        new Set(subs).size !== subs.length) {
-      throw new Error('Ugyldig kategori: ' + main);
+export interface Category { id: string; name: string; parentId: string | null }
+export function getCategories(): Category[] {
+  return getDb().prepare('SELECT id,name,parent_id AS parentId FROM categories ORDER BY name,id').all() as Category[];
+}
+export function withAncestors(ids: string[], categories = getCategories()): string[] {
+  const byId = new Map(categories.map(c => [c.id, c]));
+  const result = new Set<string>();
+  for (const id of ids) {
+    let current: string | null = id;
+    const seen = new Set<string>();
+    while (current) {
+      if (seen.has(current)) throw new Error('Syklus i kategorihierarkiet');
+      seen.add(current);
+      const category = byId.get(current);
+      if (!category) throw new Error('Ukjent kategori: ' + current);
+      result.add(current);
+      current = category.parentId;
     }
   }
-  const hierarchy = value as CategoryHierarchy;
-  if (!hierarchy[DEFAULT_MAIN_CATEGORY]?.includes(DEFAULT_SUB_CATEGORY)) {
-    throw new Error('Ukategorisert må beholdes som hoved- og underkategori');
+  return [...result];
+}
+export function directCategories(value: unknown, max = 3): string[] {
+  if (!Array.isArray(value) || !value.length || value.length > max || value.some(id => typeof id !== 'string')) {
+    throw new Error('Velg 1–' + max + ' kategorier');
   }
+  if (new Set(value).size !== value.length) throw new Error('Dupliserte kategorier');
+  const categories = getCategories();
+  withAncestors(value, categories);
+  return value.filter(id => !value.some(other => other !== id && withAncestors([other], categories).includes(id)));
 }
-
-const initial: unknown = JSON.parse(fs.readFileSync(config.categoriesFile, 'utf8'));
-validateHierarchy(initial);
-export const CATEGORY_HIERARCHY: CategoryHierarchy = initial;
-export const MAIN_CATEGORIES: string[] = Object.keys(initial);
-
-/** Lagre først; publiser deretter endringen til alle som bruker kategoriene. */
-export function saveHierarchy(hierarchy: CategoryHierarchy): void {
-  validateHierarchy(hierarchy);
-  const next = structuredClone(hierarchy);
-  const temporary = config.categoriesFile + '.tmp';
-  fs.writeFileSync(temporary, JSON.stringify(hierarchy, null, 2) + '\n', 'utf8');
-  fs.renameSync(temporary, config.categoriesFile);
-  for (const key of Object.keys(CATEGORY_HIERARCHY)) delete CATEGORY_HIERARCHY[key];
-  Object.assign(CATEGORY_HIERARCHY, next);
-  MAIN_CATEGORIES.splice(0, MAIN_CATEGORIES.length, ...Object.keys(next));
+export function saveCategory(id: string | undefined, name: unknown, parentId: unknown): Category {
+  if (typeof name !== 'string' || !name.trim() || name.trim().length > 120) throw new Error('Ugyldig kategorinavn');
+  if (parentId !== null && typeof parentId !== 'string') throw new Error('Ugyldig parentId');
+  const all = getCategories();
+  if (id && !all.some(c => c.id === id)) throw new Error('Kategorien finnes ikke');
+  const key = id || randomUUID();
+  if (parentId && withAncestors([parentId], all).includes(key)) throw new Error('En kategori kan ikke være sin egen forelder');
+  if (parentId === key) throw new Error('En kategori kan ikke være sin egen forelder');
+  if (all.some(c => c.id !== key && c.parentId === parentId && c.name.toLowerCase() === name.trim().toLowerCase())) throw new Error('Kategorien finnes allerede under denne forelderen');
+  const db = getDb();
+  db.transaction(() => {
+    db.prepare('INSERT INTO categories(id,name,parent_id) VALUES (?,?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name,parent_id=excluded.parent_id').run(key, name.trim(), parentId);
+    // Keep only direct links after moving a category beneath an already assigned ancestor.
+    for (const row of db.prepare('SELECT DISTINCT normalized_name AS name FROM classification_categories').all() as {name:string}[]) {
+      const ids = (db.prepare('SELECT category_id AS id FROM classification_categories WHERE normalized_name=?').all(row.name) as {id:string}[]).map(c=>c.id);
+      const direct = directCategories(ids, Number.MAX_SAFE_INTEGER);
+      for (const obsolete of ids.filter(cid=>!direct.includes(cid))) db.prepare('DELETE FROM classification_categories WHERE normalized_name=? AND category_id=?').run(row.name, obsolete);
+    }
+  })();
+  return { id: key, name: name.trim(), parentId: parentId as string | null };
 }
-
-export function isValidMainCategory(cat: string): cat is MainCategory {
-  return Object.prototype.hasOwnProperty.call(CATEGORY_HIERARCHY, cat);
-}
-
-export function getSubCategories(mainCat: MainCategory): readonly SubCategory[] {
-  return CATEGORY_HIERARCHY[mainCat] || [];
-}
-
-export function isValidSubCategory(mainCat: MainCategory, subCat: string): boolean {
-  return getSubCategories(mainCat).includes(subCat);
+export function deleteCategory(id: string): void {
+  const db = getDb();
+  if (!getCategories().some(c => c.id === id)) throw new Error('Kategorien finnes ikke');
+  if (getCategories().some(c => c.parentId === id)) throw new Error('Flytt eller slett underkategoriene først');
+  db.transaction(() => {
+    db.prepare("UPDATE classifications SET needs_review=1,review_reason='Kategori slettet' WHERE normalized_name IN (SELECT normalized_name FROM classification_categories WHERE category_id=?)").run(id);
+    db.prepare('DELETE FROM categories WHERE id=?').run(id);
+  })();
 }
