@@ -61,13 +61,5 @@ class CategoryService {
     return names.length;
   }
   getPendingCount() { return cache.getAll().filter(c=>c.needsReview).length; }
-  getCacheStatistics() {
-    const all = cache.getAll();
-    const totalCached = all.length;
-    const pendingCount = all.filter(c=>c.needsReview).length;
-    return {totalCached,pendingCount,trustedCount:totalCached-pendingCount,
-      cacheHitRate: totalCached ? (totalCached-pendingCount)/totalCached*100 : 0,
-      pendingRate: totalCached ? pendingCount/totalCached*100 : 0};
-  }
 }
 export default new CategoryService();

@@ -11,7 +11,6 @@ export const offersApi = {
   retryClassification: async (normalizedName: string) => (await api.post('/classifications/retry',{normalizedName})).data,
   retryAllClassifications: async () => (await api.post<{count:number;message:string}>('/classifications/retry-all')).data,
   updateOffers: async ():Promise<{success:boolean;message:string}> => (await api.post('/offers/update')).data,
-  getHealthMetrics: async () => (await api.get('/admin/health')).data,
   saveCategory: async (category: {id?:string;name:string;parentId:string|null}) => category.id
     ? (await api.put<Category>('/categories/'+category.id,category)).data
     : (await api.post<Category>('/categories',category)).data,

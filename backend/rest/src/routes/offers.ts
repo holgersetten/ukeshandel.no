@@ -3,7 +3,6 @@ import offerService from '../../../core/src/services/offerService';
 import categoryService from '../../../core/src/services/categoryService';
 import { updateOffers } from '../../../core/src/services/offerUpdateService';
 import { getCategories, saveCategory, deleteCategory } from '../../../core/src/config/categories';
-import * as metrics from '../../../core/src/db/healthMetricsRepo';
 import * as cache from '../../../core/src/db/categoryCacheRepo';
 import { getDb } from '../../../core/src/db/db';
 const router = Router();
@@ -54,16 +53,6 @@ router.delete('/categories/:id', (req:Request,res:Response) => {
 });
 router.post('/offers/update', async (_req,res) => {
   try { res.json(await updateOffers()); } catch(error) { fail(res,error,500); }
-});
-router.get('/admin/health', async (_req,res) => {
-  try {
-    const last = metrics.getLatestWeeklyUpdateMetrics();
-    const offers = await offerService.getAllOffers();
-    res.json({lastUpdate:last ? {...last,durationFormatted:`${(last.duration/60000).toFixed(1)} min`}:null,
-      currentState:{totalOffers:offers.length,totalNormalizedNames:new Set(offers.map(o=>o.normalizedName)).size,
-        offersPerStore:offerService.getOffersPerStore(offers),...categoryService.getCacheStatistics()},
-      errors:last?.errors || {}});
-  } catch(error) { fail(res,error,500); }
 });
 // Includes historical names and migration conflicts even when there is no current offer.
 router.get('/classifications/review', (_req,res) => {

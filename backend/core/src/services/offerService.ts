@@ -53,16 +53,6 @@ class OfferService {
         }
     }
 
-    getOffersPerStore(offers: any[]): Record<string, number> {
-        const counts: Record<string, number> = {};
-        offers.forEach(offer => {
-            if (offer.store) {
-                counts[offer.store] = (counts[offer.store] || 0) + 1;
-            }
-        });
-        return counts;
-    }
-
     async updateStoreOffers(store: Store): Promise<Offer[] | undefined> {
         try {
             if (!store || !store.name) {

@@ -127,7 +127,6 @@ Serveroppstart utfører samme migrering ved behov. Ikke kjør gammel og ny backe
 | POST | /api/categories | Opprett med `{name,parentId}` |
 | PUT | /api/categories/:id | Endre navn/forelder |
 | DELETE | /api/categories/:id | Slett en kategori uten barn |
-| GET | /api/admin/health | Oppdateringsstatus |
 | GET | /api/admin/migration | Historisk migreringsrapport |
 
 Tilbudssvar har `normalizedName`, `categoryIds` (direkte), `effectiveCategoryIds` (inkludert foreldre), `categories`, `categorySource`, `categoryConfidence`, `needsReview` og `reviewReason`. Gamle kategoriendepunkter basert på hoved-/underkategorinavn er erstattet av ID-baserte endepunkter.

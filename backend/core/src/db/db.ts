@@ -49,34 +49,6 @@ export function closeDb(): void {
 export function initDb(): void {
     const database = getDb();
     
-    // Lag health_metrics tabell for weekly-update statistikk
-    database.exec(`
-        CREATE TABLE IF NOT EXISTS health_metrics (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp TEXT NOT NULL,
-            duration INTEGER NOT NULL,
-            totalOffers INTEGER NOT NULL,
-            totalProductKeys INTEGER DEFAULT 0,
-            offersPerStore TEXT NOT NULL,
-            newProductKeys INTEGER NOT NULL,
-            cacheHitRate REAL NOT NULL,
-            pendingRate REAL NOT NULL,
-            errors TEXT NOT NULL,
-            success INTEGER NOT NULL
-        );
-    `);
-
-    // Migrer eksisterende health_metrics tabell til å inkludere totalProductKeys
-    try {
-        database.exec(`
-            ALTER TABLE health_metrics 
-            ADD COLUMN totalProductKeys INTEGER DEFAULT 0;
-        `);
-        console.log('✅ Migrated health_metrics table to include totalProductKeys');
-    } catch (e) {
-        // Kolonnen eksisterer allerede, ignorer feilen
-    }
-
     migrateCategories(database);
     console.log('✅ Database tables and triggers initialized');
 }
