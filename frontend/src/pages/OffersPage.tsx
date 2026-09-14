@@ -12,19 +12,20 @@ import { offersApi } from '../services/api';
 import { ancestors, categoryPath, offerIdentity } from '../lib/categories';
 import type { Offer, Category } from '../types/offer';
 
+const API_ORIGIN = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/, '');
 const STORE_LOGOS: Record<string, string> = {
-  'Bunnpris': 'http://localhost:5000/store_logos/bunnpris_logo.png',
-  'Rema 1000': 'http://localhost:5000/store_logos/rema_kompakt_logo.svg',
-  'Meny': 'http://localhost:5000/store_logos/meny_kompakt_logo.png',
-  'Spar': 'http://localhost:5000/store_logos/spar_kompakt_logo.png',
-  'Kiwi': 'http://localhost:5000/store_logos/kiwi_kompakt_logo.png',
-  'Obs': 'http://localhost:5000/store_logos/circular/coop_obs_circular_logo.png',
-  'Coop Extra': 'http://localhost:5000/store_logos/circular/coop_extra_circular_logo.png',
-  'Coop Mega': 'http://localhost:5000/store_logos/circular/coop_mega_circular_logo.png',
-  'Coop Prix': 'http://localhost:5000/store_logos/circular/coop_prix_circular_logo.png',
-  'Coop Marked': 'http://localhost:5000/store_logos/circular/coop_marked_circular_logo.png',
-  'Joker': 'http://localhost:5000/store_logos/joker_logo.png',
-  'Matkroken': 'http://localhost:5000/store_logos/circular/matkroken_circular_logo.png',
+  'Bunnpris': `${API_ORIGIN}/store_logos/bunnpris_logo.png`,
+  'Rema 1000': `${API_ORIGIN}/store_logos/rema_kompakt_logo.svg`,
+  'Meny': `${API_ORIGIN}/store_logos/meny_kompakt_logo.png`,
+  'Spar': `${API_ORIGIN}/store_logos/spar_kompakt_logo.png`,
+  'Kiwi': `${API_ORIGIN}/store_logos/kiwi_kompakt_logo.png`,
+  'Obs': `${API_ORIGIN}/store_logos/circular/coop_obs_circular_logo.png`,
+  'Coop Extra': `${API_ORIGIN}/store_logos/circular/coop_extra_circular_logo.png`,
+  'Coop Mega': `${API_ORIGIN}/store_logos/circular/coop_mega_circular_logo.png`,
+  'Coop Prix': `${API_ORIGIN}/store_logos/circular/coop_prix_circular_logo.png`,
+  'Coop Marked': `${API_ORIGIN}/store_logos/circular/coop_marked_circular_logo.png`,
+  'Joker': `${API_ORIGIN}/store_logos/joker_logo.png`,
+  'Matkroken': `${API_ORIGIN}/store_logos/circular/matkroken_circular_logo.png`,
 };
 
 export default function OffersPage() {

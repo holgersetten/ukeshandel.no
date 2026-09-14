@@ -7,6 +7,7 @@ process.env.DB_PATH=path.join(temporary,'test.db');
 process.env.OFFERS_DIR=path.join(temporary,'offers');
 process.env.CATEGORIES_FILE=path.join(__dirname,'../persistence/src/resources/categories.json');
 process.env.SKIP_AI='true';
+process.env.ADMIN_API_KEY='test-admin';
 fs.mkdirSync(process.env.OFFERS_DIR);
 // Representative old rows: same name across stores, manual priority, conflicting manual corrections.
 const old=new Database(process.env.DB_PATH);
@@ -154,9 +155,9 @@ test('HTTP API supports multiple category IDs and rejects the retired key contra
   const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));
   const base=`http://127.0.0.1:${server.address().port}/api`;
   try {
-    let response=await fetch(base+'/offers/categorize',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({normalizedName:'vegetarlasagne',categoryIds:[id('Ferdigretter'),id('Vegetar')]})});assert.equal(response.status,200);
+    let response=await fetch(base+'/offers/categorize',{method:'POST',headers:{'Content-Type':'application/json','x-admin-api-key':'test-admin'},body:JSON.stringify({normalizedName:'vegetarlasagne',categoryIds:[id('Ferdigretter'),id('Vegetar')]})});assert.equal(response.status,200);
     response=await fetch(base+'/offers');const data=await response.json();assert.ok(data.offers[0].effectiveCategoryIds.includes(id('Middag')));
-    response=await fetch(base+'/offers/categorize',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({productKey:'old'})});assert.equal(response.status,400);
+    response=await fetch(base+'/offers/categorize',{method:'POST',headers:{'Content-Type':'application/json','x-admin-api-key':'test-admin'},body:JSON.stringify({productKey:'old'})});assert.equal(response.status,400);
     response=await fetch(base+'/categories');assert.ok((await response.json()).categories.every(c=>'parentId' in c));
   } finally {await new Promise(r=>server.close(r));}
 });

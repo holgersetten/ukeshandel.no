@@ -12,6 +12,7 @@ interface Config {
   
   // External APIs
   tjekApiBaseUrl: string;
+  publicApiUrl: string;
   
 }
 
@@ -32,6 +33,7 @@ const config: Config = {
   
   // External APIs
   tjekApiBaseUrl: process.env.TJEK_API_BASE_URL || 'https://squid-api.tjek.com/v2',
+  publicApiUrl: (process.env.PUBLIC_API_URL || '').replace(/\/+$/, ''),
   
 };
 

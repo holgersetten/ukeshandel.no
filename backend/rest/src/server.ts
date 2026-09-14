@@ -71,7 +71,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 // Start server
 const PORT = config.port || 5000;
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log('🚀 =================================');
     console.log('🚀 Ukeshandel API Server startet');
     console.log('🚀 =================================');

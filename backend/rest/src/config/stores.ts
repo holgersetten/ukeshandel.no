@@ -1,4 +1,5 @@
 // 📂 Butikker med dealer-ID
+import config from './index';
 
 export interface Store {
     name: string;
@@ -38,7 +39,7 @@ export const getStoreByDealerId = (dealerId: string): Store | undefined =>
 export const getStoreLogoUrl = (storeName: string): string | null => {
     const store = getStoreByName(storeName);
     if (store && store.logo) {
-        return `http://localhost:5000/store_logos/${store.logo}`;
+        return `${config.publicApiUrl}/store_logos/${store.logo}`;
     }
     return null;
 };

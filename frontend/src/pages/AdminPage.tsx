@@ -5,11 +5,21 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Lock } from 'lucide-react';
 import AdminReview from '../components/AdminReview';
+import { offersApi } from '../services/api';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const handleLogin = async () => {
+    try {
+      await offersApi.authenticate(password);
+      sessionStorage.setItem('adminApiKey', password);
+      setIsAuthenticated(true);
+    } catch {
+      alert('Ugyldig admin-nøkkel');
+    }
+  };
 
   if (!isAuthenticated) {
     return (
@@ -21,28 +31,20 @@ export default function AdminPage() {
               <h2 className="text-xl font-semibold text-foreground">Admin Tilgang</h2>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-foreground">Passord</label>
+              <label className="text-sm font-medium text-foreground">Admin API-nøkkel</label>
               <Input
                 type="password"
-                placeholder="Skriv inn passord..."
+                placeholder="Skriv inn admin-nøkkel..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' && password === 'a') {
-                    setIsAuthenticated(true);
-                  }
+                  if (e.key === 'Enter') handleLogin();
                 }}
                 className="h-11"
               />
             </div>
             <Button
-              onClick={() => {
-                if (password === 'a') {
-                  setIsAuthenticated(true);
-                } else {
-                  alert('Feil passord!');
-                }
-              }}
+              onClick={handleLogin}
               className="w-full"
             >
               Logg inn
