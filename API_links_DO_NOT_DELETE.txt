@@ -59,6 +59,7 @@ Oda, 7kuNoZ, uke, "Tilbake til hverdagen!"
 Meny, 4333pm, helg, "Uke 05 helg"
 Spar, c062vm, uke, "Uke 05 Riks", helg, "Uke 05 Helgens Riks"
 Kiwi, 257bxm, uke, ""
+Joker, b3e8Fm
 
 Et mulig problem: label vil trolig endre seg uke for uke, noen annen måte å automatisk fange opp den nyeste tilbudsavisen? Alle butikker har samme link, bortsett fra at dealer_id er byttet ut. Kiwi f.eks : https://squid-api.tjek.com/v2/catalogs?dealer_id=257bxm&order_by=-publication_date&offset=0&limit=24&types=paged%2Cincito&r_lat=63.41952&r_lng=10.39533, kan endre på dealer id for å finne gjeldende butikk?
 

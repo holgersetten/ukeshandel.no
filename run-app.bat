@@ -2,7 +2,7 @@
 chcp 65001
 echo.
 echo ========================================
-echo    Starter Middagstilbud Dev Server
+echo    Starter Ukeshandel Dev Server
 echo    MED AI-KATEGORISERING
 echo ========================================
 echo.
@@ -29,13 +29,13 @@ echo ========================================
 echo.
 
 REM Start backend i nytt terminal-vindu (MED AI)
-start "Middagstilbud Backend (AI ON)" cmd /k "set SKIP_AI=false && cd /d %~dp0backend && npm run dev"
+start "Ukeshandel Backend (AI ON)" cmd /k "set SKIP_AI=false && cd /d %~dp0backend && npm run dev"
 
 REM Vent litt slik at backend får starte først
 timeout /t 3 /nobreak > nul
 
 REM Start frontend i nytt terminal-vindu
-start "Middagstilbud Frontend" cmd /k "cd /d %~dp0frontend && npm run dev"
+start "Ukeshandel Frontend" cmd /k "cd /d %~dp0frontend && npm run dev"
 
 echo.
 echo Begge servere starter nå...

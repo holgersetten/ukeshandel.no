@@ -1,158 +1,45 @@
-import { getDb } from './db';
+﻿import { getDb } from './db';
+import { normalizeTitle } from '../utils/normalizeTitle';
+import { directCategories } from '../config/categories';
 
-/**
- * Database row format (snake_case)
- */
-interface CategoryCacheRow {
-    product_key: string;
-    main_category: string;
-    sub_category: string;
-    ingredient_key: string;
-    source: string;
-    confidence_main: number;
-    confidence_sub: number;
-    confidence_ingredient: number;
-    cache_status?: string | null;
-    created_at: string;
-    updated_at: string;
+export interface Classification {
+  normalizedName: string;
+  categoryIds: string[];
+  source: 'manual' | 'ai';
+  needsReview: boolean;
+  confidence: number | null;
+  reviewReason: string | null;
+  attempts: number;
 }
-
-/**
- * Application format (camelCase med nested confidence)
- */
-export interface CategoryCacheData {
-    mainCategory: string;
-    subCategory: string;
-    ingredientKey: string;
-    source: string;
-    confidence: {
-        main: number;
-        sub: number;
-        ingredientKey: number;
-    };
-    cacheStatus?: string;
-    timestamp?: string;
+export function get(normalizedName: string): Classification | null {
+  const db = getDb();
+  const row = db.prepare('SELECT normalized_name AS normalizedName, source, needs_review AS needsReview, confidence, review_reason AS reviewReason, attempts FROM classifications WHERE normalized_name=?').get(normalizedName) as Omit<Classification,'categoryIds'> | undefined;
+  if (!row) return null;
+  const categoryIds = (db.prepare('SELECT category_id AS id FROM classification_categories WHERE normalized_name=? ORDER BY category_id').all(normalizedName) as {id:string}[]).map(c=>c.id);
+  return { ...row, needsReview: !!row.needsReview, categoryIds };
 }
-
-/**
- * Konverterer DB row til app format
- */
-function rowToData(row: CategoryCacheRow): CategoryCacheData {
-    return {
-        mainCategory: row.main_category,
-        subCategory: row.sub_category,
-        ingredientKey: row.ingredient_key,
-        source: row.source,
-        confidence: {
-            main: row.confidence_main,
-            sub: row.confidence_sub,
-            ingredientKey: row.confidence_ingredient
-        },
-        cacheStatus: row.cache_status || undefined,
-        timestamp: row.updated_at
-    };
+export function getAll(): Classification[] {
+  return (getDb().prepare('SELECT normalized_name AS name FROM classifications ORDER BY normalized_name').all() as {name:string}[]).map(row => get(row.name)!);
 }
-
-/**
- * Henter category cache entry for gitt product key
- * @returns CategoryCacheData eller null hvis ikke funnet
- */
-export function get(productKey: string): CategoryCacheData | null {
-    const db = getDb();
-    
-    const stmt = db.prepare<[string], CategoryCacheRow>(
-        'SELECT * FROM category_cache WHERE product_key = ?'
-    );
-    
-    const row = stmt.get(productKey);
-    return row ? rowToData(row) : null;
+export function remove(normalizedName: string): void {
+  const db = getDb();
+  db.transaction(() => {
+    db.prepare('DELETE FROM classification_categories WHERE normalized_name=?').run(normalizedName);
+    db.prepare('DELETE FROM classifications WHERE normalized_name=?').run(normalizedName);
+  })();
 }
-
-/**
- * Henter alle category cache entries
- * @returns Record<productKey, CategoryCacheData>
- */
-export function getAll(): Record<string, CategoryCacheData> {
-    const db = getDb();
-    
-    const stmt = db.prepare<[], CategoryCacheRow>(
-        'SELECT * FROM category_cache'
-    );
-    
-    const rows = stmt.all();
-    const result: Record<string, CategoryCacheData> = {};
-    
-    for (const row of rows) {
-        result[row.product_key] = rowToData(row);
-    }
-    
-    return result;
-}
-
-/**
- * Setter/oppdaterer category cache entry (UPSERT)
- */
-export function upsert(productKey: string, data: CategoryCacheData): void {
-    const db = getDb();
-    
-    const stmt = db.prepare(`
-        INSERT INTO category_cache (
-            product_key,
-            main_category,
-            sub_category,
-            ingredient_key,
-            source,
-            confidence_main,
-            confidence_sub,
-            confidence_ingredient,
-            cache_status
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(product_key) DO UPDATE SET
-            main_category = excluded.main_category,
-            sub_category = excluded.sub_category,
-            ingredient_key = excluded.ingredient_key,
-            source = excluded.source,
-            confidence_main = excluded.confidence_main,
-            confidence_sub = excluded.confidence_sub,
-            confidence_ingredient = excluded.confidence_ingredient,
-            cache_status = excluded.cache_status
-    `);
-    
-    stmt.run(
-        productKey,
-        data.mainCategory,
-        data.subCategory,
-        data.ingredientKey,
-        data.source,
-        data.confidence.main,
-        data.confidence.sub,
-        data.confidence.ingredientKey,
-        data.cacheStatus || null
-    );
-}
-
-/**
- * Sletter en cache entry
- */
-export function remove(productKey: string): void {
-    const db = getDb();
-    const stmt = db.prepare('DELETE FROM category_cache WHERE product_key = ?');
-    stmt.run(productKey);
-}
-
-/**
- * Sletter alle cache entries (for testing/reset)
- */
-export function clear(): void {
-    const db = getDb();
-    db.prepare('DELETE FROM category_cache').run();
-}
-
-/**
- * Teller antall entries i cache
- */
-export function count(): number {
-    const db = getDb();
-    const result = db.prepare<[], { count: number }>('SELECT COUNT(*) as count FROM category_cache').get();
-    return result?.count || 0;
+export function save(name: string, ids: string[], source: 'manual'|'ai', confidence: number | null = null, reason: string | null = null): void {
+  if (!name || normalizeTitle(name) !== name) throw new Error('Ugyldig normalizedName');
+  const direct = ids.length ? directCategories(ids) : [];
+  const db = getDb();
+  db.transaction(() => {
+    // An AI response must never replace an existing manual correction or cached result.
+    if (source === 'ai' && get(name)) return;
+    const needsReview = !!reason || !direct.length || (source === 'ai' && (confidence === null || confidence < .9));
+    db.prepare(`INSERT INTO classifications(normalized_name,source,needs_review,confidence,review_reason,attempts) VALUES (?,?,?,?,?,?)
+      ON CONFLICT(normalized_name) DO UPDATE SET source=excluded.source,needs_review=excluded.needs_review,confidence=excluded.confidence,review_reason=excluded.review_reason,attempts=classifications.attempts + excluded.attempts,updated_at=CURRENT_TIMESTAMP`)
+      .run(name, source, Number(needsReview), confidence, reason, source === 'ai' ? 1 : 0);
+    db.prepare('DELETE FROM classification_categories WHERE normalized_name=?').run(name);
+    for (const id of direct) db.prepare('INSERT INTO classification_categories VALUES (?,?)').run(name,id);
+  })();
 }

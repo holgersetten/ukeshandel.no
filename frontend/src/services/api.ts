@@ -1,91 +1,18 @@
-import axios from 'axios';
-import type { OffersResponse, CategoryHierarchy, CategorizeRequest } from '../types/offer';
-
-const API_BASE_URL = 'http://localhost:5000/api';
-
+﻿import axios from 'axios';
+import type { OffersResponse, Category, CategorizeRequest, Classification } from '../types/offer';
+const api = axios.create({baseURL:'http://localhost:5000/api'});
 export const offersApi = {
-  getAllOffers: async (): Promise<OffersResponse> => {
-    const response = await axios.get<OffersResponse>(`${API_BASE_URL}/offers`);
-    return response.data;
-  },
-
-  getOffersByStore: async (storeName: string): Promise<OffersResponse> => {
-    const response = await axios.get<OffersResponse>(`${API_BASE_URL}/offers`, {
-      params: { store: storeName }
-    });
-    return response.data;
-  },
-
-  getOffersNeedingReview: async (): Promise<OffersResponse> => {
-    const response = await axios.get<OffersResponse>(`${API_BASE_URL}/offers/review`);
-    return response.data;
-  },
-
-  getCategories: async (): Promise<{ categories: CategoryHierarchy }> => {
-    const response = await axios.get<{ categories: CategoryHierarchy }>(`${API_BASE_URL}/categories`);
-    return response.data;
-  },
-
-  categorizeOffer: async (data: CategorizeRequest): Promise<{ success: boolean; message: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/offers/categorize`, data);
-    return response.data;
-  },
-
-  updateOffers: async (): Promise<{ message: string; timestamp: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/offers/update`);
-    return response.data;
-  },
-
-  getOfferImage: async (hotspotId: string): Promise<{ hotspotId: string; images: { view: string | null; zoom: string | null; thumb: string | null }; bestImage: string | null }> => {
-    const response = await axios.get(`${API_BASE_URL}/offers/${hotspotId}/image`);
-    return response.data;
-  },
-
-  // Category management
-  addSubCategory: async (mainCategory: string, subCategory: string): Promise<{ success: boolean; message: string; note: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/categories/subcategory/add`, {
-      mainCategory,
-      subCategory
-    });
-    return response.data;
-  },
-
-  removeSubCategory: async (mainCategory: string, subCategory: string): Promise<{ success: boolean; message: string; note: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/categories/subcategory/remove`, {
-      mainCategory,
-      subCategory
-    });
-    return response.data;
-  },
-
-  renameSubCategory: async (mainCategory: string, oldName: string, newName: string): Promise<{ success: boolean; message: string; note: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/categories/subcategory/rename`, {
-      mainCategory,
-      oldName,
-      newName
-    });
-    return response.data;
-  },
-
-  addMainCategory: async (mainCategory: string): Promise<{ success: boolean; message: string; note: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/categories/main/add`, {
-      mainCategory
-    });
-    return response.data;
-  },
-
-  removeMainCategory: async (mainCategory: string): Promise<{ success: boolean; message: string; note: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/categories/main/remove`, {
-      mainCategory
-    });
-    return response.data;
-  },
-
-  renameMainCategory: async (oldName: string, newName: string): Promise<{ success: boolean; message: string; note: string }> => {
-    const response = await axios.post(`${API_BASE_URL}/categories/main/rename`, {
-      oldName,
-      newName
-    });
-    return response.data;
-  }
+  getAllOffers: async () => (await api.get<OffersResponse>('/offers')).data,
+  getOffersByStore: async (store: string) => (await api.get<OffersResponse>('/offers',{params:{store}})).data,
+  getOffersNeedingReview: async () => (await api.get<OffersResponse>('/offers/review')).data,
+  getHistoricalReview: async () => (await api.get<{classifications:Classification[]}>('/classifications/review')).data,
+  getCategories: async () => (await api.get<{categories:Category[]}>('/categories')).data,
+  categorizeOffer: async (data: CategorizeRequest) => (await api.post('/offers/categorize',data)).data,
+  retryClassification: async (normalizedName: string) => (await api.post('/classifications/retry',{normalizedName})).data,
+  retryAllClassifications: async () => (await api.post<{count:number;message:string}>('/classifications/retry-all')).data,
+  updateOffers: async ():Promise<{success:boolean;message:string}> => (await api.post('/offers/update')).data,
+  saveCategory: async (category: {id?:string;name:string;parentId:string|null}) => category.id
+    ? (await api.put<Category>('/categories/'+category.id,category)).data
+    : (await api.post<Category>('/categories',category)).data,
+  deleteCategory: async (id:string) => (await api.delete('/categories/'+id)).data
 };

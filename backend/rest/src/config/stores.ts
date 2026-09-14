@@ -18,11 +18,13 @@ export const STORES: Store[] = [
     { name: "Coop Mega", dealerId: "de79dm", active: true, logo: "coop_mega_logo.png" },
     { name: "Coop Prix", dealerId: "f5d5lm", active: true, logo: "coop_prix_logo.png" },
     { name: "Coop Marked", dealerId: "68baam", active: true, logo: "coop_marked_logo.png" },
-    // Deaktivert butikker
+    { name: "Joker", dealerId: "b3e8Fm", active: true, logo: "joker_logo.png" },
+    { name: "Matkroken", dealerId: "2686gD", active: true, logo: "matkroken_logo.png" },
+    // Deaktivert butikker 
     // { name: "Holdbart", dealerId: "pR2h9x", active: false },
     // { name: "Eurocash", dealerId: "c7f7VC", active: false },
     // { name: "Europris", dealerId: "e857Mm", active: false },
-    // { name: "Oda", dealerId: "7kuNoZ", active: false }
+    // { name: "Oda", dealerId: "7kuNoZ", active: false } 
 ];
 
 export const getActiveStores = (): Store[] => STORES.filter(store => store.active);

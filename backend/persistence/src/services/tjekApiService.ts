@@ -77,11 +77,58 @@ class TjekApiService {
         }
     }
 
+    async getActiveCatalogs(dealerId: string): Promise<Catalog[]> {
+        try {
+            const now = new Date().toISOString();
+            // Hent alle kataloger publisert siste 30 dager
+            const url = `${this.baseURL}/catalogs?dealer_id=${dealerId}&order_by=-publication_date&limit=10`;
+            const response = await axios.get<Catalog[]>(url, { headers: this.headers });
+            const catalogs = response.data || [];
+            
+            // Filtrer til kataloger som er aktive nå (run_from <= now <= run_till)
+            const activeCatalogs = catalogs.filter(catalog => {
+                const runFrom = catalog.run_from ? new Date(catalog.run_from) : null;
+                const runTill = catalog.run_till ? new Date(catalog.run_till) : null;
+                const nowDate = new Date(now);
+                
+                const isActive = 
+                    (!runFrom || runFrom <= nowDate) && 
+                    (!runTill || runTill >= nowDate);
+                
+                return isActive;
+            });
+            
+            // Gruppér kataloger etter periode (run_from + run_till) for å unngå duplikater
+            // Velg kun den første (nyeste) katalogen fra hver periode
+            const uniquePeriods = new Map<string, typeof activeCatalogs[0]>();
+            
+            activeCatalogs.forEach(catalog => {
+                const periodKey = `${catalog.run_from}_${catalog.run_till}`;
+                if (!uniquePeriods.has(periodKey)) {
+                    uniquePeriods.set(periodKey, catalog);
+                }
+            });
+            
+            const uniqueCatalogs = Array.from(uniquePeriods.values());
+            
+            console.log(`📚 Fant ${activeCatalogs.length} aktive kataloger (${uniqueCatalogs.length} unike perioder) for dealer ${dealerId}`);
+            return uniqueCatalogs;
+        } catch (error) {
+            console.error(`❌ Feil ved henting av aktive kataloger for dealer ${dealerId}:`, (error as Error).message);
+            return [];
+        }
+    }
+
     async getCatalogHotspots(catalogId: string): Promise<Hotspot[]> {
         try {
+            // Tjek API returnerer ALLE hotspots uten å respektere pagination
+            // Vi henter derfor bare én gang uten offset/limit
             const url = `${this.baseURL}/catalogs/${catalogId}/hotspots`;
             const response = await axios.get<Hotspot[]>(url, { headers: this.headers });
-            return response.data || [];
+            const hotspots = response.data || [];
+
+            console.log(`📦 Hentet ${hotspots.length} hotspots for katalog ${catalogId}`);
+            return hotspots;
         } catch (error) {
             console.error(`❌ Feil ved henting av hotspots for katalog ${catalogId}:`, (error as Error).message);
             return [];
@@ -90,15 +137,18 @@ class TjekApiService {
 
     async getStoreOffers(dealerId: string): Promise<TransformedOffer[]> {
         try {
+            // Hent kun den nyeste katalogen (den er som oftest gjeldende ukeavis)
             const catalog = await this.getLatestCatalog(dealerId);
             if (!catalog) {
                 console.warn(`⚠️ Ingen katalog funnet for dealer ${dealerId}`);
                 return [];
             }
 
+            // Hent alle hotspots fra katalogen (uten pagination)
             const hotspots = await this.getCatalogHotspots(catalog.id);
             const offers = this.transformHotspotsToOffers(hotspots);
             
+            console.log(`✅ ${offers.length} tilbud fra katalog ${catalog.id} for dealer ${dealerId}`);
             return offers;
         } catch (error) {
             console.error(`❌ Feil ved henting av tilbud for dealer ${dealerId}:`, (error as Error).message);
@@ -163,12 +213,49 @@ class TjekApiService {
                     size: size,
                     validFrom: offer?.run_from || null,
                     validTo: offer?.run_till || null,
-                    imageUrl: offer?.images?.[0]?.view?.zoom?.url || null,
+                    imageUrl: this.extractImageUrl(offer?.images) || null,
                     offerId: offer?.id || null,
                     catalogId: hotspot.catalog_id,
                     hotspotId: hotspot.id
                 };
             });
+    }
+
+    private extractImageUrl(images: unknown): string | null {
+        if (!images) return null;
+
+        const visit = (value: unknown): string | null => {
+            if (!value) return null;
+
+            if (typeof value === 'string') {
+                return value.startsWith('http') ? value : null;
+            }
+
+            if (Array.isArray(value)) {
+                for (const item of value) {
+                    const url = visit(item);
+                    if (url) return url;
+                }
+                return null;
+            }
+
+            if (typeof value !== 'object') return null;
+
+            const object = value as Record<string, unknown>;
+            for (const key of ['view', 'zoom', 'thumb', 'url', 'src', 'image']) {
+                const found = visit(object[key]);
+                if (found) return found;
+            }
+
+            for (const nested of Object.values(object)) {
+                const found = visit(nested);
+                if (found) return found;
+            }
+
+            return null;
+        };
+
+        return visit(images);
     }
 }
 

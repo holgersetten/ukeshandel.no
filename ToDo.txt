@@ -1,0 +1,18 @@
+﻿Videre arbeid innenfor innhenting og korrekt kategorisering [AI]:
+- Verifisere at alle relevante aktive Tjek-kataloger blir hentet.
+- Skille tomt resultat fra innhentingsfeil og vise dette per butikk.
+- Vise gyldighetsperiode og skille lagrede tilbud fra aktive tilbud.
+- Måle kategoriseringskvalitet med et manuelt kontrollert utvalg.
+- Gjennomgå navnekonfliktene i kontrollkøen etter migrering.
+
+
+
+ToDo (forbedringer, ikke rangert etter viktighet):
+
+- Søkemotor:    gjerne vise mest relevant produkt først
+- Beste tilbud: må vise ukens mest relevante tilbud
+- Alle tilbud:  trenger ikke laste alle ~600 tilbud samtidig, gjerne kun 30 om gangen
+- Filtrering:   En x som enkelt kan fjerne alle filtre
+- Admin:        Admin-knapp skal ikke være synlig
+- Mobil:        Gjøre siden mobil-vennlig, siden den hovedsakelig skal brukes på mobil
+- Landing-page: Gjør landingssiden penere og mer informativ og brukervennlig

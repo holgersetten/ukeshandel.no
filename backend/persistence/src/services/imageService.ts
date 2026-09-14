@@ -1,153 +1,109 @@
 import axios from 'axios';
+import config from '../../../rest/src/config';
 
-interface OfferImages {
-    view: string | null;
-    zoom: string | null;
-    thumb: string | null;
-    error?: string;
-}
-
-interface CacheEntry {
-    data: OfferImages;
-    timestamp: number;
-}
+interface ImageResponse { view?: string | null; zoom?: string | null; thumb?: string | null }
 
 class ImageService {
-    private baseUrl: string;
-    private cache: Map<string, CacheEntry>;
-    private cacheTimeout: number;
+  private readonly baseUrl = config.tjekApiBaseUrl;
+  private readonly cache = new Map<string, { value: ImageResponse; at: number }>();
+  private readonly ttl = 60 * 60 * 1000;
+  private readonly requestTimeout = 30000;
+  private readonly maxConcurrency = 5;
+  private readonly maxRetries = 2;
 
-    constructor() {
-        this.baseUrl = 'https://api.etilbudsavis.dk/v2';
-        this.cache = new Map();
-        this.cacheTimeout = 60 * 60 * 1000; // 1 hour
+  private extractFirstImageUrl(value: unknown): string | null {
+    if (!value) return null;
+
+    if (typeof value === 'string') {
+      return value.startsWith('http') ? value : null;
     }
 
-    async getOfferImage(offerId: string): Promise<OfferImages> {
-        try {
-            // Check cache first
-            const cacheKey = `offer_${offerId}`;
-            const cached = this.cache.get(cacheKey);
-            if (cached && (Date.now() - cached.timestamp < this.cacheTimeout)) {
-                return cached.data;
-            }
-
-            const response = await axios.get(`${this.baseUrl}/offers/${offerId}`, {
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Accept': 'application/json'
-                },
-                timeout: 5000
-            });
-
-            const offerData = response.data;
-            
-            // Extract image URLs
-            const images: OfferImages = {
-                view: offerData?.images?.view || null,
-                zoom: offerData?.images?.zoom || null,
-                thumb: offerData?.images?.thumb || null
-            };
-
-            // Cache the result
-            this.cache.set(cacheKey, {
-                data: images,
-                timestamp: Date.now()
-            });
-
-            return images;
-
-        } catch (error) {
-            // Ikke log 404 - mange tilbud har ikke tilgjengelige bilder
-            const axiosError = error as any;
-            if (axiosError.response?.status !== 404) {
-                console.error(`❌ Error fetching image for offer ${offerId}:`, (error as Error).message);
-            }
-            
-            return {
-                view: null,
-                zoom: null,
-                thumb: null,
-                error: (error as Error).message
-            };
-        }
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        const url = this.extractFirstImageUrl(item);
+        if (url) return url;
+      }
+      return null;
     }
 
-    // Get best available image (prefer view -> zoom -> thumb for better quality)
-    getBestImage(images: OfferImages): string | null {
-        return images.view || images.zoom || images.thumb || null;
+    if (typeof value !== 'object') return null;
+
+    const object = value as Record<string, unknown>;
+    const preferredKeys = ['view', 'zoom', 'thumb', 'url', 'src', 'image'] as const;
+
+    for (const key of preferredKeys) {
+      const nested = object[key];
+      const url = this.extractFirstImageUrl(nested);
+      if (url) return url;
     }
 
-    // Clear cache (useful for testing or memory management)
-    clearCache(): void {
-        this.cache.clear();
-        console.log('🗑️ Image cache cleared');
+    for (const nested of Object.values(object)) {
+      const url = this.extractFirstImageUrl(nested);
+      if (url) return url;
     }
 
-    // Get cache stats
-    getCacheStats(): { total: number; valid: number; expired: number } {
-        const now = Date.now();
-        const entries = Array.from(this.cache.entries());
-        const validEntries = entries.filter(([, value]) => 
-            (now - value.timestamp) < this.cacheTimeout
-        );
-        
-        return {
-            total: entries.length,
-            valid: validEntries.length,
-            expired: entries.length - validEntries.length
+    return null;
+  }
+
+  private async fetchOfferImage(offerId: string): Promise<ImageResponse> {
+    for (let attempt = 1; attempt <= this.maxRetries + 1; attempt++) {
+      try {
+        const response = await axios.get(`${this.baseUrl}/offers/${encodeURIComponent(offerId)}`, {
+          timeout: this.requestTimeout,
+          headers: { 'User-Agent': 'Ukeshandel.no/1.0', Accept: 'application/json' }
+        });
+
+        const raw = response.data?.images;
+        const view = this.extractFirstImageUrl(raw?.view ?? raw?.view?.url ?? raw?.view?.zoom ?? raw?.view?.zoom?.url ?? raw);
+        const zoom = this.extractFirstImageUrl(raw?.zoom ?? raw?.zoom?.url ?? raw);
+        const thumb = this.extractFirstImageUrl(raw?.thumb ?? raw?.thumb?.url ?? raw);
+        const images: ImageResponse = {
+          view: view || null,
+          zoom: zoom || null,
+          thumb: thumb || null
         };
+
+        this.cache.set(offerId, { value: images, at: Date.now() });
+        return images;
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 404) return {};
+
+        const shouldRetry = axios.isAxiosError(error)
+          && (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT' || error.response?.status === 429 || (error.response?.status ?? 0) >= 500 || /timeout/i.test(error.message));
+
+        if (!shouldRetry || attempt > this.maxRetries) {
+          if (!axios.isAxiosError(error) || error.response?.status !== 404) {
+            console.warn(`Bilde kunne ikke hentes for tilbud ${offerId}:`, (error as Error).message);
+          }
+          return {};
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 250 * attempt));
+      }
     }
 
-    // Batch fetch images for multiple offers (for weekly-update pipeline)
-    async fetchImagesForOffers<T extends { offerId?: string | null; imageUrl?: string | null }>(offers: T[]): Promise<T[]> {
-        console.log(`🖼️  Henter bilder for ${offers.length} tilbud...`);
-        
-        const offersNeedingImages = offers.filter(o => !o.imageUrl && o.offerId);
-        
-        if (offersNeedingImages.length === 0) {
-            console.log('✅ Alle tilbud har allerede bilder');
-            return offers;
-        }
+    return {};
+  }
 
-        console.log(`📸 ${offersNeedingImages.length} tilbud mangler bilder`);
-        
-        // Batch processing (20 parallelle kall av gangen)
-        const batchSize = 20;
-        const batches: T[][] = [];
-        for (let i = 0; i < offersNeedingImages.length; i += batchSize) {
-            batches.push(offersNeedingImages.slice(i, i + batchSize));
-        }
+  async getOfferImage(offerId: string): Promise<ImageResponse> {
+    const cached = this.cache.get(offerId);
+    if (cached && Date.now() - cached.at < this.ttl) return cached.value;
+    return this.fetchOfferImage(offerId);
+  }
 
-        let fetchedCount = 0;
-        let successCount = 0;
+  async enrichOffers<T extends { offerId?: string | null; imageUrl?: string | null }>(offers: T[]): Promise<T[]> {
+    const missing = offers.filter(offer => !offer.imageUrl && offer.offerId);
 
-        for (let i = 0; i < batches.length; i++) {
-            const batch = batches[i];
-            const results = await Promise.allSettled(
-                batch.map(offer => this.getOfferImage(offer.offerId!))
-            );
-
-            results.forEach((result, idx) => {
-                fetchedCount++;
-                if (result.status === 'fulfilled') {
-                    const imageUrl = this.getBestImage(result.value);
-                    if (imageUrl) {
-                        batch[idx].imageUrl = imageUrl;
-                        successCount++;
-                    }
-                }
-            });
-
-            // Progress update hver 5. batch
-            if ((i + 1) % 5 === 0 || i === batches.length - 1) {
-                console.log(`   📊 Progress: ${fetchedCount}/${offersNeedingImages.length} (${successCount} bilder funnet)`);
-            }
-        }
-
-        console.log(`✅ Bildhenting fullført: ${successCount}/${offersNeedingImages.length} bilder hentet\n`);
-        return offers;
+    for (let i = 0; i < missing.length; i += this.maxConcurrency) {
+      const batch = missing.slice(i, i + this.maxConcurrency);
+      const results = await Promise.all(batch.map(offer => this.getOfferImage(offer.offerId!)));
+      results.forEach((images, index) => {
+        const url = images.view || images.zoom || images.thumb;
+        if (url) batch[index].imageUrl = url;
+      });
     }
+
+    return offers;
+  }
 }
-
 export default new ImageService();

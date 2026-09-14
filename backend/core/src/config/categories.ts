@@ -1,259 +1,63 @@
-/**
- * Hierarkisk kategoristruktur for middagstilbud
- * Hovedkategorier med underkategorier for bedre filtrering og måltidsplanlegging
- */
+﻿import { randomUUID } from 'crypto';
+import { getDb } from '../db/db';
 
-export const CATEGORY_HIERARCHY = {
-  "Frukt & grønt": [
-    "Bær",
-    "Frosne bær og grønnsaker",
-    "Frukt",
-    "Fruktkurv",
-    "Grønnsaker",
-    "Krydderurter",
-    "Poteter",
-    "Sopp",
-    "Salat"
-  ],
-  "Fisk & skalldyr": [
-    "Fisk",
-    "Fiskeburger",
-    "Hvalkjøtt",
-    "Skalldyr",
-    "Skjell",
-    "Sushi",
-    "Tørket fisk"
-  ],
-  "Brød": [
-    "Boller og småkaker",
-    "Brød",
-    "Hamburgerbrød",
-    "Knekkebrød",
-    "Lefser",
-    "Loff",
-    "Lomper",
-    "Maiskaker",
-    "Pita og nan",
-    "Pølsebrød",
-    "Baguetter",
-    "Riskaker",
-    "Rundstykker"
-  ],
-  "Middag": [
-    "Ferdigretter",
-    "Fiskeretter",
-    "Grøt",
-    "Middagshermetikk",
-    "Nudler",
-    "Pasta",
-    "Ris",
-    "Wok",
-    "Pizza",
-    "Supper",
-    "Taco",
-    "Vegetarretter"
-  ],
-  "Kylling og fjærkre": [
-    "And",
-    "Kalkun",
-    "Kylling",
-    "Rype"
-  ],
-  "Meieri & egg": [
-    "Cottage cheese",
-    "Creme fraiche",
-    "Egg",
-    "Fløte",
-    "Kesam",
-    "Melk",
-    "Smør og margarin",
-    "Proteinpudding",
-    "Rømme",
-    "Yoghurt",
-    "Drikkeyoghurt"
-  ],
-  "Pålegg & frokost": [
-    "Bacon",
-    "Fiskepålegg",
-    "Frokostblandinger og müsli",
-    "Kjøttpålegg",
-    "Leverpostei",
-    "Påleggsalat",
-    "Syltetøy og honning",
-    "Vegansk pålegg",
-    "Tubeost"
-  ],
-  "Kjøtt": [
-    "Hamburger",
-    "Kjøttdeig og farse",
-    "Lammekjøtt",
-    "Pølser",
-    "Storfekjøtt",
-    "Svinekjøtt",
-    "Viltkjøtt",
-    "Kjøttkaker og kjøttboller"
-  ],
-  "Tilbehør": [
-    "Eddik",
-    "Dip",
-    "Hermetisk grønt",
-    "Ketchup og sennep",
-    "Kokosmelk",
-    "Kraft og buljong",
-    "Krydder",
-    "Linser og bønner",
-    "Marinader og BBQ-saus",
-    "Matoljer",
-    "Middagssalat",
-    "Oliven",
-    "Pizzatopping",
-    "Potetsalat",
-    "Sauser og dressing",
-    "Stuinger",
-    "Sushitilbehør",
-    "Fries"
-  ],
-  "Drikke": [
-    "Brus",
-    "Drinkmikser",
-    "Energidrikk",
-    "Ferdigdrinker",
-    "Iskaffe",
-    "Iste",
-    "Juice",
-    "Kaffe",
-    "Leskedrikk",
-    "Saft",
-    "Sjokoladedrikk",
-    "Smoothie",
-    "Te",
-    "Toddy",
-    "Vann",
-    "Øl og cider"
-  ],
-  "Ost": [
-    "Blåmuggost",
-    "Brunost",
-    "Cheddar",
-    "Fetaost",
-    "Gulost",
-    "Halloumi",
-    "Mozzarella",
-    "Parmesan",
-    "Plantebasert ost",
-    "Revet ost",
-    "Smøreoster",
-    "Øvrig ost"
-  ],
-  "Dessert og iskrem": [
-    "Dessertpuddinger",
-    "Dessertsaucer",
-    "Dessertsuppe",
-    "Gele",
-    "Hermetisk frukt og bær",
-    "Is",
-    "Mousse",
-    "Riskrem",
-    "Tiramisu"
-  ],
-  "Baking": [
-    "Bakemixer",
-    "Melis",
-    "Bakepulver",
-    "Gjær",
-    "Mel",
-    "Havregryn",
-    "Sukker",
-    "Sukkerbiter",
-    "Tørket frukt og nøtter"
-  ],
-  "Snacks, godteri & sjokolade": [
-    "Dip",
-    "Godteri",
-    "Nøtter",
-    "Pastiller",
-    "Popcorn",
-    "Sjokolade",
-    "Tyggegummi",
-    "Mellommåltid",
-    "Muffins",
-    "Kjeks",
-    "Potetgull"
-  ],
-  "Barneprodukter": [
-    "Babyartikler",
-    "Barnemat"
-  ],
-  "Personlige artikler": [
-    "Barbering",
-    "Bind og tamponger",
-    "Briller",
-    "Helsekost",
-    "Hår og hud",
-    "Klær",
-    "Personlig hygiene",
-    "Sminke",
-    "Tannpleie"
-  ],
-  "Hus & hjem": [
-    "Belysning",
-    "Bilpleie",
-    "Borddekning og servietter",
-    "Byggevarer",
-    "Dopapir og tørkerull",
-    "Grill",
-    "Kjøkken",
-    "Klesvask",
-    "Klær og sko",
-    "Kontorrekvisita",
-    "Oppvarming",
-    "Poser, papir og folie",
-    "Renhold",
-    "Sikkerhet",
-    "Fest",
-    "Sport",
-    "Verktøy",
-    "Leker"
-  ],
-  "Dyr": [
-    "Dyreartikler",
-    "Fuglemat",
-    "Hundemat",
-    "Kattemat"
-  ],
-  "Blomster og planter": [
-    "Blomster",
-    "Plantejord",
-    "Plantenæring",
-    "Potteplanter"
-  ],
-  "Ukategorisert": [
-    "Ukategorisert"
-  ]
-} as const;
-
-export type MainCategory = keyof typeof CATEGORY_HIERARCHY;
-export type SubCategory = typeof CATEGORY_HIERARCHY[MainCategory][number];
-
-export const MAIN_CATEGORIES = Object.keys(CATEGORY_HIERARCHY) as MainCategory[];
-
-export const DEFAULT_MAIN_CATEGORY: MainCategory = "Ukategorisert";
-export const DEFAULT_SUB_CATEGORY: SubCategory = "Ukategorisert";
-
-export function isValidMainCategory(cat: string): cat is MainCategory {
-  return MAIN_CATEGORIES.includes(cat as MainCategory);
+export interface Category { id: string; name: string; parentId: string | null }
+export function getCategories(): Category[] {
+  return getDb().prepare('SELECT id,name,parent_id AS parentId FROM categories ORDER BY name,id').all() as Category[];
 }
-
-export function getSubCategories(mainCat: MainCategory): readonly SubCategory[] {
-  return CATEGORY_HIERARCHY[mainCat] as readonly SubCategory[];
+export function withAncestors(ids: string[], categories = getCategories()): string[] {
+  const byId = new Map(categories.map(c => [c.id, c]));
+  const result = new Set<string>();
+  for (const id of ids) {
+    let current: string | null = id;
+    const seen = new Set<string>();
+    while (current) {
+      if (seen.has(current)) throw new Error('Syklus i kategorihierarkiet');
+      seen.add(current);
+      const category = byId.get(current);
+      if (!category) throw new Error('Ukjent kategori: ' + current);
+      result.add(current);
+      current = category.parentId;
+    }
+  }
+  return [...result];
 }
-
-export function isValidSubCategory(mainCat: MainCategory, subCat: string): boolean {
-  const subCategories = CATEGORY_HIERARCHY[mainCat] as readonly SubCategory[];
-  return subCategories.includes(subCat as SubCategory);
+export function directCategories(value: unknown, max = 3): string[] {
+  if (!Array.isArray(value) || !value.length || value.length > max || value.some(id => typeof id !== 'string')) {
+    throw new Error('Velg 1–' + max + ' kategorier');
+  }
+  if (new Set(value).size !== value.length) throw new Error('Dupliserte kategorier');
+  const categories = getCategories();
+  withAncestors(value, categories);
+  return value.filter(id => !value.some(other => other !== id && withAncestors([other], categories).includes(id)));
 }
-
-// Legacy support - deprecated
-export const CATEGORIES = MAIN_CATEGORIES;
-export type Category = MainCategory;
-export const DEFAULT_CATEGORY = DEFAULT_MAIN_CATEGORY;
+export function saveCategory(id: string | undefined, name: unknown, parentId: unknown): Category {
+  if (typeof name !== 'string' || !name.trim() || name.trim().length > 120) throw new Error('Ugyldig kategorinavn');
+  if (parentId !== null && typeof parentId !== 'string') throw new Error('Ugyldig parentId');
+  const all = getCategories();
+  if (id && !all.some(c => c.id === id)) throw new Error('Kategorien finnes ikke');
+  const key = id || randomUUID();
+  if (parentId && withAncestors([parentId], all).includes(key)) throw new Error('En kategori kan ikke være sin egen forelder');
+  if (parentId === key) throw new Error('En kategori kan ikke være sin egen forelder');
+  if (all.some(c => c.id !== key && c.parentId === parentId && c.name.toLowerCase() === name.trim().toLowerCase())) throw new Error('Kategorien finnes allerede under denne forelderen');
+  const db = getDb();
+  db.transaction(() => {
+    db.prepare('INSERT INTO categories(id,name,parent_id) VALUES (?,?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name,parent_id=excluded.parent_id').run(key, name.trim(), parentId);
+    // Keep only direct links after moving a category beneath an already assigned ancestor.
+    for (const row of db.prepare('SELECT DISTINCT normalized_name AS name FROM classification_categories').all() as {name:string}[]) {
+      const ids = (db.prepare('SELECT category_id AS id FROM classification_categories WHERE normalized_name=?').all(row.name) as {id:string}[]).map(c=>c.id);
+      const direct = directCategories(ids, Number.MAX_SAFE_INTEGER);
+      for (const obsolete of ids.filter(cid=>!direct.includes(cid))) db.prepare('DELETE FROM classification_categories WHERE normalized_name=? AND category_id=?').run(row.name, obsolete);
+    }
+  })();
+  return { id: key, name: name.trim(), parentId: parentId as string | null };
+}
+export function deleteCategory(id: string): void {
+  const db = getDb();
+  if (!getCategories().some(c => c.id === id)) throw new Error('Kategorien finnes ikke');
+  if (getCategories().some(c => c.parentId === id)) throw new Error('Flytt eller slett underkategoriene først');
+  db.transaction(() => {
+    db.prepare("UPDATE classifications SET needs_review=1,review_reason='Kategori slettet' WHERE normalized_name IN (SELECT normalized_name FROM classification_categories WHERE category_id=?)").run(id);
+    db.prepare('DELETE FROM categories WHERE id=?').run(id);
+  })();
+}

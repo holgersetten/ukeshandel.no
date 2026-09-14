@@ -1,3 +1,12 @@
+﻿export interface Category { id: string; name: string; parentId: string | null }
+export interface Classification {
+  normalizedName: string;
+  categoryIds: string[];
+  source: 'manual' | 'ai';
+  needsReview: boolean;
+  confidence: number | null;
+  reviewReason: string | null;
+}
 export interface Offer {
   title: string;
   description?: string;
@@ -17,28 +26,15 @@ export interface Offer {
   hotspotId?: string;
   store: string;
   storeLogo?: string;
-  mainCategory?: string;
-  subCategory?: string;
-  ingredientKey?: string;
-  categorySource?: 'manual' | 'rule' | 'ai' | 'unknown';
-  categoryConfidence?: number;
-  productKey?: string;
-  isActive?: boolean; // false = gammelt/utgått tilbud
+  normalizedName: string;
+  categoryIds: string[];
+  effectiveCategoryIds: string[];
+  categories: Category[];
+  categorySource: string;
+  categoryConfidence: number | null;
+  needsReview: boolean;
+  reviewReason: string | null;
+  isActive?: boolean;
 }
-
-export interface CategoryHierarchy {
-  [mainCategory: string]: string[];
-}
-
-export interface CategorizeRequest {
-  productKey: string;
-  mainCategory: string;
-  subCategory: string;
-  ingredientKey: string;
-}
-
-export interface OffersResponse {
-  count: number;
-  store: string;
-  offers: Offer[];
-}
+export interface CategorizeRequest { normalizedName: string; categoryIds: string[] }
+export interface OffersResponse { count: number; offers: Offer[] }
