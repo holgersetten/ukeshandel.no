@@ -1,5 +1,12 @@
-﻿export interface Category { id: string; name: string; parentId: string | null }
+export type Facet = 'product_type' | 'ingredient' | 'dish' | 'dietary' | 'usage';
+export interface Category { id: string; name: string; parentId: string | null; facet?:Facet; definition?:string; assignable?:boolean; active?:boolean }
+export interface Assignment { categoryId:string; facet:Facet; relation:''|'is_dish'|'for_dish' }
 export interface Classification {
+  stale?:boolean;
+  conceptId?:string;
+  assignments?:Assignment[];
+  input?:Partial<Offer>[];
+  manualLock?:boolean;
   normalizedName: string;
   categoryIds: string[];
   source: 'manual' | 'ai';
@@ -8,6 +15,15 @@ export interface Classification {
   reviewReason: string | null;
 }
 export interface Offer {
+  offerOccurrenceId?:string;
+  conceptId?:string;
+  assignments?:Assignment[];
+  classificationLayer?:'legacy'|'concept'|'legacy-fallback';
+  stale?:boolean;
+  manualLock?:boolean;
+  promptVersion?:string|null;
+  taxonomyVersion?:string|null;
+  model?:string|null;
   title: string;
   description?: string;
   price: number;

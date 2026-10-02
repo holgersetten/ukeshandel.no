@@ -1,0 +1,255 @@
+{
+  "datasetVersion": "category-gold-v1",
+  "mode": "live-ai",
+  "promptVersion": "concept-classification-v1:evidence-v1",
+  "taxonomyVersion": "taxonomy-v2:882e6d4daa7db65c809aaf4c1096ff0722e30ffb3ad2b37bb1a8b750504bf526",
+  "model": "gpt-4o-mini",
+  "fixtureCases": 8,
+  "identityResults": [
+    {
+      "left": "raw-lamb",
+      "right": "raw-lamb-reordered",
+      "sameConcept": true,
+      "requiresManualApproval": true,
+      "passed": true
+    },
+    {
+      "left": "raw-lamb",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    },
+    {
+      "left": "brand-only",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    }
+  ],
+  "results": [
+    {
+      "id": "sour-cream",
+      "passed": false,
+      "productTypeCorrect": false,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "3e9b08a1a6ecfe971622242b",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kjøtt"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "seasoned-scampi",
+      "passed": false,
+      "productTypeCorrect": false,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "99aba2f3d448a08d731e25e2",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Fisk & skalldyr"
+        },
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb",
+      "passed": false,
+      "productTypeCorrect": false,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "3e9b08a1a6ecfe971622242b",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb-reordered",
+      "passed": false,
+      "productTypeCorrect": false,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "3e9b08a1a6ecfe971622242b",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "prepared-lamb",
+      "passed": false,
+      "productTypeCorrect": false,
+      "needsReview": true,
+      "reasons": [
+        "invalid_relation"
+      ],
+      "actual": [],
+      "expected": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish"
+        }
+      ]
+    },
+    {
+      "id": "plain-lamb",
+      "passed": false,
+      "productTypeCorrect": false,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "3e9b08a1a6ecfe971622242b",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "brand-only",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    },
+    {
+      "id": "assortment",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    }
+  ],
+  "metrics": {
+    "exactAccuracy": 0.25,
+    "productTypeAccuracy": 0.25,
+    "reviewRate": 0.375
+  }
+}

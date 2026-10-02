@@ -1,0 +1,321 @@
+{
+  "datasetVersion": "category-gold-v1",
+  "mode": "live-ai",
+  "promptVersion": "concept-classification-v4:evidence-v2",
+  "taxonomyVersion": "taxonomy-v2:882e6d4daa7db65c809aaf4c1096ff0722e30ffb3ad2b37bb1a8b750504bf526",
+  "model": "gpt-4.1-mini",
+  "fixtureCases": 8,
+  "identityResults": [
+    {
+      "left": "raw-lamb",
+      "right": "raw-lamb-reordered",
+      "sameConcept": true,
+      "requiresManualApproval": true,
+      "passed": true
+    },
+    {
+      "left": "raw-lamb",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    },
+    {
+      "left": "brand-only",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    }
+  ],
+  "results": [
+    {
+      "id": "sour-cream",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "seasoned-scampi",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        },
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb-reordered",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "prepared-lamb",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish"
+        }
+      ]
+    },
+    {
+      "id": "plain-lamb",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "brand-only",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    },
+    {
+      "id": "assortment",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    }
+  ],
+  "metrics": {
+    "exactAccuracy": 1,
+    "productTypeAccuracy": 1,
+    "reviewRate": 0.25,
+    "perFacet": {
+      "product_type": {
+        "truePositives": 6,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "ingredient": {
+        "truePositives": 5,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "dish": {
+        "truePositives": 3,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "dietary": {
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": null,
+        "recall": null
+      },
+      "usage": {
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": null,
+        "recall": null
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿const {test,after,afterEach,mock}=require('node:test');
+﻿const {test,after,beforeEach,afterEach,mock}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');const os=require('node:os');const path=require('node:path');
 const Database=require('better-sqlite3');
@@ -7,6 +7,7 @@ process.env.DB_PATH=path.join(temporary,'test.db');
 process.env.OFFERS_DIR=path.join(temporary,'offers');
 process.env.CATEGORIES_FILE=path.join(__dirname,'../persistence/src/resources/categories.json');
 process.env.SKIP_AI='true';
+process.env.CATEGORY_MODE='legacy';
 process.env.ADMIN_API_KEY='test-admin';
 fs.mkdirSync(process.env.OFFERS_DIR);
 // Representative old rows: same name across stores, manual priority, conflicting manual corrections.
@@ -29,6 +30,7 @@ const updater=require('../core/src/services/offerUpdateService');
 const id=name=>categories.getCategories().find(c=>c.name===name).id;
 const lasagne={title:'  VegetarLASAGNE! ',store:'Meny',price:35,currency:'NOK',size:500,unit:'g',offerId:'one',description:'Vegetarisk ferdigrett'};
 fs.writeFileSync(path.join(process.env.OFFERS_DIR,'meny_offers.json'),JSON.stringify([{...lasagne,productKey:'old',mainCategory:'old',ingredientKey:'old'}]));
+beforeEach(()=>mock.method(require('../persistence/src/services/imageService').default,'enrichOffers',async items=>items));
 afterEach(()=>{mock.restoreAll();process.env.SKIP_AI='true';delete process.env.OPENAI_API_KEY;});
 after(()=>{database.closeDb();assert.equal(path.dirname(temporary),fs.realpathSync(os.tmpdir()));assert.ok(path.basename(temporary).startsWith('ukeshandel-test-'));fs.rmSync(temporary,{recursive:true});});
 

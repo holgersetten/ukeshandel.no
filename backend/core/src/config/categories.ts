@@ -1,9 +1,17 @@
 ﻿import { randomUUID } from 'crypto';
 import { getDb } from '../db/db';
+import { conceptMode } from '../services/concepts/config';
+import { getTaxonomy } from '../db/productConceptRepo';
 
-export interface Category { id: string; name: string; parentId: string | null }
-export function getCategories(): Category[] {
+export interface Category { id: string; name: string; parentId: string | null; facet?: string; definition?:string; assignable?:boolean; active?:boolean }
+export function getLegacyCategories(): Category[] {
   return getDb().prepare('SELECT id,name,parent_id AS parentId FROM categories ORDER BY name,id').all() as Category[];
+}
+export function getCategories(): Category[] {
+  if (conceptMode()!=='concept') return getLegacyCategories();
+  const taxonomy=getTaxonomy();
+  // Include IDs used by the retained legacy fallback, but they cannot be chosen for new concept decisions.
+  return [...taxonomy,...getLegacyCategories().filter(c=>!taxonomy.some(t=>t.id===c.id)).map(c=>({...c,assignable:false}))];
 }
 export function withAncestors(ids: string[], categories = getCategories()): string[] {
   const byId = new Map(categories.map(c => [c.id, c]));
@@ -27,14 +35,14 @@ export function directCategories(value: unknown, max = 3): string[] {
     throw new Error('Velg 1–' + max + ' kategorier');
   }
   if (new Set(value).size !== value.length) throw new Error('Dupliserte kategorier');
-  const categories = getCategories();
+  const categories = getLegacyCategories();
   withAncestors(value, categories);
   return value.filter(id => !value.some(other => other !== id && withAncestors([other], categories).includes(id)));
 }
 export function saveCategory(id: string | undefined, name: unknown, parentId: unknown): Category {
   if (typeof name !== 'string' || !name.trim() || name.trim().length > 120) throw new Error('Ugyldig kategorinavn');
   if (parentId !== null && typeof parentId !== 'string') throw new Error('Ugyldig parentId');
-  const all = getCategories();
+  const all = getLegacyCategories();
   if (id && !all.some(c => c.id === id)) throw new Error('Kategorien finnes ikke');
   const key = id || randomUUID();
   if (parentId && withAncestors([parentId], all).includes(key)) throw new Error('En kategori kan ikke være sin egen forelder');
@@ -54,8 +62,8 @@ export function saveCategory(id: string | undefined, name: unknown, parentId: un
 }
 export function deleteCategory(id: string): void {
   const db = getDb();
-  if (!getCategories().some(c => c.id === id)) throw new Error('Kategorien finnes ikke');
-  if (getCategories().some(c => c.parentId === id)) throw new Error('Flytt eller slett underkategoriene først');
+  if (!getLegacyCategories().some(c => c.id === id)) throw new Error('Kategorien finnes ikke');
+  if (getLegacyCategories().some(c => c.parentId === id)) throw new Error('Flytt eller slett underkategoriene først');
   db.transaction(() => {
     db.prepare("UPDATE classifications SET needs_review=1,review_reason='Kategori slettet' WHERE normalized_name IN (SELECT normalized_name FROM classification_categories WHERE category_id=?)").run(id);
     db.prepare('DELETE FROM categories WHERE id=?').run(id);

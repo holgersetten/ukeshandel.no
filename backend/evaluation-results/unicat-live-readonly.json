@@ -1,0 +1,565 @@
+{
+  "generatedAt": "2026-10-02T21:45:32.412Z",
+  "scope": "GET endpoints and readonly SQLite; no source refetch, AI call, classification write or alias approval",
+  "mode": {
+    "mode": "concept",
+    "taxonomyVersion": "taxonomy-v2:882e6d4daa7db65c809aaf4c1096ff0722e30ffb3ad2b37bb1a8b750504bf526",
+    "promptVersion": "concept-classification-v4:evidence-v2"
+  },
+  "offers": 686,
+  "uniqueOccurrences": 686,
+  "uniqueConcepts": 562,
+  "identities": {
+    "allRepeatedIdsStable": true,
+    "usingCatalogId": 0,
+    "usingPeriodFallback": 686
+  },
+  "review": {
+    "offers": 665,
+    "uniqueConcepts": 544,
+    "stale": 665,
+    "manualLocked": 0
+  },
+  "classificationLayers": {
+    "concept": 608,
+    "legacy-fallback": 78
+  },
+  "frontend": {
+    "reachable": false,
+    "error": "fetch failed",
+    "interactiveBrowserTest": false
+  },
+  "issues": [],
+  "cases": [
+    {
+      "case": "Lettrømme 0,5 %",
+      "match": "related-only-not-the-requested-exact-product",
+      "observedTitle": "TINE LETTRØMME OG EKSTRA LETT",
+      "store": "Bunnpris",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_4ebbaad95deeb3a4b4b4fe4f4a9be885b876c2563729dd38dd4b37001fa9b244",
+      "concept_id": "legacy_f2b3a2e70109048b4d160a3fe3af4b8e2af2e211ce330e6b321bd4c80aa2b27a",
+      "aliasUsed": {
+        "id": "1ce59088340c69ab211d6f85b2b97ce2e75a374b3ffff4ac8ecd57dc1f516ac9",
+        "normalizedTitle": "tine lettrømme og ekstra lett",
+        "scopeKey": "offer:occ_4ebbaad95deeb3a4b4b4fe4f4a9be885b876c2563729dd38dd4b37001fa9b244",
+        "conceptId": "legacy_f2b3a2e70109048b4d160a3fe3af4b8e2af2e211ce330e6b321bd4c80aa2b27a",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "concept",
+        "displayedCategories": [
+          {
+            "id": "d7752f191461d4143c228664",
+            "name": "Rømme"
+          }
+        ],
+        "conceptAssignments": [
+          {
+            "categoryId": "d7752f191461d4143c228664",
+            "facet": "product_type",
+            "relation": "",
+            "name": "Rømme"
+          }
+        ]
+      },
+      "product_type": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "source": "manual",
+      "manual_lock": true,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "storedClassificationSource": "manual",
+      "storedOriginalInputCount": 1,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Navnevariant av lettrømme",
+      "match": "not-found-in-current-offers",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": null,
+      "concept_id": null,
+      "aliasUsed": null,
+      "conceptState": null,
+      "activeClassification": null,
+      "product_type": null,
+      "ingredient": null,
+      "dish": null,
+      "source": null,
+      "manual_lock": null,
+      "stale": null,
+      "needs_review": null,
+      "imageFallbackAttempted": null
+    },
+    {
+      "case": "Coop Scampi Hvitløk & Urter",
+      "match": "related-only-not-the-requested-exact-product",
+      "observedTitle": "COOP SCAMPI",
+      "store": "Coop Mega",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_458fef7b1d94b2ce4eba88ad18883eaf6d3064bd8d2e7bc50a522635f3b36e1d",
+      "concept_id": "legacy_fdd5adffaa3084afd47a48bf49f898b570164fba8152d2003e89a51e959de9ca",
+      "aliasUsed": {
+        "id": "d0594708feafa6417797b205ea71fb5f0c0ece792ed6fbfdd8caf37a3248306d",
+        "normalizedTitle": "coop scampi",
+        "scopeKey": "offer:occ_458fef7b1d94b2ce4eba88ad18883eaf6d3064bd8d2e7bc50a522635f3b36e1d",
+        "conceptId": "legacy_fdd5adffaa3084afd47a48bf49f898b570164fba8152d2003e89a51e959de9ca",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "concept",
+        "displayedCategories": [
+          {
+            "id": "c3782078f6d7a77a2100be6a",
+            "name": "Skalldyr"
+          }
+        ],
+        "conceptAssignments": [
+          {
+            "categoryId": "c3782078f6d7a77a2100be6a",
+            "facet": "product_type",
+            "relation": "",
+            "name": "Skalldyr"
+          }
+        ]
+      },
+      "product_type": [
+        {
+          "categoryId": "c3782078f6d7a77a2100be6a",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Skalldyr"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 1,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Lam fårikålkjøtt",
+      "match": "current-title-match",
+      "observedTitle": "LAM FÅRIKÅLKJØTT",
+      "store": "Bunnpris",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_6d1314c7690bcb02c9ebb6dc7552db0b3fddcbdea37f5a42da8849b4335208b2",
+      "concept_id": "legacy_151dff47846cb4d8f26217420e09fc7cbc1c75dd6e1fc1f1cf96ac90c4b56c0f",
+      "aliasUsed": {
+        "id": "d47838ea330e850b7d7ba3695814def673be92b700de03edaf5b0a17ba1d080c",
+        "normalizedTitle": "lam fårikålkjøtt",
+        "scopeKey": "offer:occ_6d1314c7690bcb02c9ebb6dc7552db0b3fddcbdea37f5a42da8849b4335208b2",
+        "conceptId": "legacy_151dff47846cb4d8f26217420e09fc7cbc1c75dd6e1fc1f1cf96ac90c4b56c0f",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "concept",
+        "displayedCategories": [
+          {
+            "id": "9a101bf032d63d0147b6c6cd",
+            "name": "Viltkjøtt"
+          }
+        ],
+        "conceptAssignments": [
+          {
+            "categoryId": "9a101bf032d63d0147b6c6cd",
+            "facet": "product_type",
+            "relation": "",
+            "name": "Viltkjøtt"
+          }
+        ]
+      },
+      "product_type": [
+        {
+          "categoryId": "9a101bf032d63d0147b6c6cd",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Viltkjøtt"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 3,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Fårikålkjøtt lam",
+      "match": "current-title-match",
+      "observedTitle": "FÅRIKÅLKJØTT LAM",
+      "store": "Rema 1000",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_f6aafe9979bbec73174b217132b60fa4b3838805d9bb81134c4f7f7c32d1d520",
+      "concept_id": "legacy_bc382bd0fc299a7aa395b3d85fbd62cca6fa2ee90f0027b446b4819e7e76ec54",
+      "aliasUsed": {
+        "id": "92cae89f0c029a0863a19f5658af28210643e879574e0f9f16e4a5443873d7a8",
+        "normalizedTitle": "fårikålkjøtt lam",
+        "scopeKey": "offer:occ_f6aafe9979bbec73174b217132b60fa4b3838805d9bb81134c4f7f7c32d1d520",
+        "conceptId": "legacy_bc382bd0fc299a7aa395b3d85fbd62cca6fa2ee90f0027b446b4819e7e76ec54",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "concept",
+        "displayedCategories": [
+          {
+            "id": "3e9b08a1a6ecfe971622242b",
+            "name": "Kjøtt"
+          }
+        ],
+        "conceptAssignments": [
+          {
+            "categoryId": "3e9b08a1a6ecfe971622242b",
+            "facet": "product_type",
+            "relation": "",
+            "name": "Kjøtt"
+          }
+        ]
+      },
+      "product_type": [
+        {
+          "categoryId": "3e9b08a1a6ecfe971622242b",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kjøtt"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 3,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Fjordland Fårikål",
+      "match": "related-only-not-the-requested-exact-product",
+      "observedTitle": "FÅRIKÅL",
+      "store": "Bunnpris",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_fad90075fb8ca20db339242370640debd675abef47bf96d4d050a1f99e587711",
+      "concept_id": "legacy_317ad539a4cffc9441364c8bb20628cc534a437a551566c186140009c2f185d6",
+      "aliasUsed": {
+        "id": "70df09e2fd2d299b6b1f4ea9ff7517ada939427ff26cf22309927d5869dc85b1",
+        "normalizedTitle": "fårikål",
+        "scopeKey": "offer:occ_fad90075fb8ca20db339242370640debd675abef47bf96d4d050a1f99e587711",
+        "conceptId": "legacy_317ad539a4cffc9441364c8bb20628cc534a437a551566c186140009c2f185d6",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "legacy-fallback",
+        "displayedCategories": [
+          {
+            "id": "78832e2ffd8b08d963edf826",
+            "name": "Middag"
+          },
+          {
+            "id": "f39965a5cc9edac44cb89cf9",
+            "name": "Kjøttkaker og kjøttboller"
+          }
+        ],
+        "conceptAssignments": []
+      },
+      "product_type": [],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_taxonomy_conflict, legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 1,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Generisk Fjordland",
+      "match": "current-title-match",
+      "observedTitle": "Fjordland",
+      "store": "Spar",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_c6b8e89333348be797c1c589f79e298a38333c192cf0fffc13fd7fdee19899aa",
+      "concept_id": "legacy_0903ebe460aaf317ed962acd84b2db5aac2601eed4518f0b03b9e28238fcca25",
+      "aliasUsed": {
+        "id": "7c7c07b771a2fadd5ec248d1c7c1661aae8baba75d74b0ea8603fd6ec87e8fcf",
+        "normalizedTitle": "fjordland",
+        "scopeKey": "offer:occ_c6b8e89333348be797c1c589f79e298a38333c192cf0fffc13fd7fdee19899aa",
+        "conceptId": "legacy_0903ebe460aaf317ed962acd84b2db5aac2601eed4518f0b03b9e28238fcca25",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "concept",
+        "displayedCategories": [
+          {
+            "id": "855f97b2c5713d5e40f27fd0",
+            "name": "Ferdigretter"
+          }
+        ],
+        "conceptAssignments": [
+          {
+            "categoryId": "855f97b2c5713d5e40f27fd0",
+            "facet": "product_type",
+            "relation": "",
+            "name": "Ferdigretter"
+          }
+        ]
+      },
+      "product_type": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 1,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Vanlig kyllingfilet",
+      "match": "current-title-match",
+      "observedTitle": "KYLLINGFILET",
+      "store": "Kiwi",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_62952125ede36828a8b1c38b20840547e0197fcb9b6363b93b2ad286061df1b9",
+      "concept_id": "legacy_9b35c463fb12bbf5057f84d00f76625bc406d636da299d2d5a5deebca9bea6c2",
+      "aliasUsed": {
+        "id": "5a3c6531ec88f3ac69089b98fa53fe926abbbd7d37a6f87009b5ebb564fcab5c",
+        "normalizedTitle": "kyllingfilet",
+        "scopeKey": "offer:occ_62952125ede36828a8b1c38b20840547e0197fcb9b6363b93b2ad286061df1b9",
+        "conceptId": "legacy_9b35c463fb12bbf5057f84d00f76625bc406d636da299d2d5a5deebca9bea6c2",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "concept",
+        "displayedCategories": [
+          {
+            "id": "779f5c08855825ab1085e83e",
+            "name": "Kylling"
+          }
+        ],
+        "conceptAssignments": [
+          {
+            "categoryId": "779f5c08855825ab1085e83e",
+            "facet": "product_type",
+            "relation": "",
+            "name": "Kylling"
+          }
+        ]
+      },
+      "product_type": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 1,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Marinert kyllingfilet",
+      "match": "related-only-not-the-requested-exact-product",
+      "observedTitle": "PRIOR KYLLINGFILET PEPPER & HVITLØK",
+      "store": "Bunnpris",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_44fddc83893f3d2af1374960dac6e38f1811f253618af7600a2de35531d53463",
+      "concept_id": "legacy_d7d4df09edc8b291257c11cac273d18195ed057589a3cea1dd6ee75810f15206",
+      "aliasUsed": {
+        "id": "882dc604568a6f8f6e03100586f60cc2766f2173ff048d0cb43eef059c845ca9",
+        "normalizedTitle": "prior kyllingfilet pepper hvitløk",
+        "scopeKey": "offer:occ_44fddc83893f3d2af1374960dac6e38f1811f253618af7600a2de35531d53463",
+        "conceptId": "legacy_d7d4df09edc8b291257c11cac273d18195ed057589a3cea1dd6ee75810f15206",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "legacy-fallback",
+        "displayedCategories": [
+          {
+            "id": "3e9b08a1a6ecfe971622242b",
+            "name": "Kjøtt"
+          },
+          {
+            "id": "baf01ff55d7ea681b3594a75",
+            "name": "Kylling og fjærkre"
+          }
+        ],
+        "conceptAssignments": []
+      },
+      "product_type": [],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_taxonomy_conflict, legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 1,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Ferdigpizza",
+      "match": "current-title-match",
+      "observedTitle": "PIZZA SUPREME SALAME",
+      "store": "Kiwi",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": "occ_8e5b4dc174c50673485cb10563cc23e6f9297994521493c6536eb5130c01995b",
+      "concept_id": "legacy_560586478f1e2fc88126c2cbdaa050751409fb6ccfdca11e52c4795eba259ec2",
+      "aliasUsed": {
+        "id": "0674ab747271a1a75ff4bea72f8ad42d0b947f3c1dcd03f4c9799f62441d1f8b",
+        "normalizedTitle": "pizza supreme salame",
+        "scopeKey": "offer:occ_8e5b4dc174c50673485cb10563cc23e6f9297994521493c6536eb5130c01995b",
+        "conceptId": "legacy_560586478f1e2fc88126c2cbdaa050751409fb6ccfdca11e52c4795eba259ec2",
+        "status": "approved"
+      },
+      "conceptState": "existing; read-only audit creates nothing",
+      "activeClassification": {
+        "layer": "legacy-fallback",
+        "displayedCategories": [
+          {
+            "id": "0b085c562c2b1e7631968593",
+            "name": "Pizza"
+          },
+          {
+            "id": "3e9b08a1a6ecfe971622242b",
+            "name": "Kjøtt"
+          }
+        ],
+        "conceptAssignments": []
+      },
+      "product_type": [],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": true,
+      "needs_review": true,
+      "reviewReason": "legacy_taxonomy_conflict, legacy_ai_stale",
+      "storedClassificationSource": "ai",
+      "storedOriginalInputCount": 1,
+      "imageFallbackAttempted": null,
+      "imageFallbackAttemptedInThisReadOnlyAudit": false,
+      "imageFallbackNote": "Historical attempts are not persisted; cannot infer them from imageUrl"
+    },
+    {
+      "case": "Vegetarvare",
+      "match": "not-found-in-current-offers",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": null,
+      "concept_id": null,
+      "aliasUsed": null,
+      "conceptState": null,
+      "activeClassification": null,
+      "product_type": null,
+      "ingredient": null,
+      "dish": null,
+      "source": null,
+      "manual_lock": null,
+      "stale": null,
+      "needs_review": null,
+      "imageFallbackAttempted": null
+    },
+    {
+      "case": "Svært vag tittel",
+      "match": "not-found-in-current-offers",
+      "dataSource": "real-stored-offers",
+      "offerOccurrenceId": null,
+      "concept_id": null,
+      "aliasUsed": null,
+      "conceptState": null,
+      "activeClassification": null,
+      "product_type": null,
+      "ingredient": null,
+      "dish": null,
+      "source": null,
+      "manual_lock": null,
+      "stale": null,
+      "needs_review": null,
+      "imageFallbackAttempted": null
+    }
+  ],
+  "unchanged": {
+    "databaseRows": true,
+    "offerFiles": true,
+    "taxonomyFile": true
+  },
+  "databaseContentHash": "0f681b5a262099a9dae1ccc9e1cdb96ca6a5a06fe9708ee326dd73ae202a5bde",
+  "offerFileHashes": {
+    "bunnpris_offers.json": "64b2baf920779f812ddcb1b8d7a60c9a33122847390ef915e3a21bb3008fb32c",
+    "coop_extra_offers.json": "4cf35ca1b5732f495d628cbf58daaf91d69d38dcdd31a05b4df563090a7a30d4",
+    "coop_marked_offers.json": "1b1af9a850b62afe2c0fec02276c7f9ae23b07ab1b0c3250dd62efe52418aebb",
+    "coop_mega_offers.json": "ec7ea99b98b14c7680fb27268fe4068f22c22d0ff189f9986aff526223f2d6df",
+    "coop_prix_offers.json": "8f361e5773736c5877467329252dc9b87942c70a740c8831ea5fef8adf1b9cdb",
+    "joker_offers.json": "9f39816b48a53bed13094cf99c6dc7b221b7b28f67ff2e9df860960abc3a25ca",
+    "kiwi_offers.json": "02f70bcda7039cad1584e1f2a0e394911fa4aa244cb17c2e7e8545a92bc97b17",
+    "matkroken_offers.json": "0ae590d506697336ee5f81c0a6614c3546bfd6aaaef225d3ad5c98745a2002f6",
+    "meny_offers.json": "7b58973cea357e6422f8ed350e8d4e31d3ba428793324ec9045354d7d1edde83",
+    "obs_offers.json": "7742f95c2450f8384c31a9a5d840254210e7634e00b4ba6fc5c9d8ffd24c153c",
+    "rema_1000_offers.json": "8c5797cb70264c5b6e8c24aba00b9c9c8d2c197a878bf252dd3a69392d0b7a4d",
+    "spar_offers.json": "4d2c0f304d547c10c4179e7022c1e746c299f6f2b5f3e0e05702c6572ec0a888"
+  }
+}

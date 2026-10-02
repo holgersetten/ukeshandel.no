@@ -1,0 +1,877 @@
+{
+  "generatedAt": "2026-10-02T21:54:13.632Z",
+  "scope": "isolated SQLite and original source-shaped fixtures; no production writes or external AI requests",
+  "promptVersion": "concept-classification-v4:evidence-v2",
+  "taxonomyVersion": "taxonomy-v2:882e6d4daa7db65c809aaf4c1096ff0722e30ffb3ad2b37bb1a8b750504bf526",
+  "cases": [
+    {
+      "case": "same-catalog-first-fetch",
+      "title": "Lettrømme 0,5 %",
+      "dataSource": "synthetic-Tjek-hotspot through real transform and JSON ingestion",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
+      "concept_id": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+      "aliasUsed": {
+        "id": "c41bdd50-ac3f-4935-8bb5-834ebd7a1b92",
+        "normalizedTitle": "lettrømme 0 5",
+        "scopeKey": "offer:occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
+        "conceptId": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "imageFallbackAttempted": false
+    },
+    {
+      "case": "same-catalog-refetch",
+      "title": "Lettrømme 0,5 %",
+      "dataSource": "synthetic-Tjek-hotspot through real transform and JSON ingestion",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
+      "concept_id": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+      "aliasUsed": {
+        "id": "c41bdd50-ac3f-4935-8bb5-834ebd7a1b92",
+        "normalizedTitle": "lettrømme 0 5",
+        "scopeKey": "offer:occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
+        "conceptId": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+        "status": "approved"
+      },
+      "conceptState": "existing",
+      "activeClassification": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "imageFallbackAttempted": false
+    },
+    {
+      "case": "new-catalog-approved-alias",
+      "title": "Lettrømme 0,5 %",
+      "dataSource": "synthetic-Tjek-hotspot through real transform and JSON ingestion",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_2e9574d8a821c2ccfb6a1b6d6e5b5907e555f0bbe385ade3ede482df384e149e",
+      "concept_id": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+      "aliasUsed": {
+        "id": "28b4c21d-9c4d-4bd2-9956-590345297f3a",
+        "normalizedTitle": "lettrømme 0 5",
+        "scopeKey": "global",
+        "conceptId": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+        "status": "approved"
+      },
+      "conceptState": "existing",
+      "activeClassification": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "imageFallbackAttempted": false
+    },
+    {
+      "case": "cream",
+      "title": "Lettrømme 0,5 %",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_48836444a71424cfc8884148c1d0fc2dc82ef870bda526cfde258bdfc3f6956a",
+      "concept_id": "0546f367-562e-4ee2-9286-5c77184fbaec",
+      "aliasUsed": {
+        "id": "4be8be88-a99a-4874-bfe7-868ba5740072",
+        "normalizedTitle": "lettrømme 0 5",
+        "scopeKey": "offer:occ_48836444a71424cfc8884148c1d0fc2dc82ef870bda526cfde258bdfc3f6956a",
+        "conceptId": "0546f367-562e-4ee2-9286-5c77184fbaec",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "cream-variant",
+      "title": "Lettrømme 0.5 prosent",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_3d92bf5c7df6d871e5fb5e8f3582b398223aa0df0642c32c694e9d6ad55c4b1b",
+      "concept_id": "0546f367-562e-4ee2-9286-5c77184fbaec",
+      "aliasUsed": {
+        "id": "e5510d7b-3127-427e-be9f-bf5a0fe872bb",
+        "normalizedTitle": "lettrømme 0 5 prosent",
+        "scopeKey": "global",
+        "conceptId": "0546f367-562e-4ee2-9286-5c77184fbaec",
+        "status": "approved"
+      },
+      "conceptState": "existing",
+      "activeClassification": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "scampi",
+      "title": "Coop Scampi Hvitløk & Urter",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_1890138049dc83520cf279aee5723b1bf3e49a401e8d8ad8b8d1a173f0514601",
+      "concept_id": "71cad605-ec5c-4fbc-9e03-6b8413762dc2",
+      "aliasUsed": {
+        "id": "68fe96af-51e0-425d-a5e7-4df83d39f46b",
+        "normalizedTitle": "coop scampi hvitløk urter",
+        "scopeKey": "offer:occ_1890138049dc83520cf279aee5723b1bf3e49a401e8d8ad8b8d1a173f0514601",
+        "conceptId": "71cad605-ec5c-4fbc-9e03-6b8413762dc2",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        },
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "lamb",
+      "title": "Lam fårikålkjøtt",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
+      "concept_id": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+      "aliasUsed": {
+        "id": "4788b2e8-00e5-4f98-9723-dbe09f011c59",
+        "normalizedTitle": "lam fårikålkjøtt",
+        "scopeKey": "offer:occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
+        "conceptId": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "lamb-variant",
+      "title": "Fårikålkjøtt lam",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_17e4aa30cde11da4575a5ca2de624abbb52f5be9c809549cf56ca4e892446988",
+      "concept_id": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+      "aliasUsed": {
+        "id": "3404a570-58de-44a8-8d2d-6c85e13edcb5",
+        "normalizedTitle": "fårikålkjøtt lam",
+        "scopeKey": "global",
+        "conceptId": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+        "status": "approved"
+      },
+      "conceptState": "existing",
+      "activeClassification": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "prepared",
+      "title": "Fjordland Fårikål",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_5fdfacb4cabe3d8b1d26a2e072731b30b9394531172371195a4a0bd3c7add5f4",
+      "concept_id": "bbf18c0b-11e4-4915-834b-ecc0fa45ef66",
+      "aliasUsed": {
+        "id": "976ef4a9-87eb-4abd-bde7-e5fb6d6e7a67",
+        "normalizedTitle": "fjordland fårikål",
+        "scopeKey": "offer:occ_5fdfacb4cabe3d8b1d26a2e072731b30b9394531172371195a4a0bd3c7add5f4",
+        "conceptId": "bbf18c0b-11e4-4915-834b-ecc0fa45ef66",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        }
+      ],
+      "ingredient": [],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "generic",
+      "title": "Fjordland",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_516936c112af2c6d6994e17da07822e33c8ab124e4b741d6724cd04eee4510f1",
+      "concept_id": "50dc4930-963d-4582-a6a6-fbad755ddb50",
+      "aliasUsed": {
+        "id": "d4475b88-1872-41af-adde-177de356b60b",
+        "normalizedTitle": "fjordland",
+        "scopeKey": "offer:occ_516936c112af2c6d6994e17da07822e33c8ab124e4b741d6724cd04eee4510f1",
+        "conceptId": "50dc4930-963d-4582-a6a6-fbad755ddb50",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [],
+      "product_type": [],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": true,
+      "reviewReason": "missing_image_for_ambiguous_text, insufficient_evidence, no_categories, requires_one_product_type",
+      "imageFallbackAttempted": false,
+      "classificationLayer": "legacy-fallback"
+    },
+    {
+      "case": "chicken",
+      "title": "Kyllingfilet",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_b0e8015c13fdc6dabf910d9f54f7ff121ae4c963f01af9216a68894d9aff115b",
+      "concept_id": "da383512-f460-452e-9beb-1f1d6340bb04",
+      "aliasUsed": {
+        "id": "dd6a598b-5ef3-4665-8c20-0446793c745f",
+        "normalizedTitle": "kyllingfilet",
+        "scopeKey": "offer:occ_b0e8015c13fdc6dabf910d9f54f7ff121ae4c963f01af9216a68894d9aff115b",
+        "conceptId": "da383512-f460-452e-9beb-1f1d6340bb04",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "marinated-chicken",
+      "title": "Marinert kyllingfilet hvitløk",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_499b79006f85da3e828c820d578423963dabe2a822a5c6270669b1aed5236262",
+      "concept_id": "4334ad04-a454-47d4-b764-18f562602cba",
+      "aliasUsed": {
+        "id": "79962026-e4f5-493a-97d9-1b6d5ccfdb9f",
+        "normalizedTitle": "marinert kyllingfilet hvitløk",
+        "scopeKey": "offer:occ_499b79006f85da3e828c820d578423963dabe2a822a5c6270669b1aed5236262",
+        "conceptId": "4334ad04-a454-47d4-b764-18f562602cba",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "pizza",
+      "title": "Ferdigpizza",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_b25e8184079bbd91379f492d00450d2c4cd6cc2ccacafbd068ba728d0cf8809f",
+      "concept_id": "d59b434b-893d-4314-82f3-e5a9cb977285",
+      "aliasUsed": {
+        "id": "9daabba4-0e7f-4b01-addd-e73fa6d19563",
+        "normalizedTitle": "ferdigpizza",
+        "scopeKey": "offer:occ_b25e8184079bbd91379f492d00450d2c4cd6cc2ccacafbd068ba728d0cf8809f",
+        "conceptId": "d59b434b-893d-4314-82f3-e5a9cb977285",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "0b085c562c2b1e7631968593",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Pizza"
+        },
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Pizza"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "0b085c562c2b1e7631968593",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Pizza"
+        }
+      ],
+      "ingredient": [],
+      "dish": [
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Pizza"
+        }
+      ],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "vegetarian",
+      "title": "Vegetarrett glutenfri",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_25e5935affc991c06db5255727d5511243eb5473c76e7df29d9e5b766483a452",
+      "concept_id": "37f54b24-afc9-41a3-8526-6924cc62482c",
+      "aliasUsed": {
+        "id": "87370553-010a-4f1e-9c32-3ad12db34050",
+        "normalizedTitle": "vegetarrett glutenfri",
+        "scopeKey": "offer:occ_25e5935affc991c06db5255727d5511243eb5473c76e7df29d9e5b766483a452",
+        "conceptId": "37f54b24-afc9-41a3-8526-6924cc62482c",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "de730b7582ff9cc01a91af76",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Vegetarretter"
+        },
+        {
+          "categoryId": "dietary_3b59806a2e5c2727bf9fb189",
+          "facet": "dietary",
+          "relation": "",
+          "name": "Glutenfri"
+        },
+        {
+          "categoryId": "dietary_8a40ad5aa9e4ae0ecd527a89",
+          "facet": "dietary",
+          "relation": "",
+          "name": "Vegetar"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "de730b7582ff9cc01a91af76",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Vegetarretter"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "vague",
+      "title": "Ukens favoritt",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_e4feda6adfced0b6c5f1f99ef08b2ea8cf177582e47f4f6ec340b5491e392872",
+      "concept_id": "2d953240-ff31-4d31-9cf8-9f6af22cc9c2",
+      "aliasUsed": {
+        "id": "6f959e5b-33ab-4435-86c5-9cc0fe5f5bf9",
+        "normalizedTitle": "ukens favoritt",
+        "scopeKey": "offer:occ_e4feda6adfced0b6c5f1f99ef08b2ea8cf177582e47f4f6ec340b5491e392872",
+        "conceptId": "2d953240-ff31-4d31-9cf8-9f6af22cc9c2",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        },
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        }
+      ],
+      "dish": [],
+      "source": "ai",
+      "manual_lock": false,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": true,
+      "classificationLayer": "concept"
+    },
+    {
+      "case": "lamb-after-manual-lock",
+      "title": "Lam fårikålkjøtt",
+      "dataSource": "synthetic-fixture",
+      "ai": "mock",
+      "offerOccurrenceId": "occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
+      "concept_id": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+      "aliasUsed": {
+        "id": "4788b2e8-00e5-4f98-9723-dbe09f011c59",
+        "normalizedTitle": "lam fårikålkjøtt",
+        "scopeKey": "offer:occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
+        "conceptId": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+        "status": "approved"
+      },
+      "conceptState": "new",
+      "activeClassification": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "product_type": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "source": "manual",
+      "manual_lock": true,
+      "stale": false,
+      "needs_review": false,
+      "reviewReason": null,
+      "imageFallbackAttempted": false,
+      "classificationLayer": "concept"
+    }
+  ]
+}

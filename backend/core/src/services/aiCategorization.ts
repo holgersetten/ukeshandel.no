@@ -1,5 +1,5 @@
 ﻿import OpenAI from 'openai';
-import { directCategories, getCategories } from '../config/categories';
+import { directCategories, getLegacyCategories as getCategories } from '../config/categories';
 export interface AIProduct { normalizedName: string; title: string; description?: string }
 export interface AICategoryResult { categoryIds: string[]; confidence: number }
 

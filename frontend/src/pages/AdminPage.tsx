@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -16,8 +17,11 @@ export default function AdminPage() {
       await offersApi.authenticate(password);
       sessionStorage.setItem('adminApiKey', password);
       setIsAuthenticated(true);
-    } catch {
-      alert('Ugyldig admin-nøkkel');
+    } catch (error) {
+      const message = axios.isAxiosError(error)
+        ? error.response?.data?.error || (error.response ? 'Innlogging feilet' : 'Kunne ikke kontakte backend på localhost. Sjekk at serveren kjører.')
+        : 'Innlogging feilet';
+      alert(message);
     }
   };
 

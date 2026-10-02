@@ -5,8 +5,14 @@ import { getActiveStores, getStoreLogoUrl, Store } from '../../../rest/src/confi
 import config from '../../../rest/src/config/index';
 import categoryService from './categoryService';
 import imageService from '../../../persistence/src/services/imageService';
+import { offerOccurrenceId } from '../utils/offerOccurrence';
+import conceptService from './concepts/conceptService';
+import { conceptMode } from './concepts/config';
 
 interface Offer {
+    offerOccurrenceId?: string;
+    source?: string;
+    brand?: string;
     title: string;
     description?: string;
     price: number | null;
@@ -74,6 +80,9 @@ class OfferService {
             }));
 
             await imageService.enrichOffers(enrichedOffers);
+            for (const offer of enrichedOffers) {
+                try {offer.offerOccurrenceId = offerOccurrenceId(offer);} catch { /* Keep legacy records without source period in the fallback. */ }
+            }
 
 
             const filename = `${store.name.toLowerCase().replace(/\s+/g, '_')}_offers.json`;
@@ -100,7 +109,7 @@ class OfferService {
             try {
                 const offers = fileService.loadJSON<Offer[]>(filePath);
                 if (Array.isArray(offers)) {
-                    allOffers.push(...offers);
+                    allOffers.push(...offers.map(offer=>({...offer,store:offer.store || store.name})));
                 }
             } catch (error) {
                 console.log(`⚠️ Kunne ikke laste tilbud for ${store.name}`);
@@ -113,7 +122,20 @@ class OfferService {
     private enrich(offer: Offer) {
         // Strip only the retired categorization fields from legacy files. Preserve source data and title.
         const { productKey, categoryKey, mainCategory, subCategory, ingredientKey, cacheStatus, ...data } = offer as Offer & Record<string,unknown>;
-        return {...data, ...categoryService.categorizeOffer(offer)};
+        let occurrenceId:string|undefined;
+        try {occurrenceId=offerOccurrenceId(offer);}catch { /* Preserve legacy offers lacking period information. */ }
+        const legacy=categoryService.categorizeOffer(offer);
+        if(conceptMode()==='concept') {
+          try {
+            const result=conceptService.read(offer);
+            if(result?.usable)return {...data,...result,classificationLayer:'concept' as const};
+            return {...data,...legacy,offerOccurrenceId:occurrenceId,conceptId:result?.conceptId,
+              assignments:result?.assignments || [],classificationLayer:'legacy-fallback' as const,
+              needsReview:true,reviewReason:result?.reviewReason || 'new_concept_requires_classification',
+              manualLock:result?.manualLock || false,stale:result?.stale ?? true};
+          } catch {return {...data,...legacy,offerOccurrenceId:occurrenceId,classificationLayer:'legacy-fallback' as const,needsReview:true,reviewReason:'missing_occurrence_identity'};}
+        }
+        return {...data,...legacy,offerOccurrenceId:occurrenceId,classificationLayer:'legacy' as const};
     }
 
     async getOffersByStore(storeName: string) {

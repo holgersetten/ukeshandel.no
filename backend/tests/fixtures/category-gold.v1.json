@@ -1,0 +1,18 @@
+{
+  "version": "category-gold-v1",
+  "cases": [
+    {"id":"sour-cream","input":{"title":"Lettrømme 0,5 %","description":"Lettrømme i beger","store":"Meny","catalogId":"test-week-1","offerId":"cream"},"expected":[{"facet":"product_type","name":"Rømme"},{"facet":"ingredient","name":"rømme"}]},
+    {"id":"seasoned-scampi","input":{"title":"Coop Scampi Hvitløk & Urter","description":"Marinerte scampi","store":"Coop Extra","catalogId":"test-week-1","offerId":"scampi"},"expected":[{"facet":"product_type","name":"Scampi"},{"facet":"ingredient","name":"scampi"}],"forbidden":[{"facet":"ingredient","name":"hvitløk"}]},
+    {"id":"raw-lamb","input":{"title":"Lam fårikålkjøtt","description":"Rått kjøtt av lam til fårikål","store":"Kiwi","catalogId":"test-week-1","offerId":"lamb"},"expected":[{"facet":"product_type","name":"Lammekjøtt"},{"facet":"ingredient","name":"lam"},{"facet":"dish","name":"Fårikål","relation":"for_dish"}]},
+    {"id":"raw-lamb-reordered","input":{"title":"Fårikålkjøtt lam","description":"Rått kjøtt av lam til fårikål","store":"Rema 1000","catalogId":"test-week-1","offerId":"lamb-2"},"expected":[{"facet":"product_type","name":"Lammekjøtt"},{"facet":"ingredient","name":"lam"},{"facet":"dish","name":"Fårikål","relation":"for_dish"}]},
+    {"id":"prepared-lamb","input":{"title":"Fjordland Fårikål","description":"Ferdig middag med poteter, varmes i mikrobølgeovn","store":"Bunnpris","catalogId":"test-week-1","offerId":"ready"},"expected":[{"facet":"product_type","name":"Ferdigretter"},{"facet":"dish","name":"Fårikål","relation":"is_dish"}],"forbidden":[{"facet":"ingredient","name":"lam"}]},
+    {"id":"plain-lamb","input":{"title":"Lammelår","description":"Rått lammelår uten krydder","store":"Meny","catalogId":"test-week-1","offerId":"leg"},"expected":[{"facet":"product_type","name":"Lammekjøtt"},{"facet":"ingredient","name":"lam"}],"forbidden":[{"facet":"dish","name":"Fårikål"}]},
+    {"id":"brand-only","input":{"title":"Fjordland","store":"Spar","catalogId":"test-week-1","offerId":"brand"},"expectedReview":true,"expected":[]},
+    {"id":"assortment","input":{"title":"Melk eller kjøttdeig","description":"Valg mellom to ulike produkter","store":"Meny","catalogId":"test-week-1","offerId":"assortment"},"expectedReview":true,"expected":[]}
+  ],
+  "identityPairs": [
+    {"left":"raw-lamb","right":"raw-lamb-reordered","sameConcept":true,"requiresManualApproval":true},
+    {"left":"raw-lamb","right":"prepared-lamb","sameConcept":false},
+    {"left":"brand-only","right":"prepared-lamb","sameConcept":false}
+  ]
+}

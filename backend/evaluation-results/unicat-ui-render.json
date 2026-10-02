@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-10-02T21:53:33.220Z",
+  "method": "Actual Vite SSR-loaded frontend components with fixture props; no interactive browser automation",
+  "checks": {
+    "twelveOffersRender": true,
+    "fiveFacetsRender": true,
+    "bothDishRelationsRender": true,
+    "manualLockBadge": true,
+    "staleBadge": true,
+    "reviewReason": true,
+    "editorsClosedInitially": true
+  },
+  "interactiveBrowserTest": false
+}

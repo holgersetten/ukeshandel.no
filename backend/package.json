@@ -20,8 +20,14 @@
     "start": "ts-node rest/src/server.ts",
     "dev": "nodemon --exec ts-node rest/src/server.ts",
     "build": "tsc",
-    "test": "node --require ts-node/register --test tests/system.test.cjs",
+    "test": "node --require ts-node/register --test tests/system.test.cjs tests/concepts.test.cjs tests/unicat-verification.test.cjs",
+    "unicat:verify": "node --require ts-node/register --test tests/unicat-verification.test.cjs",
+    "unicat:verify-live": "ts-node scripts/verifyUnicatReadOnly.ts",
     "categories:preview": "ts-node scripts/migrateCategories.ts --preview",
-    "categories:migrate": "ts-node scripts/migrateCategories.ts --apply"
+    "categories:migrate": "ts-node scripts/migrateCategories.ts --apply",
+    "concepts:preview": "ts-node scripts/migrateConcepts.ts --preview",
+    "concepts:migrate": "ts-node scripts/migrateConcepts.ts --apply",
+    "categories:validate": "ts-node scripts/evaluateCategories.ts --validate",
+    "categories:evaluate": "ts-node scripts/evaluateCategories.ts --live"
   }
 }

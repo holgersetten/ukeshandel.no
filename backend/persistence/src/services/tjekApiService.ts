@@ -146,7 +146,11 @@ class TjekApiService {
 
             // Hent alle hotspots fra katalogen (uten pagination)
             const hotspots = await this.getCatalogHotspots(catalog.id);
-            const offers = this.transformHotspotsToOffers(hotspots);
+            const offers = this.transformHotspotsToOffers(hotspots).map(offer=>({...offer,
+                catalogId:offer.catalogId || catalog.id,
+                validFrom:offer.validFrom || catalog.run_from || null,
+                validTo:offer.validTo || catalog.run_till || null
+            }));
             
             console.log(`✅ ${offers.length} tilbud fra katalog ${catalog.id} for dealer ${dealerId}`);
             return offers;

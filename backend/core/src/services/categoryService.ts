@@ -1,7 +1,9 @@
 ﻿import { normalizeTitle } from '../utils/normalizeTitle';
-import { directCategories, getCategories, withAncestors } from '../config/categories';
+import { directCategories, getLegacyCategories as getCategories, withAncestors } from '../config/categories';
 import * as cache from '../db/categoryCacheRepo';
 import { batchCategorizeWithAI, type AIProduct } from './aiCategorization';
+import { conceptMode } from './concepts/config';
+import conceptService from './concepts/conceptService';
 
 class CategoryService {
   private running: Promise<void> | null = null;
@@ -9,17 +11,22 @@ class CategoryService {
     const normalizedName = normalizeTitle(offer.title);
     const entry = cache.get(normalizedName);
     const categoryIds = entry?.categoryIds || [];
-    const effectiveCategoryIds = withAncestors(categoryIds);
+    const effectiveCategoryIds = withAncestors(categoryIds,getCategories());
     return { normalizedName, categoryIds, effectiveCategoryIds,
       categories: getCategories().filter(c => effectiveCategoryIds.includes(c.id)),
       categorySource: entry?.source || 'unknown', categoryConfidence: entry?.confidence ?? null,
       needsReview: entry?.needsReview ?? true, reviewReason: entry?.reviewReason ?? null };
   }
   async categorizeOffers<T extends {title:string;description?:string}>(offers: T[]) {
+    if (conceptMode()==='concept') {
+      await conceptService.categorize(offers);
+      return offers.map(o=>{try{const result=conceptService.read(o);if(result?.usable)return {...o,...result};}catch{/* Incomplete legacy source identities retain the old result. */}return {...o,...this.categorizeOffer(o),needsReview:true,reviewReason:'concept_classification_unavailable'};});
+    }
     // Recheck each caller's names after a concurrent job finishes.
     while (this.running) await this.running;
     this.running = this.run(offers);
     try { await this.running; } finally { this.running = null; }
+    if (conceptMode()==='shadow') await conceptService.categorize(offers);
     return offers.map(o=>({...o,...this.categorizeOffer(o)}));
   }
   private async run(offers: {title:string;description?:string}[]) {
@@ -47,19 +54,25 @@ class CategoryService {
     cache.save(normalizedName,ids,'manual',1);
   }
   retryCategory(normalizedName: string) {
+    if(cache.get(normalizedName)?.source==='manual')throw new Error('Manuell klassifisering er låst');
     cache.remove(normalizedName);
   }
   async retryReviewCategories() {
+    if (conceptMode()==='concept') return conceptService.retryAll();
     if ((process.env.SKIP_AI || '').trim().toLowerCase() === 'true' || !process.env.OPENAI_API_KEY) {
       throw new Error('AI-kategorisering er ikke konfigurert');
     }
     const names = cache.getAll()
       .filter(entry => entry.needsReview && entry.source === 'ai')
       .map(entry => entry.normalizedName);
-    for (const name of names) cache.remove(name);
-    if (names.length) await this.categorizeOffers(names.map(title => ({title})));
-    return names.length;
+    // Read original inputs before removing anything. Historical names without inputs stay intact.
+    const currentOffers = await (await import('./offerService')).default.getAllOffers();
+    const inputs=currentOffers.filter(o=>names.includes(o.normalizedName));
+    const retryNames=new Set(inputs.map(o=>o.normalizedName));
+    for(const name of retryNames)cache.remove(name);
+    if (inputs.length) await this.categorizeOffers(inputs);
+    return retryNames.size;
   }
-  getPendingCount() { return cache.getAll().filter(c=>c.needsReview).length; }
+  getPendingCount() { return conceptMode()==='concept' ? conceptService.getPendingCount() : cache.getAll().filter(c=>c.needsReview).length; }
 }
 export default new CategoryService();

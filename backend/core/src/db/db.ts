@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import config from '../../../rest/src/config';
 import { migrateCategories } from './categoryMigration';
+import { migrateConcepts } from './conceptMigration';
 
 // Singleton connection
 let db: Database.Database | null = null;
@@ -50,5 +51,6 @@ export function initDb(): void {
     const database = getDb();
     
     migrateCategories(database);
+    migrateConcepts(database);
     console.log('✅ Database tables and triggers initialized');
 }
