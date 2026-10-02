@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -48,6 +48,15 @@ export default function OffersPage() {
   const [filterStore, setFilterStore] = useState<string[]>([]);
   const [showAllOffers, setShowAllOffers] = useState(false);
   const [showStoreFilter, setShowStoreFilter] = useState(false);
+
+  const shuffledOffers = useMemo(() => {
+    const shuffled = offers.filter(offer => Number.isFinite(offer.price) && offer.price > 0);
+    for (let index = shuffled.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+    }
+    return shuffled;
+  }, [offers]);
 
   const stores = Array.from(new Set(offers.map(o => o.store))).sort();
 
@@ -103,23 +112,33 @@ export default function OffersPage() {
 
   const getTopOffers = () => {
     let topOffers = offers
-      .filter(offer => offer.originalPrice && offer.price)
+      .filter(offer =>
+        Number.isFinite(offer.originalPrice) &&
+        Number.isFinite(offer.price) &&
+        offer.price > 0 &&
+        offer.originalPrice! > offer.price
+      )
       .map(offer => ({
         ...offer,
-        discountPercent: Math.round(((offer.originalPrice! - offer.price) / offer.originalPrice!) * 100)
+        discountPercent: ((offer.originalPrice! - offer.price) / offer.originalPrice!) * 100,
+        savings: offer.originalPrice! - offer.price
       }));
 
     if (filterStore.length > 0) {
       topOffers = topOffers.filter(offer => filterStore.includes(offer.store));
     }
 
-    topOffers = topOffers.sort((a, b) => b.discountPercent - a.discountPercent);
+    topOffers = topOffers
+      .sort((a, b) => b.discountPercent - a.discountPercent || b.savings - a.savings || a.price - b.price)
+      .slice(0, 10);
 
-    if (sortByPrice) {
-      topOffers = topOffers.sort((a, b) => a.price - b.price);
-    }
+    const selectedOffers: Offer[] = topOffers.length > 0
+      ? topOffers
+      : shuffledOffers
+        .filter(offer => filterStore.length === 0 || filterStore.includes(offer.store))
+        .slice(0, 10);
 
-    return topOffers.slice(0, 10);
+    return sortByPrice ? selectedOffers.sort((a, b) => a.price - b.price) : selectedOffers;
   };
 
   const fetchOffers = async () => {
@@ -537,7 +556,7 @@ export default function OffersPage() {
             {/* Stats */}
             <div className="flex items-center gap-3 mb-2">
               <Badge variant="secondary" className="text-xs font-medium px-3 py-1.5">
-                {showAllOffers ? offers.filter(o => filterStore.length === 0 || filterStore.includes(o.store)).length : filteredOffers.length} tilbud
+                {showRecommendations ? getTopOffers().length : showAllOffers ? offers.filter(o => filterStore.length === 0 || filterStore.includes(o.store)).length : filteredOffers.length} tilbud
               </Badge>
             </div>
 
