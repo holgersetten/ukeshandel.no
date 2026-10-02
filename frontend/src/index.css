@@ -2,24 +2,26 @@
 
 @theme {
   --color-background: 0 0% 100%;
-  --color-foreground: 0 0% 9%;
+  --color-foreground: 120 4% 9.8039215686%;
   --color-card: 0 0% 100%;
-  --color-card-foreground: 0 0% 9%;
+  --color-card-foreground: 120 4% 9.8039215686%;
   --color-popover: 0 0% 100%;
-  --color-popover-foreground: 0 0% 9%;
-  --color-primary: 0 0% 9%;
-  --color-primary-foreground: 0 0% 98%;
-  --color-secondary: 0 0% 96%;
-  --color-secondary-foreground: 0 0% 9%;
+  --color-popover-foreground: 120 4% 9.8039215686%;
+  --color-primary: #6B705C;
+  --color-primary-foreground: #F4F1E8;
+  --color-secondary: #F4F1E8;
+  --color-secondary-foreground: #181A18;
+  --color-tertiary: #2F332B;
+  --color-tertiary-foreground: #F4F1E8;
   --color-muted: 0 0% 96%;
   --color-muted-foreground: 0 0% 45%;
   --color-accent: 0 0% 96%;
-  --color-accent-foreground: 0 0% 9%;
+  --color-accent-foreground: 120 4% 9.8039215686%;
   --color-destructive: 0 84% 60%;
   --color-destructive-foreground: 0 0% 98%;
   --color-border: 0 0% 90%;
   --color-input: 0 0% 90%;
-  --color-ring: 0 0% 9%;
+  --color-ring: 120 4% 9.8039215686%;
   --radius: 0.5rem;
 }
 

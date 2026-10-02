@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbSeparator, BreadcrumbPage, BreadcrumbLink } from '@/components/ui/breadcrumb';
 import { OfferGrid } from '@/components/grocery/offer-grid';
-import { Search, ChevronRight, Home, ArrowDownUp, Store as StoreIcon } from 'lucide-react';
+import { Search, ChevronDown, ChevronRight, Home, ArrowDownUp, Store as StoreIcon } from 'lucide-react';
 import { offersApi } from '../services/api';
 import { ancestors, categoryPath, offerIdentity } from '../lib/categories';
 import type { Offer, Category } from '../types/offer';
@@ -39,6 +39,7 @@ export default function OffersPage() {
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const [showRecommendations, setShowRecommendations] = useState(true);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [placeholderText, setPlaceholderText] = useState('');
@@ -47,6 +48,15 @@ export default function OffersPage() {
   const [filterStore, setFilterStore] = useState<string[]>([]);
   const [showAllOffers, setShowAllOffers] = useState(false);
   const [showStoreFilter, setShowStoreFilter] = useState(false);
+
+  const shuffledOffers = useMemo(() => {
+    const shuffled = offers.filter(offer => Number.isFinite(offer.price) && offer.price > 0);
+    for (let index = shuffled.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+    }
+    return shuffled;
+  }, [offers]);
 
   const stores = Array.from(new Set(offers.map(o => o.store))).sort();
 
@@ -102,23 +112,33 @@ export default function OffersPage() {
 
   const getTopOffers = () => {
     let topOffers = offers
-      .filter(offer => offer.originalPrice && offer.price)
+      .filter(offer =>
+        Number.isFinite(offer.originalPrice) &&
+        Number.isFinite(offer.price) &&
+        offer.price > 0 &&
+        offer.originalPrice! > offer.price
+      )
       .map(offer => ({
         ...offer,
-        discountPercent: Math.round(((offer.originalPrice! - offer.price) / offer.originalPrice!) * 100)
+        discountPercent: ((offer.originalPrice! - offer.price) / offer.originalPrice!) * 100,
+        savings: offer.originalPrice! - offer.price
       }));
 
     if (filterStore.length > 0) {
       topOffers = topOffers.filter(offer => filterStore.includes(offer.store));
     }
 
-    topOffers = topOffers.sort((a, b) => b.discountPercent - a.discountPercent);
+    topOffers = topOffers
+      .sort((a, b) => b.discountPercent - a.discountPercent || b.savings - a.savings || a.price - b.price)
+      .slice(0, 10);
 
-    if (sortByPrice) {
-      topOffers = topOffers.sort((a, b) => a.price - b.price);
-    }
+    const selectedOffers: Offer[] = topOffers.length > 0
+      ? topOffers
+      : shuffledOffers
+        .filter(offer => filterStore.length === 0 || filterStore.includes(offer.store))
+        .slice(0, 10);
 
-    return topOffers.slice(0, 10);
+    return sortByPrice ? selectedOffers.sort((a, b) => a.price - b.price) : selectedOffers;
   };
 
   const fetchOffers = async () => {
@@ -210,35 +230,9 @@ export default function OffersPage() {
     });
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-sm font-medium">Laster tilbud...</div>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex gap-6">
-          {/* Sidebar */}
-          <aside className="w-64 flex-shrink-0">
-            <Card>
+  const categoryMenu = (
+            <Card className="max-h-[48vh] overflow-y-auto md:max-h-none">
               <CardContent className="p-4">
-                {/* Navigasjon */}
-                <div className="mb-4">
-                  <Link
-                    to="/"
-                    className="flex items-center gap-2 w-full text-left px-3 py-2 text-sm rounded-md transition-all duration-200 cursor-pointer text-foreground hover:bg-muted hover:translate-x-0.5"
-                  >
-                    <Home className="h-4 w-4" />
-                    Hjem
-                  </Link>
-                </div>
-
-                <Separator className="my-4" />
-
                 {/* Ukens tilbud */}
                 <div className="mb-4">
                   <h3 className="text-sm font-semibold text-foreground mb-3">Ukens tilbud</h3>
@@ -332,8 +326,21 @@ export default function OffersPage() {
                 </div>
               </CardContent>
             </Card>
-          </aside>
+  );
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-sm font-medium">Laster tilbud...</div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="container mx-auto px-3 py-4 sm:px-4 sm:py-6">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-6">
+          <aside className="hidden w-64 flex-shrink-0 md:block">{categoryMenu}</aside>
           {/* Main Content */}
           <main className="flex-1 min-w-0">
             {/* Breadcrumbs */}
@@ -407,7 +414,7 @@ export default function OffersPage() {
             )}
 
             {/* Search and Filters */}
-            <div className="flex items-center justify-between gap-3 mb-2">
+            <div className="flex flex-col gap-2 mb-2 md:flex-row md:items-center md:justify-between">
               <div className="relative flex-1 max-w-xl">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
@@ -427,7 +434,21 @@ export default function OffersPage() {
                 />
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-end gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setShowCategoryMenu(previous => !previous);
+                    setShowStoreFilter(false);
+                  }}
+                  aria-expanded={showCategoryMenu}
+                  aria-controls="category-menu"
+                  className={`mr-auto h-8 gap-1.5 text-xs cursor-pointer md:hidden ${showCategoryMenu ? 'bg-zinc-200 hover:bg-zinc-200' : ''}`}
+                >
+                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showCategoryMenu ? 'rotate-180' : ''}`} />
+                  Kategorier
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"
@@ -445,9 +466,14 @@ export default function OffersPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setShowStoreFilter(!showStoreFilter)}
+                  onClick={() => {
+                    setShowStoreFilter(previous => !previous);
+                    setShowCategoryMenu(false);
+                  }}
+                  aria-expanded={showStoreFilter}
+                  aria-controls="store-filter"
                   className={`h-8 text-xs gap-1.5 cursor-pointer ${
-                    filterStore.length > 0 
+                    filterStore.length > 0 || showStoreFilter 
                       ? 'bg-zinc-200 hover:bg-zinc-200' 
                       : ''
                   }`}
@@ -458,21 +484,29 @@ export default function OffersPage() {
               </div>
             </div>
 
+            {showCategoryMenu && (
+              <div id="category-menu" className="mb-3 md:hidden">{categoryMenu}</div>
+            )}
+
             {/* Butikk-filter */}
-            <div 
-              className={`transition-all duration-300 ease-in-out ${
-                showStoreFilter ? 'max-h-20 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0 pointer-events-none'
-              }`}
+            <div
+              id="store-filter"
+              aria-hidden={!showStoreFilter}
+              inert={!showStoreFilter}
+              className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none ${showStoreFilter ? 'grid-rows-[1fr] opacity-100 mb-3' : 'grid-rows-[0fr] opacity-0'}`}
             >
-              <div className="flex items-center justify-between gap-2">
+              <div className="min-h-0 overflow-hidden">
+              <div className="flex flex-wrap items-center justify-end gap-2 py-2">
                 <button
+                  aria-label="Alle butikker"
+                  aria-pressed={filterStore.length === 0}
                   onClick={() => setFilterStore([])}  
-                  className={`flex items-center justify-center h-12 w-12 rounded-lg border transition-all hover:shadow-md hover:scale-105 cursor-pointer ${
+                  className={`flex items-center justify-center h-14 w-14 sm:h-12 sm:w-12 rounded-lg border transition-colors hover:border-primary/50 cursor-pointer ${
                     filterStore.length === 0
-                      ? 'border-primary bg-primary/10 shadow-sm opacity-100'
+                      ? 'border-primary bg-primary/10 opacity-100'
                       : filterStore.length > 0
-                      ? 'border-border bg-background hover:border-primary/50 opacity-40 hover:opacity-70'
-                      : 'border-border bg-background hover:border-primary/50 opacity-100'
+                      ? 'border-border bg-white opacity-40 hover:opacity-70'
+                      : 'border-border bg-white opacity-100'
                   }`}
                   title="Alle butikker"
                 >
@@ -484,6 +518,8 @@ export default function OffersPage() {
                   return (
                     <button
                       key={store}
+                      aria-label={store}
+                      aria-pressed={isSelected}
                       onClick={() => {
                         if (isSelected) {
                           setFilterStore(filterStore.filter(s => s !== store));
@@ -491,12 +527,12 @@ export default function OffersPage() {
                           setFilterStore([...filterStore, store]);
                         }
                       }}
-                      className={`flex items-center justify-center h-12 w-12 rounded-lg border transition-all hover:shadow-md hover:scale-105 p-1.5 cursor-pointer ${
+                      className={`flex items-center justify-center h-14 w-14 sm:h-12 sm:w-12 rounded-lg border transition-colors hover:border-primary/50 p-1.5 cursor-pointer ${
                         isSelected
-                          ? 'border-primary bg-primary/10 shadow-sm opacity-100'
+                          ? 'border-primary bg-primary/10 opacity-100'
                           : hasSelection
-                          ? 'border-border bg-background hover:border-primary/50 opacity-40 hover:opacity-70'
-                          : 'border-border bg-background hover:border-primary/50 opacity-100'
+                          ? 'border-border bg-white opacity-40 hover:opacity-70'
+                          : 'border-border bg-white opacity-100'
                       }`}
                       title={store}
                     >
@@ -512,6 +548,7 @@ export default function OffersPage() {
                   );
                 })}
               </div>
+              </div>
             </div>
 
             <Separator className="my-3" />
@@ -519,7 +556,7 @@ export default function OffersPage() {
             {/* Stats */}
             <div className="flex items-center gap-3 mb-2">
               <Badge variant="secondary" className="text-xs font-medium px-3 py-1.5">
-                {showAllOffers ? offers.filter(o => filterStore.length === 0 || filterStore.includes(o.store)).length : filteredOffers.length} tilbud
+                {showRecommendations ? getTopOffers().length : showAllOffers ? offers.filter(o => filterStore.length === 0 || filterStore.includes(o.store)).length : filteredOffers.length} tilbud
               </Badge>
             </div>
 

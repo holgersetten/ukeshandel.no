@@ -33,7 +33,7 @@ export function OfferCard({ offer, onClick, className }: OfferCardProps) {
   return (
     <Card
       className={cn(
-        "cursor-pointer overflow-hidden rounded-xl border border-zinc-200 bg-white p-0 transition-all hover:shadow-md hover:scale-105",
+        "cursor-pointer overflow-hidden rounded-xl border border-zinc-200 bg-white p-0 transition-shadow hover:shadow-md md:hover:scale-105",
         className
       )}
       onClick={() => onClick?.(offer)}
@@ -60,8 +60,8 @@ export function OfferCard({ offer, onClick, className }: OfferCardProps) {
         )}
       </div>
       
-      <CardContent className="p-3 flex flex-col h-28">
-        <h3 className="font-medium text-zinc-900 line-clamp-2 text-sm leading-tight flex-1 capitalize">
+      <CardContent className="p-2.5 sm:p-3 flex flex-col min-h-28">
+        <h3 className="font-medium text-[#181A18] line-clamp-2 text-sm leading-tight flex-1 capitalize">
           {offer.title.toLowerCase()}
         </h3>
         
@@ -73,7 +73,7 @@ export function OfferCard({ offer, onClick, className }: OfferCardProps) {
               </span>
             )}
             <div className="flex items-baseline gap-0.5">
-              <span className="text-lg font-bold text-zinc-900">
+              <span className="text-lg font-bold text-[#181A18]">
                 {offer.price}
               </span>
               <span className="text-sm text-zinc-500">{offer.currency === 'NOK' ? 'kr' : offer.currency}</span>
