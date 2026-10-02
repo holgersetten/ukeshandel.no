@@ -24,7 +24,7 @@ export function OfferGrid({
     return (
       <div
         className={cn(
-          "grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4",
+          "grid grid-cols-2 gap-2 sm:gap-4 sm:grid-cols-3 md:grid-cols-4",
           className
         )}
       >
@@ -42,7 +42,7 @@ export function OfferGrid({
   return (
     <div
       className={cn(
-        "grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4",
+        "grid grid-cols-2 gap-2 sm:gap-4 sm:grid-cols-3 md:grid-cols-4",
         className
       )}
     >
