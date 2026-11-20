@@ -1,0 +1,1933 @@
+{
+  "version": "taxonomy-v2.1",
+  "categories": [
+    {
+      "id": "9931123944476e9a248b489a",
+      "name": "Frukt & grønt",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "7d92d27a7902229fd332a23d",
+      "name": "Bær",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Bær. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "325a605824eb4b105abf93d8",
+      "name": "Frosne bær og grønnsaker",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Frosne bær og grønnsaker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "b525ef0b3daecc584667d31f",
+      "name": "Frukt",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Frukt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "29216f3d0a7ea61ff1a5b3e3",
+      "name": "Fruktkurv",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fruktkurv. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "4e3e03b6096f3ad54366095b",
+      "name": "Grønnsaker",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Grønnsaker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "0be15e4f8e137bc50dbed136",
+      "name": "Krydderurter",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Krydderurter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "bd6232b720e354f1d653068e",
+      "name": "Poteter",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Poteter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "ecf3d58563a5caa88fae87f9",
+      "name": "Sopp",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sopp. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "0c917876fa05ecf1dc7d761a",
+      "name": "Salat",
+      "parentId": "9931123944476e9a248b489a",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Salat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "99aba2f3d448a08d731e25e2",
+      "name": "Fisk & skalldyr",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "956967b09d948436c3ea784f",
+      "name": "Fisk",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fisk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "58466b8891ec6097fd1fe9a7",
+      "name": "Fiskeburger",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fiskeburger. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "aac1bf3cd5fe54e4db47fb70",
+      "name": "Hvalkjøtt",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Hvalkjøtt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "c3782078f6d7a77a2100be6a",
+      "name": "Skalldyr",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Skalldyr. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3e002b0a60d98d4fb83156fc",
+      "name": "Skjell",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Skjell. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "75706bbd6772fd03b330a089",
+      "name": "Sushi",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sushi. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3dfd3a3f5eb525912286a898",
+      "name": "Tørket fisk",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Tørket fisk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "baa964ad6a0d1ed62d542864",
+      "name": "Brød",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "1a30d1c8ee839956e32d45f6",
+      "name": "Boller og småkaker",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Boller og småkaker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "53d7fc1ad2edcb5aa8d6fc21",
+      "name": "Brød",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Brød. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "37038adeef413ff2b10750c5",
+      "name": "Hamburgerbrød",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Hamburgerbrød. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "4f98e696713197c973b84ba9",
+      "name": "Knekkebrød",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Knekkebrød. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "8c05b1e38c4c497bb8de4924",
+      "name": "Lefser",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Lefser. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "abaae07ef4ff0d85fbbf5572",
+      "name": "Loff",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Loff. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "05b5aee28760dbbb29034ad2",
+      "name": "Lomper",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Lomper. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "87db6170d78f5a93587ff3c5",
+      "name": "Maiskaker",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Maiskaker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "42e3334253a00e9313673277",
+      "name": "Pita og nan",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Pita og nan. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "8062c0ef367b079c230d8b0b",
+      "name": "Pølsebrød",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Pølsebrød. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "cfae4a8ba199a1309bcb5b02",
+      "name": "Baguetter",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Baguetter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e2a596545903cf12cddb5f24",
+      "name": "Riskaker",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Riskaker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "fcc57ee8e3803046902293e5",
+      "name": "Rundstykker",
+      "parentId": "baa964ad6a0d1ed62d542864",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Rundstykker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "78832e2ffd8b08d963edf826",
+      "name": "Middag",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": false,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "855f97b2c5713d5e40f27fd0",
+      "name": "Ferdigretter",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Ferdig tilberedt eller sammensatt middag som spises etter eventuell oppvarming. Ikke rått kjøtt til en rett."
+    },
+    {
+      "id": "79dea43fa90cc953b6917927",
+      "name": "Fiskeretter",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Ferdige fiskebaserte retter. Krever dokumentasjon på fisk; fårikål er ikke en fiskerett."
+    },
+    {
+      "id": "63ea1a0de772bd50e79c30e2",
+      "name": "Grøt",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Grøt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "2393f84d8ad8f50bb47b24ad",
+      "name": "Middagshermetikk",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Middagshermetikk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "78dbdd8ba77e2023c946fca5",
+      "name": "Nudler",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Nudler. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f2e4077d3f8606b8d9c7d99e",
+      "name": "Pasta",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Pasta. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "eef0464ca297ba588dc35935",
+      "name": "Ris",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Ris. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e74533d6dba6591019fa0ca8",
+      "name": "Wok",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Wok. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "0b085c562c2b1e7631968593",
+      "name": "Pizza",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Pizza. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f7c40d3bef8cfd96d23633bd",
+      "name": "Supper",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Supper. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "5cf23398a6369af5a30c6a0c",
+      "name": "Taco",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Taco. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "de730b7582ff9cc01a91af76",
+      "name": "Vegetarretter",
+      "parentId": "78832e2ffd8b08d963edf826",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Vegetarretter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "baf01ff55d7ea681b3594a75",
+      "name": "Kylling og fjærkre",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "67e3b18036ca1c3b3a2d982f",
+      "name": "And",
+      "parentId": "baf01ff55d7ea681b3594a75",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen And. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "45ffd96fc5b978e780e863b5",
+      "name": "Kalkun",
+      "parentId": "baf01ff55d7ea681b3594a75",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kalkun. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "779f5c08855825ab1085e83e",
+      "name": "Kylling",
+      "parentId": "baf01ff55d7ea681b3594a75",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kylling. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f549775895b257e0f4b78474",
+      "name": "Rype",
+      "parentId": "baf01ff55d7ea681b3594a75",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Rype. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "2b25a95becd347b664414a0c",
+      "name": "Meieri & egg",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "fd14b126fab069b6a7eaca3a",
+      "name": "Cottage cheese",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Cottage cheese. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3e9c288a1a1842a8fffda427",
+      "name": "Creme fraiche",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Creme fraiche. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "59931af9b8f433c6976d6918",
+      "name": "Egg",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Egg. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "89e5b177723c33bbac610971",
+      "name": "Fløte",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fløte. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3f9ac82fcbfc8866e28c0165",
+      "name": "Kesam",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kesam. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "cff606f39953372a56445997",
+      "name": "Melk",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Melk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "33ab59ede6f99d93625b0620",
+      "name": "Smør og margarin",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Smør og margarin. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "37cef7ae6cbf2bfe0ab94d98",
+      "name": "Proteinpudding",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Proteinpudding. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d7752f191461d4143c228664",
+      "name": "Rømme",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Rømme som eget meieriprodukt, inkludert lettrømme. Ikke rømmesmak eller rømmedressing."
+    },
+    {
+      "id": "d9a8afd97168b9f7104c6f23",
+      "name": "Yoghurt",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Yoghurt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "faebe1f61bbe34ed1ad05589",
+      "name": "Drikkeyoghurt",
+      "parentId": "2b25a95becd347b664414a0c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Drikkeyoghurt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e39d150387fd59c18db552bb",
+      "name": "Pålegg & frokost",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "a3543307f35bf840b350d977",
+      "name": "Bacon",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Bacon. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "ae0924b2b5c56bcab52d94d7",
+      "name": "Fiskepålegg",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fiskepålegg. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "5775acbc79b3d1495ed932dd",
+      "name": "Frokostblandinger og müsli",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Frokostblandinger og müsli. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "cbcd0578156f8685135aa5b5",
+      "name": "Kjøttpålegg",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kjøttpålegg. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "c40c8d2a722df65a42361dc7",
+      "name": "Leverpostei",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Leverpostei. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d471f41aa1ad2feda94f122c",
+      "name": "Påleggsalat",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Påleggsalat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "57b09e64a8657f4c8b40e647",
+      "name": "Syltetøy og honning",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Syltetøy og honning. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "bc888126df0f249d69cb1b45",
+      "name": "Vegansk pålegg",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Vegansk pålegg. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "6b4a00a7aac97f2e36db22c5",
+      "name": "Tubeost",
+      "parentId": "e39d150387fd59c18db552bb",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Tubeost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3e9b08a1a6ecfe971622242b",
+      "name": "Kjøtt",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "275ebc6b831a6a83a31ff9cc",
+      "name": "Hamburger",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Hamburger. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3126b12916c258e5868180ec",
+      "name": "Kjøttdeig og farse",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kjøttdeig og farse. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f7968a1682b2900def2c75fe",
+      "name": "Lammekjøtt",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Rått kjøtt av lam, inkludert fårikålkjøtt. Ikke ferdige middagsretter eller viltkjøtt."
+    },
+    {
+      "id": "14f322888f0bd51e060cc6e1",
+      "name": "Pølser",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Pølser. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "00c2fab62e963e04fc561faf",
+      "name": "Storfekjøtt",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Storfekjøtt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "87f2b107b5ae01d637039ea9",
+      "name": "Svinekjøtt",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Svinekjøtt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "9a101bf032d63d0147b6c6cd",
+      "name": "Viltkjøtt",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Viltkjøtt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f39965a5cc9edac44cb89cf9",
+      "name": "Kjøttkaker og kjøttboller",
+      "parentId": "3e9b08a1a6ecfe971622242b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kjøttkaker og kjøttboller. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "b60c1063a534eccb06b4b65b",
+      "name": "Tilbehør",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "b0bcd6dfb132e67ed106bb5f",
+      "name": "Eddik",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Eddik. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "50cde2466272786421c2399b",
+      "name": "Dip",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Dip. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "c7864ab944627d0e016a02c6",
+      "name": "Hermetisk grønt",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Hermetisk grønt. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "22010edaed591c34c105d106",
+      "name": "Ketchup og sennep",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Ketchup og sennep. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "71fcfa993e86a2ccea3c15ee",
+      "name": "Kokosmelk",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kokosmelk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "29a463036c6209b2b8c74fd4",
+      "name": "Kraft og buljong",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kraft og buljong. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "54236276c01de76bcf510b6f",
+      "name": "Krydder",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Krydder. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "b4c7a7cdbd477c53ca81477e",
+      "name": "Linser og bønner",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Linser og bønner. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "fb0c8c98c2df8c216afa13ff",
+      "name": "Marinader og BBQ-saus",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Marinader og BBQ-saus. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "164f40ef7f8a1601f4a6b6bc",
+      "name": "Matoljer",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Matoljer. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d5a91ad9fb048681a274775a",
+      "name": "Middagssalat",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Middagssalat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "0e4f1c3ea7a1042e8c4b4917",
+      "name": "Oliven",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Oliven. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "90e8b513668cfb2f5b2dac70",
+      "name": "Pizzatopping",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Pizzatopping. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d35bf80efadf1d7061eaa04c",
+      "name": "Potetsalat",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Potetsalat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "da08e3392772de948821d0ff",
+      "name": "Sauser og dressing",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sauser og dressing. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "9d82b628bcf79869af4b011c",
+      "name": "Stuinger",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Stuinger. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "cea2a7e4b22b8135723b39fd",
+      "name": "Sushitilbehør",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sushitilbehør. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "39f0ed3b3d610ec07498fa48",
+      "name": "Fries",
+      "parentId": "b60c1063a534eccb06b4b65b",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fries. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "27ed4bf73203dcedcbdb3f80",
+      "name": "Drikke",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "c3aad7c5259d03faad35e594",
+      "name": "Brus",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Brus. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e012b5e4a2b3a092c0ce4249",
+      "name": "Drinkmikser",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Drinkmikser. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "73b25531cc743279ad585dc1",
+      "name": "Energidrikk",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Energidrikk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "8c6f766d2cc1cadc1e92b909",
+      "name": "Ferdigdrinker",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Ferdigdrinker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "71a313605590e63c402c6d9d",
+      "name": "Iskaffe",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Iskaffe. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "354706da40d460b2366c50b4",
+      "name": "Iste",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Iste. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "8f0153bbc8d696c2994d5102",
+      "name": "Juice",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Juice. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e5fae04c0fdd3e751fff1f32",
+      "name": "Kaffe",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kaffe. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "38617c4d15cf88b7543490f4",
+      "name": "Leskedrikk",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Leskedrikk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "5700e1ae7457e5b0612ea35d",
+      "name": "Saft",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Saft. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "2e24e5068854a7a7e660066c",
+      "name": "Sjokoladedrikk",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sjokoladedrikk. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "aeb0f085b8634d3b6eb90d77",
+      "name": "Smoothie",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Smoothie. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "c524f069ff391c6a6b866327",
+      "name": "Te",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Te. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "2b59c60f92fafaf3a2629f0b",
+      "name": "Toddy",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Toddy. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "2c49eacc0cb0b967d891e24b",
+      "name": "Vann",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Vann. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3e86fb4287a17d83fc9e6198",
+      "name": "Øl og cider",
+      "parentId": "27ed4bf73203dcedcbdb3f80",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Øl og cider. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "337163b6701297e4e3de0559",
+      "name": "Ost",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "c78d1b79418a107a2868270c",
+      "name": "Blåmuggost",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Blåmuggost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "17e2d34054243c2e37b6776d",
+      "name": "Brunost",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Brunost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f884b1884783a92d2d9892a6",
+      "name": "Cheddar",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Cheddar. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "468eaa27eaa4a3118979767d",
+      "name": "Fetaost",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fetaost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f400aa5e789c11aba42c9ef0",
+      "name": "Gulost",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Gulost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "ee66d83247120e798d3aac7c",
+      "name": "Halloumi",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Halloumi. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "72136501d9b3e3cf2def0fed",
+      "name": "Mozzarella",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Mozzarella. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "4cdf8955fbbea3c7fe4abdec",
+      "name": "Parmesan",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Parmesan. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d8b5f02e0279df4dfa30ffb9",
+      "name": "Plantebasert ost",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Plantebasert ost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3cdeb9866c509b89e4fd000c",
+      "name": "Revet ost",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Revet ost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "995e6f26f5ff3eadc4679797",
+      "name": "Smøreoster",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Smøreoster. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "6ba16d3bc254cdef72a612d7",
+      "name": "Øvrig ost",
+      "parentId": "337163b6701297e4e3de0559",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Øvrig ost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "426808ce72b2830e2f956b20",
+      "name": "Dessert og iskrem",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "a846491ffa85633acf7be813",
+      "name": "Dessertpuddinger",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Dessertpuddinger. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "97af84a24c57d5cf37a3a3d8",
+      "name": "Dessertsaucer",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Dessertsaucer. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "7104c217907f924375153db2",
+      "name": "Dessertsuppe",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Dessertsuppe. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "1896e62ad547989ba4dcd833",
+      "name": "Gele",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Gele. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "1e2f47edba01f01c27edd9b6",
+      "name": "Hermetisk frukt og bær",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Hermetisk frukt og bær. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "95a52745098dc0b651b93547",
+      "name": "Is",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Is. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "9122b839c3192fa0215c46fe",
+      "name": "Mousse",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Mousse. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "cde84880acfdc7e3b1913bac",
+      "name": "Riskrem",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Riskrem. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "64428bd3c04d09bfde05d266",
+      "name": "Tiramisu",
+      "parentId": "426808ce72b2830e2f956b20",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Tiramisu. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "7772451fb020c540433ac203",
+      "name": "Baking",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": false,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "a5a92a33a6c1ac8a8b863e62",
+      "name": "Bakemixer",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Bakemixer. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "13ae2daed805455809b5402b",
+      "name": "Melis",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Melis. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e524a8c506380ff79af3f544",
+      "name": "Bakepulver",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Bakepulver. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "caf4ab06c4e13f1d62359d3b",
+      "name": "Gjær",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Gjær. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "af61ede5c4c7d86e4cd00e42",
+      "name": "Mel",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Mel. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "bac8aadb3946fdc1a04fe037",
+      "name": "Havregryn",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Havregryn. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "414619eb87a9d06405ae1aeb",
+      "name": "Sukker",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sukker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "ce8423e7a2ecd0d605efa239",
+      "name": "Sukkerbiter",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sukkerbiter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "3b78938d641d078cd608b035",
+      "name": "Tørket frukt og nøtter",
+      "parentId": "7772451fb020c540433ac203",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Tørket frukt og nøtter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "82a2510ae56ebb59936313da",
+      "name": "Snacks, godteri & sjokolade",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "a39883cac42130928c6d270c",
+      "name": "Dip",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Dip. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "96495a3cd1f5f744ce805196",
+      "name": "Godteri",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Godteri. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d6adc6d55e6343ce3d3d8c95",
+      "name": "Nøtter",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Nøtter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "a377a4c13c17166ea0a3dee0",
+      "name": "Pastiller",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Pastiller. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "fe59eb3e3df1b27fd4d014a0",
+      "name": "Popcorn",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Popcorn. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "786076a3c3eaa17517e35c81",
+      "name": "Sjokolade",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sjokolade. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "867bc14c22e93ba0cdcb5ab2",
+      "name": "Tyggegummi",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Tyggegummi. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "8342da13b820b38fef053204",
+      "name": "Mellommåltid",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Mellommåltid. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "fbda88f475f497136e8251e1",
+      "name": "Muffins",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Muffins. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "26777a353c05a28fe037c4d7",
+      "name": "Kjeks",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kjeks. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "b578d1eaf0d3a3d153d803cb",
+      "name": "Potetgull",
+      "parentId": "82a2510ae56ebb59936313da",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Potetgull. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f1735b87250b9b158e46060c",
+      "name": "Barneprodukter",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "43b6422cb5f6aacad57e98b0",
+      "name": "Babyartikler",
+      "parentId": "f1735b87250b9b158e46060c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Babyartikler. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "4652811eb5e0c0bfa9c6be89",
+      "name": "Barnemat",
+      "parentId": "f1735b87250b9b158e46060c",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Barnemat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "5c8eed045ff6984ad30aca51",
+      "name": "Personlige artikler",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "88b00a70294f4237b232cc78",
+      "name": "Barbering",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Barbering. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "2a4b8fba67e07e26431dc3b4",
+      "name": "Bind og tamponger",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Bind og tamponger. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d98eb92283a1d0e321ed03dc",
+      "name": "Briller",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Briller. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "a5fc69d1398064a6dae00ebc",
+      "name": "Helsekost",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Helsekost. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "95e9a2e42b58fb2dd7f5d4f1",
+      "name": "Hår og hud",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Hår og hud. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "938aa090ce6980e9d4e2d090",
+      "name": "Klær",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Klær. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "69a90b68ae7ad51ec212c11a",
+      "name": "Personlig hygiene",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Personlig hygiene. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "c1e20d796d9147b2eefe9316",
+      "name": "Sminke",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sminke. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "a9d9c61583f83cd446c03e4d",
+      "name": "Tannpleie",
+      "parentId": "5c8eed045ff6984ad30aca51",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Tannpleie. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "df193a94fab4b66a470b85b5",
+      "name": "Hus & hjem",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "fb5e00450eaf69713db35cfc",
+      "name": "Belysning",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Belysning. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "a440077c9fedc394e01b1ce3",
+      "name": "Bilpleie",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Bilpleie. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "90901c7a16c4872e96c0c7ca",
+      "name": "Borddekning og servietter",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Borddekning og servietter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "c28d1ced1375a1e222c7c547",
+      "name": "Byggevarer",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Byggevarer. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "05a383932c5335025d484957",
+      "name": "Dopapir og tørkerull",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Dopapir og tørkerull. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "a1b00bb46920cb1ea7252c28",
+      "name": "Grill",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Grill. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "15e177b93a6e5aefc439177a",
+      "name": "Kjøkken",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kjøkken. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "f5f9a69dd63f5f91bb0c0be4",
+      "name": "Klesvask",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Klesvask. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "fe988c863ebb5ddf74720ef7",
+      "name": "Klær og sko",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Klær og sko. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "7ff42b22307eb59bfb21ff63",
+      "name": "Kontorrekvisita",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kontorrekvisita. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "64968dda0b82abd50ec6e266",
+      "name": "Oppvarming",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Oppvarming. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "a7471f7cdea4e829b9acfebf",
+      "name": "Poser, papir og folie",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Poser, papir og folie. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "a91045251d0d3e8761cc776b",
+      "name": "Renhold",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Renhold. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "ed0b66294f57b5d0e7389928",
+      "name": "Sikkerhet",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sikkerhet. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e678af00312a6e8bdcba1703",
+      "name": "Fest",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fest. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "9d8503a41325e065ac23d7b8",
+      "name": "Sport",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Sport. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "52c13a187c5b23ae72c57f9b",
+      "name": "Verktøy",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Verktøy. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "b83c3f1f3b1d10b870d703c7",
+      "name": "Leker",
+      "parentId": "df193a94fab4b66a470b85b5",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Leker. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "297fa8eeb9c8b6f24526c573",
+      "name": "Dyr",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "f1f5078224431f9fe3f84e9a",
+      "name": "Dyreartikler",
+      "parentId": "297fa8eeb9c8b6f24526c573",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Dyreartikler. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "26e33b8a6162442f14dc81e9",
+      "name": "Fuglemat",
+      "parentId": "297fa8eeb9c8b6f24526c573",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Fuglemat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "61beed8ee3868d0088674d47",
+      "name": "Hundemat",
+      "parentId": "297fa8eeb9c8b6f24526c573",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Hundemat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "e7f4aa4c52ece2eb81137160",
+      "name": "Kattemat",
+      "parentId": "297fa8eeb9c8b6f24526c573",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Kattemat. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "fd5ed1280b1810937c3719ea",
+      "name": "Blomster og planter",
+      "parentId": null,
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Velg denne brede typen bare dersom ingen mer spesifikk produkttype kan dokumenteres."
+    },
+    {
+      "id": "458015b432220522ce7d3f6e",
+      "name": "Blomster",
+      "parentId": "fd5ed1280b1810937c3719ea",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Blomster. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "1bfd8fb5e64702c48e2bad72",
+      "name": "Plantejord",
+      "parentId": "fd5ed1280b1810937c3719ea",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Plantejord. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "4e719a75aeb1142ef3fda0ca",
+      "name": "Plantenæring",
+      "parentId": "fd5ed1280b1810937c3719ea",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Plantenæring. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "d0ff4a0aa97c83031572cb0f",
+      "name": "Potteplanter",
+      "parentId": "fd5ed1280b1810937c3719ea",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Produkt av typen Potteplanter. Velg etter hva varen faktisk er, ikke enkeltord i navnet."
+    },
+    {
+      "id": "product_type_ff42539187481d5dd0c35970",
+      "name": "Scampi",
+      "parentId": "99aba2f3d448a08d731e25e2",
+      "facet": "product_type",
+      "assignable": true,
+      "definition": "Scampi/reker som selve varen, også marinerte eller krydrede. Ikke en ferdig middag med scampi."
+    },
+    {
+      "id": "dish_644f58a7dfcd7b12018ae217",
+      "name": "Fårikål",
+      "parentId": null,
+      "facet": "dish",
+      "assignable": true,
+      "definition": "is_dish: varen er retten Fårikål. for_dish: varen er uttrykkelig beregnet på retten, ikke bare en mulig ingrediens."
+    },
+    {
+      "id": "dish_6c76413aa45aa897856d0e16",
+      "name": "Lasagne",
+      "parentId": null,
+      "facet": "dish",
+      "assignable": true,
+      "definition": "is_dish: varen er retten Lasagne. for_dish: varen er uttrykkelig beregnet på retten, ikke bare en mulig ingrediens."
+    },
+    {
+      "id": "dish_54c07de14122fd2540052509",
+      "name": "Taco",
+      "parentId": null,
+      "facet": "dish",
+      "assignable": true,
+      "definition": "is_dish: varen er retten Taco. for_dish: varen er uttrykkelig beregnet på retten, ikke bare en mulig ingrediens."
+    },
+    {
+      "id": "dish_83ee02d0b55694ef9daec611",
+      "name": "Pizza",
+      "parentId": null,
+      "facet": "dish",
+      "assignable": true,
+      "definition": "is_dish: varen er retten Pizza. for_dish: varen er uttrykkelig beregnet på retten, ikke bare en mulig ingrediens."
+    },
+    {
+      "id": "dish_47861d071db8fbec1e086cd4",
+      "name": "Wok",
+      "parentId": null,
+      "facet": "dish",
+      "assignable": true,
+      "definition": "is_dish: varen er retten Wok. for_dish: varen er uttrykkelig beregnet på retten, ikke bare en mulig ingrediens."
+    },
+    {
+      "id": "dish_6ac9bcd5823c68f11c9e42ea",
+      "name": "Suppe",
+      "parentId": null,
+      "facet": "dish",
+      "assignable": true,
+      "definition": "is_dish: varen er retten Suppe. for_dish: varen er uttrykkelig beregnet på retten, ikke bare en mulig ingrediens."
+    },
+    {
+      "id": "ingredient_0f6ab37604b7ed5183220db1",
+      "name": "rømme",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer rømme som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_3088db20a9ef8893ce3a9096",
+      "name": "scampi",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer scampi som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_5036181c8d77d7a46e598086",
+      "name": "lam",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer lam som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+      "name": "kylling",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer kylling som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_0480e73cfbd55fb7c7180555",
+      "name": "storfe",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer storfe som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_69d2baf16ff2ce58445a4973",
+      "name": "svin",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer svin som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_42111edaffe541346f3bb6e7",
+      "name": "laks",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer laks som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_5fcc0bdc1a9bc49aee915ce6",
+      "name": "torsk",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer torsk som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_89decdc8697cc81a98a3e39b",
+      "name": "melk",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer melk som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_0ef2c53bc1005d60abc60050",
+      "name": "egg",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer egg som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_6d087869b084d27987aad69a",
+      "name": "smør",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer smør som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_7306053f8b1e1cb773d2c3a8",
+      "name": "fløte",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer fløte som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_e245565283f434175580c4f0",
+      "name": "ost",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer ost som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_045257843d1305a3a99b1825",
+      "name": "potet",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer potet som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_d91aa0e36909a8dadb089787",
+      "name": "ris",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer ris som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_df63c191a666df7b7823ff4c",
+      "name": "pasta",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer pasta som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_6a10b774462d14e99ac3ce9e",
+      "name": "mel",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer mel som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_05cdb6ce97e204f27fa2d070",
+      "name": "løk",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer løk som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_1dd9723608a336161e8ca929",
+      "name": "hvitløk",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer hvitløk som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_a202ef9960d8ee5bb1cc8d12",
+      "name": "tomat",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer tomat som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_3460b04fc4b5ba5fc85a60ee",
+      "name": "gulrot",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer gulrot som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_8402dd941b9c643a50a34819",
+      "name": "brokkoli",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer brokkoli som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_a82cb9e4ce0f88f6d0776811",
+      "name": "bønner",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer bønner som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_2332aa0b8ffc0517b37c6de2",
+      "name": "linser",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer linser som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "ingredient_9d6cde3ba202c4c5606a1a17",
+      "name": "matolje",
+      "parentId": null,
+      "facet": "ingredient",
+      "assignable": true,
+      "definition": "Varen representerer matolje som primær matlagingsingrediens. Ikke smakstilsetning eller en bestanddel av en ferdigrett."
+    },
+    {
+      "id": "dietary_8a40ad5aa9e4ae0ecd527a89",
+      "name": "Vegetar",
+      "parentId": null,
+      "facet": "dietary",
+      "assignable": true,
+      "definition": "Krever eksplisitt dokumentasjon på vegetarisk produkt. Ikke utled fra merkenavn eller rettens navn."
+    },
+    {
+      "id": "dietary_cb15874d8e800f744d2250aa",
+      "name": "Vegansk",
+      "parentId": null,
+      "facet": "dietary",
+      "assignable": true,
+      "definition": "Krever eksplisitt dokumentasjon på vegansk produkt."
+    },
+    {
+      "id": "dietary_3b59806a2e5c2727bf9fb189",
+      "name": "Glutenfri",
+      "parentId": null,
+      "facet": "dietary",
+      "assignable": true,
+      "definition": "Krever eksplisitt glutenfri-merking."
+    },
+    {
+      "id": "usage_7772451fb020c540433ac203",
+      "name": "Baking",
+      "parentId": null,
+      "facet": "usage",
+      "assignable": true,
+      "definition": "Uttrykkelig egnet til baking."
+    },
+    {
+      "id": "usage_4a2e39bda06e8d04e189e9c3",
+      "name": "Grilling",
+      "parentId": null,
+      "facet": "usage",
+      "assignable": true,
+      "definition": "Uttrykkelig egnet til grilling."
+    }
+  ]
+}

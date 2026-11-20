@@ -62,7 +62,7 @@ export default function HomePage() {
                 <div className="p-2 rounded-lg">
                   <Utensils className="h-6 w-6 text-primary" />
                 </div>
-                <CardTitle className="text-xl sm:text-2xl">Middagsplanlegger</CardTitle>
+                <CardTitle className="text-xl sm:text-2xl">Planlegg ukeshandel</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="mt-auto p-5 pt-0 text-left">

@@ -1,0 +1,634 @@
+{
+  "version": "category-gold-v2",
+  "cases": [
+    {
+      "id": "sour-cream",
+      "input": {
+        "title": "Lettrømme 0,5 %",
+        "description": "Lettrømme i beger",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "cream"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Rømme"
+        },
+        {
+          "facet": "ingredient",
+          "name": "rømme"
+        }
+      ]
+    },
+    {
+      "id": "seasoned-scampi",
+      "input": {
+        "title": "Coop Scampi Hvitløk & Urter",
+        "description": "Marinerte scampi",
+        "store": "Coop Extra",
+        "catalogId": "test-week-1",
+        "offerId": "scampi"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Scampi"
+        },
+        {
+          "facet": "ingredient",
+          "name": "scampi"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "ingredient",
+          "name": "hvitløk"
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb",
+      "input": {
+        "title": "Lam fårikålkjøtt",
+        "description": "Rått kjøtt av lam til fårikål",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "lamb"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Lammekjøtt"
+        },
+        {
+          "facet": "ingredient",
+          "name": "lam"
+        },
+        {
+          "facet": "dish",
+          "name": "Fårikål",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb-reordered",
+      "input": {
+        "title": "Fårikålkjøtt lam",
+        "description": "Rått kjøtt av lam til fårikål",
+        "store": "Rema 1000",
+        "catalogId": "test-week-1",
+        "offerId": "lamb-2"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Lammekjøtt"
+        },
+        {
+          "facet": "ingredient",
+          "name": "lam"
+        },
+        {
+          "facet": "dish",
+          "name": "Fårikål",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "prepared-lamb",
+      "input": {
+        "title": "Fjordland Fårikål",
+        "description": "Ferdig middag med poteter, varmes i mikrobølgeovn",
+        "store": "Bunnpris",
+        "catalogId": "test-week-1",
+        "offerId": "ready"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Ferdigretter"
+        },
+        {
+          "facet": "dish",
+          "name": "Fårikål",
+          "relation": "is_dish"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "ingredient",
+          "name": "lam"
+        }
+      ]
+    },
+    {
+      "id": "plain-lamb",
+      "input": {
+        "title": "Lammelår",
+        "description": "Rått lammelår uten krydder",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "leg"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Lammekjøtt"
+        },
+        {
+          "facet": "ingredient",
+          "name": "lam"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "dish",
+          "name": "Fårikål"
+        }
+      ]
+    },
+    {
+      "id": "brand-only",
+      "input": {
+        "title": "Fjordland",
+        "store": "Spar",
+        "catalogId": "test-week-1",
+        "offerId": "brand"
+      },
+      "expectedReview": true,
+      "expected": []
+    },
+    {
+      "id": "assortment",
+      "input": {
+        "title": "Melk eller kjøttdeig",
+        "description": "Valg mellom to ulike produkter",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "assortment"
+      },
+      "expectedReview": true,
+      "expected": []
+    },
+    {
+      "id": "prepared-pizza",
+      "input": {
+        "title": "Ferdig pizza",
+        "description": "Ferdigpizza med pepperoni, varmes i ovn",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "pizza"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Ferdigretter"
+        },
+        {
+          "facet": "dish",
+          "name": "Pizza",
+          "relation": "is_dish"
+        }
+      ]
+    },
+    {
+      "id": "pizza-base",
+      "input": {
+        "title": "Pizzabunn",
+        "description": "Ferdig utkjevlet bunn til pizza, uten topping",
+        "store": "Bunnpris",
+        "catalogId": "test-week-1",
+        "offerId": "base"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Pizzabunn"
+        },
+        {
+          "facet": "dish",
+          "name": "Pizza",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "plain-mozzarella",
+      "input": {
+        "title": "Mozzarella",
+        "description": "Mozzarella i lake",
+        "store": "Spar",
+        "catalogId": "test-week-1",
+        "offerId": "cheese"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Mozzarella"
+        },
+        {
+          "facet": "ingredient",
+          "name": "ost"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "dish",
+          "name": "Pizza"
+        }
+      ]
+    },
+    {
+      "id": "garlic-flavor",
+      "input": {
+        "title": "Kjeks med hvitløkssmak",
+        "description": "Sprø kjeks med hvitløkssmak",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "flavor"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Kjeks"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "ingredient",
+          "name": "hvitløk"
+        }
+      ]
+    },
+    {
+      "id": "generic-two-words",
+      "input": {
+        "title": "Toro Original",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "generic"
+      },
+      "expectedReview": true,
+      "expected": []
+    },
+    {
+      "id": "plain-chicken",
+      "input": {
+        "title": "Kyllingfilet",
+        "description": "Rå kyllingfilet",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "chicken"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Kylling"
+        },
+        {
+          "facet": "ingredient",
+          "name": "kylling"
+        }
+      ]
+    },
+    {
+      "id": "marinated-chicken",
+      "input": {
+        "title": "Kyllingfilet pepper og hvitløk",
+        "description": "Rå marinert kyllingfilet",
+        "store": "Bunnpris",
+        "catalogId": "test-week-1",
+        "offerId": "marinated"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Kylling"
+        },
+        {
+          "facet": "ingredient",
+          "name": "kylling"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "ingredient",
+          "name": "hvitløk"
+        }
+      ]
+    },
+    {
+      "id": "potatoes",
+      "input": {
+        "title": "Poteter",
+        "description": "Rå poteter",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "potatoes"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Poteter"
+        },
+        {
+          "facet": "ingredient",
+          "name": "potet"
+        }
+      ]
+    },
+    {
+      "id": "fishcakes",
+      "input": {
+        "title": "Fiskekaker",
+        "description": "Fiskekaker i pakke, ikke komplett middag",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "fishcakes"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Fiskekaker"
+        }
+      ]
+    },
+    {
+      "id": "explicit-vegetarian",
+      "input": {
+        "title": "Vegetarisk ferdigrett",
+        "description": "Ferdig middag merket Vegetar",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "vegetarian"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Ferdigretter"
+        },
+        {
+          "facet": "dietary",
+          "name": "Vegetar"
+        }
+      ]
+    },
+    {
+      "id": "explicit-vegan",
+      "input": {
+        "title": "Vegansk ferdigrett",
+        "description": "Ferdig middag merket Vegansk",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "vegan"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Ferdigretter"
+        },
+        {
+          "facet": "dietary",
+          "name": "Vegansk"
+        }
+      ]
+    },
+    {
+      "id": "explicit-glutenfree",
+      "input": {
+        "title": "Glutenfri pasta",
+        "description": "Pasta merket Glutenfri",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "glutenfree"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Pasta"
+        },
+        {
+          "facet": "ingredient",
+          "name": "pasta"
+        },
+        {
+          "facet": "dietary",
+          "name": "Glutenfri"
+        }
+      ]
+    },
+    {
+      "id": "plain-flour",
+      "input": {
+        "title": "Hvetemel",
+        "description": "Hvetemel i pose",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "flour"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Mel"
+        },
+        {
+          "facet": "ingredient",
+          "name": "mel"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "usage",
+          "name": "Baking"
+        }
+      ]
+    },
+    {
+      "id": "explicit-baking",
+      "input": {
+        "title": "Hvetemel til baking",
+        "description": "Hvetemel uttrykkelig beregnet til baking",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "baking"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Mel"
+        },
+        {
+          "facet": "ingredient",
+          "name": "mel"
+        },
+        {
+          "facet": "usage",
+          "name": "Baking"
+        }
+      ]
+    },
+    {
+      "id": "pizza-flavor",
+      "input": {
+        "title": "Kjeks med pizzasmak",
+        "description": "Kjeks med smak av pizza, ikke en pizzarett eller pizzakomponent",
+        "store": "Meny",
+        "catalogId": "test-week-1",
+        "offerId": "pizza-flavor"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Kjeks"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "dish",
+          "name": "Pizza"
+        }
+      ]
+    },
+    {
+      "id": "title-only-chicken",
+      "input": {
+        "title": "KYLLINGFILET",
+        "description": "",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "title-only-chicken"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Kylling"
+        },
+        {
+          "facet": "ingredient",
+          "name": "kylling"
+        }
+      ]
+    },
+    {
+      "id": "title-only-seasoned-chicken",
+      "input": {
+        "title": "PRIOR KYLLINGFILET PEPPER & HVITL?K",
+        "description": "",
+        "store": "Bunnpris",
+        "catalogId": "test-week-1",
+        "offerId": "title-only-seasoned-chicken"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Kylling"
+        },
+        {
+          "facet": "ingredient",
+          "name": "kylling"
+        }
+      ],
+      "forbidden": [
+        {
+          "facet": "ingredient",
+          "name": "hvitløk"
+        }
+      ]
+    },
+    {
+      "id": "title-only-lamb",
+      "input": {
+        "title": "LAM F?RIK?LKJ?TT",
+        "description": "",
+        "store": "Kiwi",
+        "catalogId": "test-week-1",
+        "offerId": "title-only-lamb"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Lammekjøtt"
+        },
+        {
+          "facet": "ingredient",
+          "name": "lam"
+        },
+        {
+          "facet": "dish",
+          "name": "Fårikål",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "title-only-lamb-reordered",
+      "input": {
+        "title": "F?RIK?LKJ?TT LAM",
+        "description": "",
+        "store": "Rema 1000",
+        "catalogId": "test-week-1",
+        "offerId": "title-only-lamb-reordered"
+      },
+      "expected": [
+        {
+          "facet": "product_type",
+          "name": "Lammekjøtt"
+        },
+        {
+          "facet": "ingredient",
+          "name": "lam"
+        },
+        {
+          "facet": "dish",
+          "name": "Fårikål",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "mixed-ready-meals",
+      "input": {
+        "title": "Fjordland et utvalg",
+        "description": "Plukk & miks: pasta med ost- og skinkesaus eller kj?ttsuppe",
+        "store": "Spar",
+        "catalogId": "test-week-1",
+        "offerId": "mixed-ready"
+      },
+      "expectedReview": true,
+      "expected": []
+    },
+    {
+      "id": "dish-name-only",
+      "input": {
+        "title": "F?RIK?L",
+        "description": "",
+        "store": "Spar",
+        "catalogId": "test-week-1",
+        "offerId": "dish-only"
+      },
+      "expectedReview": true,
+      "expected": []
+    }
+  ],
+  "identityPairs": [
+    {
+      "left": "raw-lamb",
+      "right": "raw-lamb-reordered",
+      "sameConcept": true,
+      "requiresManualApproval": true
+    },
+    {
+      "left": "raw-lamb",
+      "right": "prepared-lamb",
+      "sameConcept": false
+    },
+    {
+      "left": "brand-only",
+      "right": "prepared-lamb",
+      "sameConcept": false
+    }
+  ]
+}

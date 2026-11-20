@@ -1,5 +1,5 @@
-export const PROMPT_VERSION = 'concept-classification-v4';
-export const POLICY_VERSION = 'evidence-v2';
+export const PROMPT_VERSION = 'concept-classification-v7';
+export const POLICY_VERSION = 'evidence-v3';
 export const MODEL = () => process.env.CATEGORY_MODEL || 'gpt-4.1-mini';
 export type ConceptMode = 'legacy' | 'shadow' | 'concept';
 export function conceptMode(): ConceptMode {

@@ -19,10 +19,10 @@ class ConceptService {
     const categories=repo.getTaxonomy(); const byId=new Map(categories.map(c=>[c.id,c]));
     const ids=entry?.assignments.map(a=>a.categoryId) || []; const inherited=new Set<string>();
     for(const id of ids) {let current:string|null=id;const visited=new Set<string>();while(current){if(visited.has(current))throw new Error('Taksonomisyklus');visited.add(current);inherited.add(current);current=byId.get(current)?.parentId || null;}}
-    const reasons=[...(entry?.reviewReasons || [])];
+    const review=entry ? repo.classificationReview(entry,categories) : null;
+    const reasons=[...(review?.reviewReasons || [])];
     if (entry && contextConflict([input],entry.input)) reasons.push('alias_context_conflict');
-    if (entry?.assignments.some(a=>!byId.get(a.categoryId)?.active)) reasons.push('retired_category');
-    const stale=entry ? repo.isStale(entry) : true;
+    const stale=review?.stale ?? true;
     return {conceptId,offerOccurrenceId:input.offerOccurrenceId,normalizedName:normalizeTitle(offer.title),
       categoryIds:ids,effectiveCategoryIds:[...inherited],categories:categories.filter(c=>inherited.has(c.id)),
       assignments:entry?.assignments || [],categorySource:entry?.source || 'unknown',categoryConfidence:entry?.confidence ?? null,
@@ -90,7 +90,7 @@ class ConceptService {
     return candidates.length;
   }
   manual(conceptId:string,assignments:Assignment[],input?:ProductInput[]) {return repo.setManual(conceptId,assignments,input);}
-  getPendingCount(){return repo.allClassifications().filter(c=>c.needsReview||repo.isStale(c)).length;}
+  getPendingCount(){return repo.allClassifications().filter(c=>repo.classificationReview(c).needsReview).length;}
   inputHash(input:ProductInput[]){return classificationInputHash(input);}
 }
 export default new ConceptService();

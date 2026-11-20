@@ -7,6 +7,7 @@ export function saveTaxonomyCategory(id:string|undefined,body:{name:unknown;pare
   if(typeof body.name!=='string'||!body.name.trim()||body.name.length>120)throw new Error('Ugyldig kategorinavn');
   const all=getTaxonomy();const old=all.find(c=>c.id===id);
   if(id&&!old)throw new Error('Ukjent taksonomikategori');
+  if(old&&!old.active)throw new Error('Inaktiv kategori er historikk og kan ikke redigeres');
   const facet=(body.facet || old?.facet || 'product_type') as Facet;
   if(!['product_type','ingredient','dish','dietary','usage'].includes(facet))throw new Error('Ugyldig facet');
   const parent=body.parentId as string|null;
@@ -32,8 +33,6 @@ export function saveTaxonomyCategory(id:string|undefined,body:{name:unknown;pare
 export function retireTaxonomyCategory(id:string) {
   const all=getTaxonomy();if(!all.some(c=>c.id===id&&c.active))throw new Error('Ukjent aktiv kategori');
   if(all.some(c=>c.parentId===id&&c.active))throw new Error('Flytt eller deaktiver underkategoriene først');
-  getDb().transaction(()=>{
-    getDb().prepare('UPDATE taxonomy_categories SET active=0 WHERE id=?').run(id);
-    getDb().prepare("UPDATE concept_classifications SET needs_review=1,review_reasons_json='[\"retired_category\"]' WHERE concept_id IN (SELECT concept_id FROM concept_categories WHERE category_id=?)").run(id);
-  })();
+  // Review status is derived on read; historical decisions, including manual locks, stay untouched.
+  getDb().prepare('UPDATE taxonomy_categories SET active=0,assignable=0 WHERE id=?').run(id);
 }

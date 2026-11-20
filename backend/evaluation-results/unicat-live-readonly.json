@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-02T21:45:32.412Z",
+  "generatedAt": "2026-10-03T11:43:00.062Z",
   "scope": "GET endpoints and readonly SQLite; no source refetch, AI call, classification write or alias approval",
   "mode": {
     "mode": "concept",
-    "taxonomyVersion": "taxonomy-v2:882e6d4daa7db65c809aaf4c1096ff0722e30ffb3ad2b37bb1a8b750504bf526",
+    "taxonomyVersion": "taxonomy-v2.2:2336a75f264c98dc09bce96a15ec1d8888a2d43f5b9f51642d98c092b2d9ffa5",
     "promptVersion": "concept-classification-v4:evidence-v2"
   },
   "offers": 686,
@@ -15,10 +15,10 @@
     "usingPeriodFallback": 686
   },
   "review": {
-    "offers": 665,
-    "uniqueConcepts": 544,
+    "offers": 667,
+    "uniqueConcepts": 546,
     "stale": 665,
-    "manualLocked": 0
+    "manualLocked": 2
   },
   "classificationLayers": {
     "concept": 608,
@@ -547,7 +547,7 @@
     "offerFiles": true,
     "taxonomyFile": true
   },
-  "databaseContentHash": "0f681b5a262099a9dae1ccc9e1cdb96ca6a5a06fe9708ee326dd73ae202a5bde",
+  "databaseContentHash": "71e0ea4c8df57f854cba9fcc8fc342f9b79d9b220417b4608745b2dd866e915a",
   "offerFileHashes": {
     "bunnpris_offers.json": "64b2baf920779f812ddcb1b8d7a60c9a33122847390ef915e3a21bb3008fb32c",
     "coop_extra_offers.json": "4cf35ca1b5732f495d628cbf58daaf91d69d38dcdd31a05b4df563090a7a30d4",

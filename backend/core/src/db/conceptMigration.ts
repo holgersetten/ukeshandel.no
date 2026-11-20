@@ -5,9 +5,10 @@ import config from '../../../rest/src/config';
 import { hashInput, originalInput } from '../utils/offerOccurrence';
 import { normalizeTitle } from '../utils/normalizeTitle';
 import type { ProductInput } from '../services/concepts/types';
+import { taxonomySeedFile } from './taxonomyMigration';
 
 export const CONCEPT_MIGRATION = 'product-concepts-v1';
-export const taxonomyFile = () => process.env.TAXONOMY_FILE || path.join(path.dirname(config.categoriesFile), 'taxonomy.v2.json');
+export const taxonomyFile = taxonomySeedFile;
 
 /** Additive only: old tables and JSON files are never modified. */
 export function migrateConcepts(db: Database.Database) {

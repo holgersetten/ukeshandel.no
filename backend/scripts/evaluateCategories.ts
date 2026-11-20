@@ -18,7 +18,10 @@ async function main() {
     const service=(require('../core/src/services/concepts/conceptService') as typeof import('../core/src/services/concepts/conceptService')).default;
     const identity=require('../core/src/utils/offerOccurrence') as typeof import('../core/src/utils/offerOccurrence');
     const config=require('../core/src/services/concepts/config') as typeof import('../core/src/services/concepts/config');
-    const fixture=JSON.parse(fs.readFileSync(path.join(__dirname,'../tests/fixtures/category-gold.v1.json'),'utf8'));
+    const fixtureIndex=process.argv.indexOf('--fixture');
+    const fixtureFile=fixtureIndex>=0?process.argv[fixtureIndex+1]:path.join(__dirname,'../tests/fixtures/category-gold.v2.json');
+    if(!fixtureFile)throw new Error('Fasitfil mangler');
+    const fixture=JSON.parse(fs.readFileSync(fixtureFile,'utf8'));
     const taxonomy=repo.getTaxonomy();
     const categoryId=(a:any)=>{
       const matches=taxonomy.filter(c=>c.facet===a.facet&&c.name===a.name&&c.assignable&&c.active);
@@ -31,7 +34,7 @@ async function main() {
     const results:any[]=[];
     if(live) {
       const tasks=prepared.map((c:any)=>({conceptId:repo.ensureConcept(c.input),input:[c.input]}));
-      await service.classifyBatch(tasks);
+      for(let i=0;i<tasks.length;i+=10)await service.classifyBatch(tasks.slice(i,i+10));
       for(const [index,c] of prepared.entries()) {
         const result=repo.getClassification(tasks[index].conceptId)!;
         const key=(a:any)=>[a.categoryId,a.facet,a.relation].join('|');

@@ -1,0 +1,31 @@
+{
+  "datasetVersion": "category-gold-v2",
+  "mode": "fixture-validation-only",
+  "promptVersion": "concept-classification-v7:evidence-v3",
+  "taxonomyVersion": "taxonomy-v2.2:2336a75f264c98dc09bce96a15ec1d8888a2d43f5b9f51642d98c092b2d9ffa5",
+  "model": null,
+  "fixtureCases": 29,
+  "identityResults": [
+    {
+      "left": "raw-lamb",
+      "right": "raw-lamb-reordered",
+      "sameConcept": true,
+      "requiresManualApproval": true,
+      "passed": true
+    },
+    {
+      "left": "raw-lamb",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    },
+    {
+      "left": "brand-only",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    }
+  ],
+  "results": [],
+  "metrics": null
+}

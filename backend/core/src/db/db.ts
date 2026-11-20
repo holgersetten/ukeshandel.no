@@ -4,6 +4,7 @@ import fs from 'fs';
 import config from '../../../rest/src/config';
 import { migrateCategories } from './categoryMigration';
 import { migrateConcepts } from './conceptMigration';
+import { migrateTaxonomyV22 } from './taxonomyMigration';
 
 // Singleton connection
 let db: Database.Database | null = null;
@@ -52,5 +53,6 @@ export function initDb(): void {
     
     migrateCategories(database);
     migrateConcepts(database);
+    if (process.env.TAXONOMY_VERSION !== 'taxonomy-v2.1' && !process.env.TAXONOMY_FILE) migrateTaxonomyV22(database);
     console.log('✅ Database tables and triggers initialized');
 }

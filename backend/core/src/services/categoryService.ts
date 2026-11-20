@@ -1,5 +1,5 @@
 ﻿import { normalizeTitle } from '../utils/normalizeTitle';
-import { directCategories, getLegacyCategories as getCategories, withAncestors } from '../config/categories';
+import { directCategories, getLegacyCategories as getCategories, getCategories as getDisplayCategories, withAncestors } from '../config/categories';
 import * as cache from '../db/categoryCacheRepo';
 import { batchCategorizeWithAI, type AIProduct } from './aiCategorization';
 import { conceptMode } from './concepts/config';
@@ -11,9 +11,11 @@ class CategoryService {
     const normalizedName = normalizeTitle(offer.title);
     const entry = cache.get(normalizedName);
     const categoryIds = entry?.categoryIds || [];
-    const effectiveCategoryIds = withAncestors(categoryIds,getCategories());
+    // Legacy decisions stay intact, but concept-mode display uses the current hierarchy.
+    const taxonomy = conceptMode()==='concept' ? getDisplayCategories() : getCategories();
+    const effectiveCategoryIds = withAncestors(categoryIds,taxonomy);
     return { normalizedName, categoryIds, effectiveCategoryIds,
-      categories: getCategories().filter(c => effectiveCategoryIds.includes(c.id)),
+      categories: taxonomy.filter(c => effectiveCategoryIds.includes(c.id)),
       categorySource: entry?.source || 'unknown', categoryConfidence: entry?.confidence ?? null,
       needsReview: entry?.needsReview ?? true, reviewReason: entry?.reviewReason ?? null };
   }

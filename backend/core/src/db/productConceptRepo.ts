@@ -10,7 +10,10 @@ export function getTaxonomy(): TaxonomyCategory[] {
     FROM taxonomy_categories ORDER BY id`).all() as TaxonomyCategory[])
     .map(c=>({...c,assignable:!!c.assignable,active:!!c.active}));
 }
-export function taxonomyVersion(): string { return 'taxonomy-v2:' + hashInput(getTaxonomy()); }
+export function taxonomyVersion(): string {
+  const applied = getDb().prepare('SELECT 1 FROM schema_migrations WHERE name=?').get('taxonomy-v2.2');
+  return (applied ? 'taxonomy-v2.2:' : 'taxonomy-v2.1:') + hashInput(getTaxonomy());
+}
 export const promptVersion = () => `${PROMPT_VERSION}:${POLICY_VERSION}`;
 export function getClassification(conceptId: string): StoredClassification | null {
   const row = getDb().prepare(`SELECT concept_id AS conceptId, source,manual_lock AS manualLock,
@@ -25,6 +28,17 @@ export function getClassification(conceptId: string): StoredClassification | nul
 export function isStale(entry: StoredClassification, input?: ProductInput[]): boolean {
   return !entry.manualLock && (entry.promptVersion !== promptVersion() || entry.taxonomyVersion !== taxonomyVersion()
     || entry.model !== MODEL() || (!!input && entry.inputHash !== classificationInputHash(input)));
+}
+/** Derived status only: retiring a label must not rewrite a manual decision. */
+export function classificationReview(entry: StoredClassification, taxonomy = getTaxonomy()) {
+  const byId = new Map(taxonomy.map(c => [c.id,c]));
+  const reasons = [...entry.reviewReasons];
+  if (entry.assignments.some(a => !byId.get(a.categoryId)?.active)) reasons.push('retired_category');
+  if (entry.assignments.some(a => byId.get(a.categoryId)?.active && !byId.get(a.categoryId)?.assignable)) reasons.push('non_assignable_category');
+  const reviewReasons = [...new Set(reasons)];
+  const stale = isStale(entry);
+  return {stale, needsReview:entry.needsReview || stale || !!reviewReasons.length, reviewReasons,
+    reviewReason:reviewReasons.join(', ') || (stale ? 'stale_classification' : null)};
 }
 export function findConcept(offer: ProductInput): string | null {
   const db = getDb(); const name = normalizeTitle(offer.title); const scope = 'offer:' + offerOccurrenceId(offer);

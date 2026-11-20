@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T21:53:33.220Z",
+  "generatedAt": "2026-11-20T10:12:25.258Z",
   "method": "Actual Vite SSR-loaded frontend components with fixture props; no interactive browser automation",
   "checks": {
     "twelveOffersRender": true,
@@ -8,7 +8,11 @@
     "manualLockBadge": true,
     "staleBadge": true,
     "reviewReason": true,
-    "editorsClosedInitially": true
+    "editorsClosedInitially": true,
+    "inactiveAndNavigationNotSelectable": true,
+    "historicalAssignmentsVisible": true,
+    "inactiveCategoriesVisibleInAdmin": true,
+    "nestedSplitCategoriesVisible": true
   },
   "interactiveBrowserTest": false
 }

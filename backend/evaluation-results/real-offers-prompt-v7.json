@@ -1,0 +1,1125 @@
+{
+  "generatedAt": "2026-10-03T12:32:01.557Z",
+  "scope": "Existing JSON offers, real OpenAI calls, temporary SQLite; no production retry or writes",
+  "promptVersion": "concept-classification-v7:evidence-v3",
+  "taxonomyVersion": "taxonomy-v2.2:2336a75f264c98dc09bce96a15ec1d8888a2d43f5b9f51642d98c092b2d9ffa5",
+  "model": "gpt-4.1-mini",
+  "selectedCases": 13,
+  "explicitDietaryOffersAvailable": 0,
+  "productionFingerprint": "54318e2a05aa8c2575b73bfd904242ee6444db4ec05980ba51e5265528deac32",
+  "unchanged": {
+    "databaseRows": true,
+    "offerFiles": true,
+    "taxonomyFile": true
+  },
+  "note": "Facet columns show the last model suggestion. Review-required suggestions are not accepted as active assignments by existing UniCat policy.",
+  "cases": [
+    {
+      "case": "plain-chicken",
+      "originalTitle": "KYLLINGFILET",
+      "description": "",
+      "input": {
+        "title": "KYLLINGFILET",
+        "description": "",
+        "store": "Kiwi",
+        "offerId": "E4xEJuHY7uYnIP6Q-IqCO",
+        "hotspotId": "E4xEJuHY7uYnIP6Q-IqCO",
+        "quantity": "200g",
+        "size": 200,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Frnzzmgru%2Fp-9.webp&w=600&x1r=0.35&x2r=0.655&y1r=0.63&y2r=0.935&s=7a6461b984693a62771405560050b5ec",
+        "price": 39.9,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_62952125ede36828a8b1c38b20840547e0197fcb9b6363b93b2ad286061df1b9"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "dish": [],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Kylling og fjærkre > Kylling",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "KYLLINGFILET",
+          "categoryId": "779f5c08855825ab1085e83e"
+        },
+        {
+          "categoryKey": "ingredient|kylling",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "KYLLINGFILET",
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "seasoned-chicken",
+      "originalTitle": "PRIOR KYLLINGFILET PEPPER & HVITLØK",
+      "description": "",
+      "input": {
+        "title": "PRIOR KYLLINGFILET PEPPER & HVITLØK",
+        "description": "",
+        "store": "Bunnpris",
+        "offerId": "R4v3Y6fIrKwRT-YNRTPFa",
+        "hotspotId": "R4v3Y6fIrKwRT-YNRTPFa",
+        "quantity": "110g",
+        "size": 110,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJBJyykjm%2Fp-12.webp&w=600&x1r=0.42&x2r=0.59&y1r=0.28&y2r=0.49&s=573962f293bc1e8afadc5170aaa4d986",
+        "price": 30,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_44fddc83893f3d2af1374960dac6e38f1811f253618af7600a2de35531d53463"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "dish": [],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Kylling og fjærkre > Kylling",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "PRIOR KYLLINGFILET PEPPER & HVITLØK",
+          "categoryId": "779f5c08855825ab1085e83e"
+        },
+        {
+          "categoryKey": "ingredient|kylling",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "PRIOR KYLLINGFILET PEPPER & HVITLØK",
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "scampi",
+      "originalTitle": "COOP SCAMPI",
+      "description": "",
+      "input": {
+        "title": "COOP SCAMPI",
+        "description": "",
+        "store": "Coop Mega",
+        "offerId": "41aDHOQE7zbrZBncGGSfK",
+        "hotspotId": "41aDHOQE7zbrZBncGGSfK",
+        "quantity": "300g",
+        "size": 300,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-19T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2F4Dy-Fh4e%2Fp-3.webp&w=600&x1r=0.06&x2r=0.25&y1r=0.385&y2r=0.535&s=2c574a3692dd22c425925649bf0740f4",
+        "price": 79.9,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_458fef7b1d94b2ce4eba88ad18883eaf6d3064bd8d2e7bc50a522635f3b36e1d"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        }
+      ],
+      "dish": [],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Fisk & skalldyr > Scampi",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "COOP SCAMPI",
+          "categoryId": "product_type_ff42539187481d5dd0c35970"
+        },
+        {
+          "categoryKey": "ingredient|scampi",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "COOP SCAMPI",
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        },
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "raw-lamb",
+      "originalTitle": "LAM FÅRIKÅLKJØTT",
+      "description": "",
+      "input": {
+        "title": "LAM FÅRIKÅLKJØTT",
+        "description": "",
+        "store": "Bunnpris",
+        "offerId": "F4YURvpH7LVdeQCmUyoPR",
+        "hotspotId": "F4YURvpH7LVdeQCmUyoPR",
+        "quantity": "1kg",
+        "size": 1,
+        "pieces": 1,
+        "unit": "kg",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJBJyykjm%2Fp-7.webp&w=600&x1r=0.08&x2r=0.92&y1r=0.2&y2r=0.92&s=20f31b5b3953af86b30cc10f74cf865b",
+        "price": 145,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_6d1314c7690bcb02c9ebb6dc7552db0b3fddcbdea37f5a42da8849b4335208b2"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Kjøtt > Lammekjøtt",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "LAM FÅRIKÅLKJØTT",
+          "categoryId": "f7968a1682b2900def2c75fe"
+        },
+        {
+          "categoryKey": "ingredient|lam",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "LAM FÅRIKÅLKJØTT",
+          "categoryId": "ingredient_5036181c8d77d7a46e598086"
+        },
+        {
+          "categoryKey": "dish|Fårikål",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "LAM FÅRIKÅLKJØTT",
+          "categoryId": "dish_644f58a7dfcd7b12018ae217"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "raw-lamb-reordered",
+      "originalTitle": "FÅRIKÅLKJØTT LAM",
+      "description": "",
+      "input": {
+        "title": "FÅRIKÅLKJØTT LAM",
+        "description": "",
+        "store": "Rema 1000",
+        "offerId": "33_NF0b6i2UcI0Q7uEfM8",
+        "hotspotId": "33_NF0b6i2UcI0Q7uEfM8",
+        "quantity": "1kg",
+        "size": 1,
+        "pieces": 1,
+        "unit": "kg",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-19T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FcF8VNeZB%2Fp-16.webp&w=600&x1r=0.16&x2r=0.95&y1r=0.05&y2r=0.48&s=c29a87326e29f52113368f5585c3ffea",
+        "price": 149.9,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_f6aafe9979bbec73174b217132b60fa4b3838805d9bb81134c4f7f7c32d1d520"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Kjøtt > Lammekjøtt",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "FÅRIKÅLKJØTT LAM",
+          "categoryId": "f7968a1682b2900def2c75fe"
+        },
+        {
+          "categoryKey": "ingredient|lam",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "FÅRIKÅLKJØTT LAM",
+          "categoryId": "ingredient_5036181c8d77d7a46e598086"
+        },
+        {
+          "categoryKey": "dish|Fårikål",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "FÅRIKÅLKJØTT LAM",
+          "categoryId": "dish_644f58a7dfcd7b12018ae217"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "sour-cream",
+      "originalTitle": "TINE LETTRØMME OG EKSTRA LETT",
+      "description": "",
+      "input": {
+        "title": "TINE LETTRØMME OG EKSTRA LETT",
+        "description": "",
+        "store": "Bunnpris",
+        "offerId": "Y_10msKaBSASiCWm87zl7",
+        "hotspotId": "Y_10msKaBSASiCWm87zl7",
+        "quantity": "300g",
+        "size": 300,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJBJyykjm%2Fp-2.webp&w=600&x1r=0.301&x2r=0.528&y1r=0.627&y2r=0.822&s=f402cb15f2a06017648fa54ce03d5544",
+        "price": 19,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_4ebbaad95deeb3a4b4b4fe4f4a9be885b876c2563729dd38dd4b37001fa9b244"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "dish": [],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Meieri & egg > Rømme",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "TINE LETTRØMME OG EKSTRA LETT",
+          "categoryId": "d7752f191461d4143c228664"
+        },
+        {
+          "categoryKey": "ingredient|rømme",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "TINE LETTRØMME OG EKSTRA LETT",
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "mozzarella",
+      "originalTitle": "MOZZARELLA",
+      "description": "",
+      "input": {
+        "title": "MOZZARELLA",
+        "description": "",
+        "store": "Bunnpris",
+        "offerId": "zkOBCU3-ytF9OQyBQtoM2",
+        "hotspotId": "zkOBCU3-ytF9OQyBQtoM2",
+        "quantity": "125g",
+        "size": 125,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJBJyykjm%2Fp-2.webp&w=600&x1r=0.671&x2r=0.992&y1r=0.803&y2r=0.973&s=626a55b835102f25a9bc08e9c8ad5c87",
+        "price": 25,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_3230e18760d51b492d02b615d40e1a2de6b740baeb6c23f529e93f9dc2a2de11"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "72136501d9b3e3cf2def0fed",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Mozzarella"
+        }
+      ],
+      "ingredient": [
+        {
+          "categoryId": "ingredient_e245565283f434175580c4f0",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "ost"
+        }
+      ],
+      "dish": [],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Ost > Mozzarella",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "MOZZARELLA",
+          "categoryId": "72136501d9b3e3cf2def0fed"
+        },
+        {
+          "categoryKey": "ingredient|ost",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "MOZZARELLA",
+          "categoryId": "ingredient_e245565283f434175580c4f0"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "72136501d9b3e3cf2def0fed",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Mozzarella"
+        },
+        {
+          "categoryId": "ingredient_e245565283f434175580c4f0",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "ost"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "pizza-base",
+      "originalTitle": "PIZZABUNN PRIME RUND",
+      "description": "",
+      "input": {
+        "title": "PIZZABUNN PRIME RUND",
+        "description": "",
+        "store": "Bunnpris",
+        "offerId": "uR0sxJ9OzuA6MDzE9AB4K",
+        "hotspotId": "uR0sxJ9OzuA6MDzE9AB4K",
+        "quantity": "2pcs",
+        "size": 2,
+        "pieces": 1,
+        "unit": "pcs",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJBJyykjm%2Fp-2.webp&w=600&x1r=0.038&x2r=0.385&y1r=0.472&y2r=0.711&s=96427a7d072294cac19bc71de49b9882",
+        "price": 69,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_c7bdf6d9ffa191a8a25ae0d918a1b31a34a3eff7f9aaa86a85ccc8719ad03c09"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "product_type_v22_pizzabunn",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Pizzabunn"
+        }
+      ],
+      "ingredient": [],
+      "dish": [
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Pizza"
+        }
+      ],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Middag > Pizzabunn",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "PIZZABUNN PRIME RUND",
+          "categoryId": "product_type_v22_pizzabunn"
+        },
+        {
+          "categoryKey": "dish|Pizza",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "PIZZABUNN PRIME RUND",
+          "categoryId": "dish_83ee02d0b55694ef9daec611"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Pizza"
+        },
+        {
+          "categoryId": "product_type_v22_pizzabunn",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Pizzabunn"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "prepared-pizza",
+      "originalTitle": "GRANDIOSA PEPPERONI PIZZA",
+      "description": "",
+      "input": {
+        "title": "GRANDIOSA PEPPERONI PIZZA",
+        "description": "",
+        "store": "Coop Prix",
+        "offerId": "GcAVVHkIXB-DrhiLZbJ3q",
+        "hotspotId": "GcAVVHkIXB-DrhiLZbJ3q",
+        "quantity": "500g",
+        "size": 500,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-16T22:00:00+0000",
+        "validTo": "2026-09-17T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJ9cyXDfl%2Fp-9.webp&w=600&x1r=0.28&x2r=0.66&y1r=0.43&y2r=0.95&s=4daa10032e4ac625dcd680b72db27733",
+        "price": 35,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_2e9f80c164aad01c60926054ddf482739c8b25fa41a455f010c8ec064c1478b1"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        }
+      ],
+      "ingredient": [],
+      "dish": [
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Pizza"
+        }
+      ],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Middag > Ferdigretter",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "GRANDIOSA PEPPERONI PIZZA",
+          "categoryId": "855f97b2c5713d5e40f27fd0"
+        },
+        {
+          "categoryKey": "dish|Pizza",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "GRANDIOSA PEPPERONI PIZZA",
+          "categoryId": "dish_83ee02d0b55694ef9daec611"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Pizza"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "prepared-lamb",
+      "originalTitle": "FÅRIKÅL M/POTETER",
+      "description": "",
+      "input": {
+        "title": "FÅRIKÅL M/POTETER",
+        "description": "",
+        "store": "Kiwi",
+        "offerId": "z3aJ6f6eoK0JQzWoSOA_n",
+        "hotspotId": "z3aJ6f6eoK0JQzWoSOA_n",
+        "quantity": "565g",
+        "size": 565,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2Frnzzmgru%2Fp-2.webp&w=600&x1r=0.02&x2r=0.34&y1r=0.63&y2r=0.92&s=fe8c6d338b25fe4f7e70ab9665175d3f",
+        "price": 109,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_c633005bbd8e858022aaa4d680c0457d31d7967990df15f0e331c9b2965a3f2e"
+      },
+      "imageAttempted": true,
+      "imageUsed": true,
+      "product_type": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        }
+      ],
+      "ingredient": [],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Middag > Ferdigretter",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "FÅRIKÅL M/POTETER",
+          "categoryId": "855f97b2c5713d5e40f27fd0"
+        },
+        {
+          "categoryKey": "dish|Fårikål",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "FÅRIKÅL M/POTETER",
+          "categoryId": "dish_644f58a7dfcd7b12018ae217"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.85,
+          "insufficientEvidence": true
+        },
+        {
+          "image": true,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "dish-only-title",
+      "originalTitle": "FÅRIKÅL",
+      "description": "",
+      "input": {
+        "title": "FÅRIKÅL",
+        "description": "",
+        "store": "Bunnpris",
+        "offerId": "vJLYVuIJLxE9_aFLXCbFU",
+        "hotspotId": "vJLYVuIJLxE9_aFLXCbFU",
+        "quantity": "565g",
+        "size": 565,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJBJyykjm%2Fp-6.webp&w=600&x1r=0.373&x2r=0.584&y1r=0.738&y2r=0.957&s=bef1ed5772efede0b0efbc3997e13b31",
+        "price": 89,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_fad90075fb8ca20db339242370640debd675abef47bf96d4d050a1f99e587711"
+      },
+      "imageAttempted": true,
+      "imageUsed": true,
+      "product_type": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        }
+      ],
+      "ingredient": [],
+      "dish": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Middag > Ferdigretter",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "FÅRIKÅL",
+          "categoryId": "855f97b2c5713d5e40f27fd0"
+        },
+        {
+          "categoryKey": "dish|Fårikål",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "FÅRIKÅL",
+          "categoryId": "dish_644f58a7dfcd7b12018ae217"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.75,
+          "insufficientEvidence": true
+        },
+        {
+          "image": true,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "brand-only",
+      "originalTitle": "Fjordland",
+      "description": "",
+      "input": {
+        "title": "Fjordland",
+        "description": "",
+        "store": "Spar",
+        "offerId": "ad4_JjoZ9NwdNFrk0xc3Q",
+        "hotspotId": "ad4_JjoZ9NwdNFrk0xc3Q",
+        "quantity": "2 × 350g",
+        "size": 350,
+        "pieces": 2,
+        "unit": "g",
+        "validFrom": "2026-09-12T22:00:00+0000",
+        "validTo": "2026-09-16T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2F0_wBFPpt%2Fp-4.webp&w=600&x1r=0.52&x2r=0.94&y1r=0.06&y2r=0.53&s=30e542ba0f2d9016eba81fa080ec6fcc",
+        "price": 100,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_c6b8e89333348be797c1c589f79e298a38333c192cf0fffc13fd7fdee19899aa"
+      },
+      "imageAttempted": true,
+      "imageUsed": true,
+      "product_type": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.95,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Middag > Ferdigretter",
+          "inputIndex": 0,
+          "field": "image",
+          "quote": "Fjordland Pasta med ost- og skinkesaus og Kjøttsuppe med rotgrønnsaker og poteter",
+          "categoryId": "855f97b2c5713d5e40f27fd0"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.6,
+          "insufficientEvidence": true
+        },
+        {
+          "image": true,
+          "confidence": 0.95,
+          "insufficientEvidence": false
+        }
+      ]
+    },
+    {
+      "case": "garlic-bread",
+      "originalTitle": "HVITLØKSBRØD",
+      "description": "",
+      "input": {
+        "title": "HVITLØKSBRØD",
+        "description": "",
+        "store": "Bunnpris",
+        "offerId": "4ksoVXXjWcRdv_OgiRI0l",
+        "hotspotId": "4ksoVXXjWcRdv_OgiRI0l",
+        "quantity": "205g",
+        "size": 205,
+        "pieces": 1,
+        "unit": "g",
+        "validFrom": "2026-09-13T22:00:00+0000",
+        "validTo": "2026-09-20T21:59:59+0000",
+        "imageUrl": "https://image-transformer-api.tjek.com/?u=s3%3A%2F%2Fsgn-prd-assets%2Fuploads%2FJBJyykjm%2Fp-6.webp&w=600&x1r=0.465&x2r=0.923&y1r=0.303&y2r=0.492&s=72d17fcf5024070d9ee05ce18df0c2eb",
+        "price": 29,
+        "currency": "NOK",
+        "offerOccurrenceId": "occ_91cdae16ae46a6957c67211bd65aa8e25205332a1b5f379880ca8c06b76e7faa"
+      },
+      "imageAttempted": false,
+      "imageUsed": false,
+      "product_type": [
+        {
+          "categoryId": "53d7fc1ad2edcb5aa8d6fc21",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Brød"
+        }
+      ],
+      "ingredient": [],
+      "dish": [],
+      "dietary": [],
+      "usage": [],
+      "confidence": 0.9,
+      "needsReview": false,
+      "reviewReasons": [],
+      "insufficientEvidence": false,
+      "evidence": [
+        {
+          "categoryKey": "product_type|Brød > Brød",
+          "inputIndex": 0,
+          "field": "title",
+          "quote": "HVITLØKSBRØD",
+          "categoryId": "53d7fc1ad2edcb5aa8d6fc21"
+        }
+      ],
+      "acceptedAssignments": [
+        {
+          "categoryId": "53d7fc1ad2edcb5aa8d6fc21",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Brød"
+        }
+      ],
+      "calls": [
+        {
+          "image": false,
+          "confidence": 0.9,
+          "insufficientEvidence": false
+        }
+      ]
+    }
+  ]
+}

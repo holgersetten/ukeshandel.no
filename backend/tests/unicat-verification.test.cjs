@@ -148,8 +148,8 @@ test('representative products pass concept lookup, shared classification, storag
     {id:'generic',title:'Fjordland',insufficient:true,labels:[]},
     {id:'chicken',title:'Kyllingfilet',labels:[assignment('product_type','Kylling'),assignment('ingredient','kylling')],imageUrl:'https://example.invalid/chicken.jpg'},
     {id:'marinated-chicken',title:'Marinert kyllingfilet hvitløk',labels:[assignment('product_type','Kylling'),assignment('ingredient','kylling')]},
-    {id:'pizza',title:'Ferdigpizza',labels:[assignment('product_type','Pizza'),assignment('dish','Pizza','is_dish')]},
-    {id:'vegetarian',title:'Vegetarrett glutenfri',labels:[assignment('product_type','Vegetarretter'),assignment('dietary','Vegetar'),assignment('dietary','Glutenfri')]},
+    {id:'pizza',title:'Ferdigpizza',labels:[assignment('product_type','Ferdigretter'),assignment('dish','Pizza','is_dish')]},
+    {id:'vegetarian',title:'Vegetarrett glutenfri',labels:[assignment('product_type','Ferdigretter'),assignment('dietary','Vegetar'),assignment('dietary','Glutenfri')]},
     {id:'vague',title:'Ukens favoritt',insufficient:true,imageUrl:'https://example.invalid/vague.jpg',labels:[assignment('product_type','Scampi'),assignment('ingredient','scampi')]}
   ];
   const records=[];const ids=new Map();

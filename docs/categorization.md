@@ -41,13 +41,18 @@ npm.cmd run concepts:preview
 npm.cmd run concepts:migrate
 npm.cmd test
 npm.cmd run categories:validate
-npm.cmd run categories:evaluate -- --output evaluation-results/category-gold-final.json
+npm.cmd run categories:evaluate -- --output evaluation-results/category-gold-local.json
 ```
 
 AI-modellen kan overstyres med `CATEGORY_MODEL`; standard er `gpt-4.1-mini`. `SKIP_AI=true` stopper AI-forsøk. Ny klassifisering skjer ved innhenting eller eksplisitt retry, ikke ved visning av tilbud.
 
 ## Måling
 
-Versjonert fasit ligger i `backend/tests/fixtures/category-gold.v1.json`. Evalueringsscriptet bruker en isolert midlertidig database, rapporterer eksakt treff, produkttypetreff, kontrollandel og precision/recall per facet. `--validate` sjekker fasit og konseptidentitet uten AI; det er ikke en kvalitetsmåling av modellen. `--live` måler faktisk AI og koster API-bruk. Oppgi en ny outputfil for sammenligning før/etter endringer. Åtte eksempler er et første regresjonssett, ikke bevis for kvalitet på hele sortimentet. Bilde-fallback er dekket av systemtest med mock; ekte bildeklassifisering er ikke målt i dette fasitsettet.
+Oppdatert prompt-audit, versjoner, tester og ekte AI-resultater etter taxonomy-v2.2
+er beskrevet i [UniCat-prompt-revision.md](UniCat-prompt-revision.md).
+Standardfasit er nå `backend/tests/fixtures/category-gold.v2.json` (29 cases).
+v1 beholdes og kan kjøres med `--fixture tests/fixtures/category-gold.v1.json`.
 
-Ingen gammel kode er fjernet. Evalueringsrapporter fra tidligere promptforsøk er beholdt for sammenligning.
+Evalueringsscriptet bruker en isolert midlertidig database, rapporterer eksakt treff, produkttypetreff, kontrollandel og precision/recall per facet. `--validate` sjekker fasit og konseptidentitet uten AI; det er ikke en kvalitetsmåling av modellen. `--live` måler faktisk AI og koster API-bruk. Oppgi en ny outputfil for sammenligning før/etter endringer. Et begrenset regresjonssett er ikke bevis for kvalitet på hele sortimentet. Ekte tilbud og bilde-fallback kan måles isolert med `npm.cmd run classifier:evaluate-real`; dette scriptet bruker et fast, begrenset utvalg og skriver ikke til produksjonsdata.
+
+Resultatene for prompt v7 ligger i `backend/evaluation-results`. Utviklingen fra v5 til v7 er oppsummert i [UniCat-prompt-revision.md](UniCat-prompt-revision.md).

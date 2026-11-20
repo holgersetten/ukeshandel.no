@@ -251,7 +251,7 @@ function OfferReviewCard({offer,categories,onCategorize,saving,allowUpdate}:Offe
       {offer.manualLock&&<Badge variant="outline">Manuelt låst</Badge>}
       {offer.stale&&<Badge variant="outline">Trenger ny AI-vurdering</Badge>}
       {offer.reviewReason && <p className="text-sm text-destructive">{offer.reviewReason}</p>}
-      <div className="flex flex-wrap gap-1">{offer.categoryIds.map(id=><Badge key={id} variant="secondary">{categoryPath(id,categories)}</Badge>)}</div>
+      <div className="flex flex-wrap gap-1">{offer.categoryIds.map(id=><Badge key={id} variant="secondary">{categoryPath(id,categories)}{categories.find(c=>c.id===id)?.active===false?' · Inaktiv':categories.find(c=>c.id===id)?.assignable===false?' · Kun navigasjon':''}</Badge>)}</div>
     </CardHeader>
     <CardContent>
       {editing ? <form className="space-y-3" onSubmit={submit}>

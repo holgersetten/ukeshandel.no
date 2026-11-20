@@ -19,6 +19,7 @@ try {
   const {OfferGrid}=await server.ssrLoadModule('/src/components/grocery/offer-grid.tsx');
   const {default:Picker}=await server.ssrLoadModule('/src/components/ConceptCategoryPicker.tsx');
   const {OfferReviewCard}=await server.ssrLoadModule('/src/components/AdminReview.tsx');
+  const {CategoryTree}=await server.ssrLoadModule('/src/components/CategoryManager.tsx');
   const cases=report.cases.filter(c=>c.dataSource==='synthetic-fixture'&&c.case!=='lamb-after-manual-lock');
   assert.equal(cases.length,12);
   const escape=text=>text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#x27;');
@@ -28,14 +29,26 @@ try {
   const picker=renderToStaticMarkup(React.createElement(Picker,{categories:taxonomy,value:lamb.activeClassification,onChange:()=>{}}));
   for(const label of ['Produkttype','Primær ingrediens','Rett','Kosthold','Bruksområde'])assert.ok(picker.includes(label),label);
   assert.ok(picker.includes('value="is_dish"'));assert.ok(picker.includes('value="for_dish"'));
+  for(const c of taxonomy.filter(c=>c.active===false||c.assignable===false))assert.ok(!picker.includes('<option value="'+c.id+'"'),c.name+' must not be selectable');
+  assert.ok(picker.includes('<option value="dish_v22_sushi"'));
+  const oldPizza=taxonomy.find(c=>c.id==='0b085c562c2b1e7631968593');
+  const historicalPicker=renderToStaticMarkup(React.createElement(Picker,{categories:taxonomy,value:[{categoryId:oldPizza.id,facet:'product_type',relation:''}],onChange:()=>{}}));
+  assert.ok(historicalPicker.includes('Pizza (inaktiv · historikk)'));
+  assert.ok(!historicalPicker.includes('<option value="'+oldPizza.id+'"'));
+  const tree=renderToStaticMarkup(React.createElement(CategoryTree,{categories:taxonomy,selected:'',onChoose:()=>{}}));
+  assert.ok(tree.includes('Inaktiv · historikk'));assert.ok(tree.includes('Kun navigasjon'));
+  for(const id of ['product_type_v22_smor','product_type_v22_margarin','product_type_v22_linser','product_type_v22_bonner'])assert.ok(tree.includes(taxonomy.find(c=>c.id===id).name));
   const offer=c=>({title:c.title,normalizedName:c.title.toLowerCase(),conceptId:c.concept_id,offerOccurrenceId:c.offerOccurrenceId,assignments:c.activeClassification,categoryIds:c.activeClassification.map(a=>a.categoryId),effectiveCategoryIds:[],categories:[],categorySource:c.source,categoryConfidence:null,needsReview:c.needs_review,reviewReason:c.reviewReason||null,manualLock:c.manual_lock,stale:c.stale,store:'Meny',price:39,currency:'NOK'});
   const props=c=>({offer:offer(c),categories:taxonomy,onCategorize:async()=>{},saving:false,allowUpdate:true});
   const manual=renderToStaticMarkup(React.createElement(OfferReviewCard,props(report.cases.find(c=>c.case==='lamb-after-manual-lock'))));
   assert.ok(manual.includes('Manuelt låst'));assert.ok(!manual.includes('<fieldset'),'Editors must remain closed initially');
+  const historicalProps=props(cases[0]);historicalProps.offer.categoryIds=[oldPizza.id];historicalProps.offer.manualLock=true;historicalProps.offer.stale=false;
+  const historical=renderToStaticMarkup(React.createElement(OfferReviewCard,historicalProps));
+  assert.ok(historical.includes('Pizza · Inaktiv'));assert.ok(historical.includes('Manuelt låst'));
   const staleProps=props(cases[0]);staleProps.offer.stale=true;staleProps.offer.needsReview=true;staleProps.offer.reviewReason='stale_classification';
   const stale=renderToStaticMarkup(React.createElement(OfferReviewCard,staleProps));assert.ok(stale.includes('Trenger ny AI-vurdering'));assert.ok(stale.includes('stale_classification'));
   const vague=renderToStaticMarkup(React.createElement(OfferReviewCard,props(cases.find(c=>c.case==='generic'))));assert.ok(vague.includes('insufficient_evidence'));
-  const output={generatedAt:new Date().toISOString(),method:'Actual Vite SSR-loaded frontend components with fixture props; no interactive browser automation',checks:{twelveOffersRender:true,fiveFacetsRender:true,bothDishRelationsRender:true,manualLockBadge:true,staleBadge:true,reviewReason:true,editorsClosedInitially:true},interactiveBrowserTest:false};
+  const output={generatedAt:new Date().toISOString(),method:'Actual Vite SSR-loaded frontend components with fixture props; no interactive browser automation',checks:{twelveOffersRender:true,fiveFacetsRender:true,bothDishRelationsRender:true,manualLockBadge:true,staleBadge:true,reviewReason:true,editorsClosedInitially:true,inactiveAndNavigationNotSelectable:true,historicalAssignmentsVisible:true,inactiveCategoriesVisibleInAdmin:true,nestedSplitCategoriesVisible:true},interactiveBrowserTest:false};
   fs.writeFileSync(path.join(root,'../backend/evaluation-results/unicat-ui-render.json'),JSON.stringify(output,null,2)+'\n');
   console.log(JSON.stringify(output,null,2));
 }finally{await server.close();}

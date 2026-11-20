@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-02T21:54:13.632Z",
+  "generatedAt": "2026-11-20T10:12:03.410Z",
   "scope": "isolated SQLite and original source-shaped fixtures; no production writes or external AI requests",
-  "promptVersion": "concept-classification-v4:evidence-v2",
-  "taxonomyVersion": "taxonomy-v2:882e6d4daa7db65c809aaf4c1096ff0722e30ffb3ad2b37bb1a8b750504bf526",
+  "promptVersion": "concept-classification-v7:evidence-v3",
+  "taxonomyVersion": "taxonomy-v2.2:2336a75f264c98dc09bce96a15ec1d8888a2d43f5b9f51642d98c092b2d9ffa5",
   "cases": [
     {
       "case": "same-catalog-first-fetch",
@@ -10,12 +10,12 @@
       "dataSource": "synthetic-Tjek-hotspot through real transform and JSON ingestion",
       "ai": "mock",
       "offerOccurrenceId": "occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
-      "concept_id": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+      "concept_id": "81dfc7c0-ca6a-4b6d-8daf-11755309cc91",
       "aliasUsed": {
-        "id": "c41bdd50-ac3f-4935-8bb5-834ebd7a1b92",
+        "id": "f7f85963-4e9c-4380-b882-16eaa438581b",
         "normalizedTitle": "lettrømme 0 5",
         "scopeKey": "offer:occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
-        "conceptId": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+        "conceptId": "81dfc7c0-ca6a-4b6d-8daf-11755309cc91",
         "status": "approved"
       },
       "conceptState": "new",
@@ -62,12 +62,12 @@
       "dataSource": "synthetic-Tjek-hotspot through real transform and JSON ingestion",
       "ai": "mock",
       "offerOccurrenceId": "occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
-      "concept_id": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+      "concept_id": "81dfc7c0-ca6a-4b6d-8daf-11755309cc91",
       "aliasUsed": {
-        "id": "c41bdd50-ac3f-4935-8bb5-834ebd7a1b92",
+        "id": "f7f85963-4e9c-4380-b882-16eaa438581b",
         "normalizedTitle": "lettrømme 0 5",
         "scopeKey": "offer:occ_3243fb4c62962eb681e28c45ba1796143cf1447c97f1ab9d7b1fde2916abff97",
-        "conceptId": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+        "conceptId": "81dfc7c0-ca6a-4b6d-8daf-11755309cc91",
         "status": "approved"
       },
       "conceptState": "existing",
@@ -114,12 +114,12 @@
       "dataSource": "synthetic-Tjek-hotspot through real transform and JSON ingestion",
       "ai": "mock",
       "offerOccurrenceId": "occ_2e9574d8a821c2ccfb6a1b6d6e5b5907e555f0bbe385ade3ede482df384e149e",
-      "concept_id": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+      "concept_id": "81dfc7c0-ca6a-4b6d-8daf-11755309cc91",
       "aliasUsed": {
-        "id": "28b4c21d-9c4d-4bd2-9956-590345297f3a",
+        "id": "bda38aa1-3406-42db-b19c-bfa6a11623cb",
         "normalizedTitle": "lettrømme 0 5",
         "scopeKey": "global",
-        "conceptId": "0ff539fa-c942-4bbd-94d2-e9f3d9f79173",
+        "conceptId": "81dfc7c0-ca6a-4b6d-8daf-11755309cc91",
         "status": "approved"
       },
       "conceptState": "existing",
@@ -166,12 +166,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_48836444a71424cfc8884148c1d0fc2dc82ef870bda526cfde258bdfc3f6956a",
-      "concept_id": "0546f367-562e-4ee2-9286-5c77184fbaec",
+      "concept_id": "c6055f75-774f-4b63-80f8-a8a121aa207b",
       "aliasUsed": {
-        "id": "4be8be88-a99a-4874-bfe7-868ba5740072",
+        "id": "95067426-2cde-449e-bf03-22d0603a2dd1",
         "normalizedTitle": "lettrømme 0 5",
         "scopeKey": "offer:occ_48836444a71424cfc8884148c1d0fc2dc82ef870bda526cfde258bdfc3f6956a",
-        "conceptId": "0546f367-562e-4ee2-9286-5c77184fbaec",
+        "conceptId": "c6055f75-774f-4b63-80f8-a8a121aa207b",
         "status": "approved"
       },
       "conceptState": "new",
@@ -220,12 +220,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_3d92bf5c7df6d871e5fb5e8f3582b398223aa0df0642c32c694e9d6ad55c4b1b",
-      "concept_id": "0546f367-562e-4ee2-9286-5c77184fbaec",
+      "concept_id": "c6055f75-774f-4b63-80f8-a8a121aa207b",
       "aliasUsed": {
-        "id": "e5510d7b-3127-427e-be9f-bf5a0fe872bb",
+        "id": "0ef48f17-c28f-44bf-bc4c-76236c83c9a2",
         "normalizedTitle": "lettrømme 0 5 prosent",
         "scopeKey": "global",
-        "conceptId": "0546f367-562e-4ee2-9286-5c77184fbaec",
+        "conceptId": "c6055f75-774f-4b63-80f8-a8a121aa207b",
         "status": "approved"
       },
       "conceptState": "existing",
@@ -274,12 +274,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_1890138049dc83520cf279aee5723b1bf3e49a401e8d8ad8b8d1a173f0514601",
-      "concept_id": "71cad605-ec5c-4fbc-9e03-6b8413762dc2",
+      "concept_id": "ec63129f-ac9b-431d-ae85-746aaf535a28",
       "aliasUsed": {
-        "id": "68fe96af-51e0-425d-a5e7-4df83d39f46b",
+        "id": "a274285f-39d1-4d90-bd46-0413eda7b2b7",
         "normalizedTitle": "coop scampi hvitløk urter",
         "scopeKey": "offer:occ_1890138049dc83520cf279aee5723b1bf3e49a401e8d8ad8b8d1a173f0514601",
-        "conceptId": "71cad605-ec5c-4fbc-9e03-6b8413762dc2",
+        "conceptId": "ec63129f-ac9b-431d-ae85-746aaf535a28",
         "status": "approved"
       },
       "conceptState": "new",
@@ -328,12 +328,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
-      "concept_id": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+      "concept_id": "30c4c5e9-7807-4017-b84d-311b5f9bdb17",
       "aliasUsed": {
-        "id": "4788b2e8-00e5-4f98-9723-dbe09f011c59",
+        "id": "95ffe591-1c29-4d66-a283-4f65dc008144",
         "normalizedTitle": "lam fårikålkjøtt",
         "scopeKey": "offer:occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
-        "conceptId": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+        "conceptId": "30c4c5e9-7807-4017-b84d-311b5f9bdb17",
         "status": "approved"
       },
       "conceptState": "new",
@@ -395,12 +395,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_17e4aa30cde11da4575a5ca2de624abbb52f5be9c809549cf56ca4e892446988",
-      "concept_id": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+      "concept_id": "30c4c5e9-7807-4017-b84d-311b5f9bdb17",
       "aliasUsed": {
-        "id": "3404a570-58de-44a8-8d2d-6c85e13edcb5",
+        "id": "e585de2f-ca87-4cf2-84c5-e5ba2087cea8",
         "normalizedTitle": "fårikålkjøtt lam",
         "scopeKey": "global",
-        "conceptId": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+        "conceptId": "30c4c5e9-7807-4017-b84d-311b5f9bdb17",
         "status": "approved"
       },
       "conceptState": "existing",
@@ -462,12 +462,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_5fdfacb4cabe3d8b1d26a2e072731b30b9394531172371195a4a0bd3c7add5f4",
-      "concept_id": "bbf18c0b-11e4-4915-834b-ecc0fa45ef66",
+      "concept_id": "753a4edc-4803-42ac-9142-451cf0eaafce",
       "aliasUsed": {
-        "id": "976ef4a9-87eb-4abd-bde7-e5fb6d6e7a67",
+        "id": "16b4b487-13ec-461f-949a-d9eaf220d1ff",
         "normalizedTitle": "fjordland fårikål",
         "scopeKey": "offer:occ_5fdfacb4cabe3d8b1d26a2e072731b30b9394531172371195a4a0bd3c7add5f4",
-        "conceptId": "bbf18c0b-11e4-4915-834b-ecc0fa45ef66",
+        "conceptId": "753a4edc-4803-42ac-9142-451cf0eaafce",
         "status": "approved"
       },
       "conceptState": "new",
@@ -516,12 +516,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_516936c112af2c6d6994e17da07822e33c8ab124e4b741d6724cd04eee4510f1",
-      "concept_id": "50dc4930-963d-4582-a6a6-fbad755ddb50",
+      "concept_id": "c4c8a172-c7e8-40a5-ab85-6226242da308",
       "aliasUsed": {
-        "id": "d4475b88-1872-41af-adde-177de356b60b",
+        "id": "b7602a3d-e400-46a6-a0f0-32317839839e",
         "normalizedTitle": "fjordland",
         "scopeKey": "offer:occ_516936c112af2c6d6994e17da07822e33c8ab124e4b741d6724cd04eee4510f1",
-        "conceptId": "50dc4930-963d-4582-a6a6-fbad755ddb50",
+        "conceptId": "c4c8a172-c7e8-40a5-ab85-6226242da308",
         "status": "approved"
       },
       "conceptState": "new",
@@ -543,12 +543,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_b0e8015c13fdc6dabf910d9f54f7ff121ae4c963f01af9216a68894d9aff115b",
-      "concept_id": "da383512-f460-452e-9beb-1f1d6340bb04",
+      "concept_id": "d57c09cc-21fc-4046-a831-41a4ec9acfd0",
       "aliasUsed": {
-        "id": "dd6a598b-5ef3-4665-8c20-0446793c745f",
+        "id": "f09a2153-b65b-4d68-9618-2c3c83f2028f",
         "normalizedTitle": "kyllingfilet",
         "scopeKey": "offer:occ_b0e8015c13fdc6dabf910d9f54f7ff121ae4c963f01af9216a68894d9aff115b",
-        "conceptId": "da383512-f460-452e-9beb-1f1d6340bb04",
+        "conceptId": "d57c09cc-21fc-4046-a831-41a4ec9acfd0",
         "status": "approved"
       },
       "conceptState": "new",
@@ -597,12 +597,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_499b79006f85da3e828c820d578423963dabe2a822a5c6270669b1aed5236262",
-      "concept_id": "4334ad04-a454-47d4-b764-18f562602cba",
+      "concept_id": "43d45b8a-436c-4f1a-b113-7a9e152c0e2f",
       "aliasUsed": {
-        "id": "79962026-e4f5-493a-97d9-1b6d5ccfdb9f",
+        "id": "72aa290a-19b2-4481-81dd-55006fbe20a6",
         "normalizedTitle": "marinert kyllingfilet hvitløk",
         "scopeKey": "offer:occ_499b79006f85da3e828c820d578423963dabe2a822a5c6270669b1aed5236262",
-        "conceptId": "4334ad04-a454-47d4-b764-18f562602cba",
+        "conceptId": "43d45b8a-436c-4f1a-b113-7a9e152c0e2f",
         "status": "approved"
       },
       "conceptState": "new",
@@ -651,21 +651,21 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_b25e8184079bbd91379f492d00450d2c4cd6cc2ccacafbd068ba728d0cf8809f",
-      "concept_id": "d59b434b-893d-4314-82f3-e5a9cb977285",
+      "concept_id": "7ac27920-18a6-4126-b73b-c4e57229502c",
       "aliasUsed": {
-        "id": "9daabba4-0e7f-4b01-addd-e73fa6d19563",
+        "id": "f4c20166-0a26-43d5-ba9c-f4be0c05521c",
         "normalizedTitle": "ferdigpizza",
         "scopeKey": "offer:occ_b25e8184079bbd91379f492d00450d2c4cd6cc2ccacafbd068ba728d0cf8809f",
-        "conceptId": "d59b434b-893d-4314-82f3-e5a9cb977285",
+        "conceptId": "7ac27920-18a6-4126-b73b-c4e57229502c",
         "status": "approved"
       },
       "conceptState": "new",
       "activeClassification": [
         {
-          "categoryId": "0b085c562c2b1e7631968593",
+          "categoryId": "855f97b2c5713d5e40f27fd0",
           "facet": "product_type",
           "relation": "",
-          "name": "Pizza"
+          "name": "Ferdigretter"
         },
         {
           "categoryId": "dish_83ee02d0b55694ef9daec611",
@@ -676,10 +676,10 @@
       ],
       "product_type": [
         {
-          "categoryId": "0b085c562c2b1e7631968593",
+          "categoryId": "855f97b2c5713d5e40f27fd0",
           "facet": "product_type",
           "relation": "",
-          "name": "Pizza"
+          "name": "Ferdigretter"
         }
       ],
       "ingredient": [],
@@ -705,21 +705,21 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_25e5935affc991c06db5255727d5511243eb5473c76e7df29d9e5b766483a452",
-      "concept_id": "37f54b24-afc9-41a3-8526-6924cc62482c",
+      "concept_id": "9b09e089-0895-4ec6-aeb9-dcc9d9973ad0",
       "aliasUsed": {
-        "id": "87370553-010a-4f1e-9c32-3ad12db34050",
+        "id": "60be10ca-2bbd-4811-84c1-97d487038b16",
         "normalizedTitle": "vegetarrett glutenfri",
         "scopeKey": "offer:occ_25e5935affc991c06db5255727d5511243eb5473c76e7df29d9e5b766483a452",
-        "conceptId": "37f54b24-afc9-41a3-8526-6924cc62482c",
+        "conceptId": "9b09e089-0895-4ec6-aeb9-dcc9d9973ad0",
         "status": "approved"
       },
       "conceptState": "new",
       "activeClassification": [
         {
-          "categoryId": "de730b7582ff9cc01a91af76",
+          "categoryId": "855f97b2c5713d5e40f27fd0",
           "facet": "product_type",
           "relation": "",
-          "name": "Vegetarretter"
+          "name": "Ferdigretter"
         },
         {
           "categoryId": "dietary_3b59806a2e5c2727bf9fb189",
@@ -736,10 +736,10 @@
       ],
       "product_type": [
         {
-          "categoryId": "de730b7582ff9cc01a91af76",
+          "categoryId": "855f97b2c5713d5e40f27fd0",
           "facet": "product_type",
           "relation": "",
-          "name": "Vegetarretter"
+          "name": "Ferdigretter"
         }
       ],
       "ingredient": [],
@@ -758,12 +758,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_e4feda6adfced0b6c5f1f99ef08b2ea8cf177582e47f4f6ec340b5491e392872",
-      "concept_id": "2d953240-ff31-4d31-9cf8-9f6af22cc9c2",
+      "concept_id": "be4a722e-4874-4def-9ec0-4256efd8e0a4",
       "aliasUsed": {
-        "id": "6f959e5b-33ab-4435-86c5-9cc0fe5f5bf9",
+        "id": "f2450f8e-3d21-446b-8b43-b799700ed444",
         "normalizedTitle": "ukens favoritt",
         "scopeKey": "offer:occ_e4feda6adfced0b6c5f1f99ef08b2ea8cf177582e47f4f6ec340b5491e392872",
-        "conceptId": "2d953240-ff31-4d31-9cf8-9f6af22cc9c2",
+        "conceptId": "be4a722e-4874-4def-9ec0-4256efd8e0a4",
         "status": "approved"
       },
       "conceptState": "new",
@@ -812,12 +812,12 @@
       "dataSource": "synthetic-fixture",
       "ai": "mock",
       "offerOccurrenceId": "occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
-      "concept_id": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+      "concept_id": "30c4c5e9-7807-4017-b84d-311b5f9bdb17",
       "aliasUsed": {
-        "id": "4788b2e8-00e5-4f98-9723-dbe09f011c59",
+        "id": "95ffe591-1c29-4d66-a283-4f65dc008144",
         "normalizedTitle": "lam fårikålkjøtt",
         "scopeKey": "offer:occ_c9b1828f3263696d6cb57932f83781cad2a046635c138506c8afd4e1ff42a32b",
-        "conceptId": "dd2d309f-1957-49f2-b8bf-9696ee27a763",
+        "conceptId": "30c4c5e9-7807-4017-b84d-311b5f9bdb17",
         "status": "approved"
       },
       "conceptState": "new",

@@ -1,0 +1,973 @@
+{
+  "datasetVersion": "category-gold-v2",
+  "mode": "live-ai",
+  "promptVersion": "concept-classification-v7:evidence-v3",
+  "taxonomyVersion": "taxonomy-v2.2:2336a75f264c98dc09bce96a15ec1d8888a2d43f5b9f51642d98c092b2d9ffa5",
+  "model": "gpt-4.1-mini",
+  "fixtureCases": 29,
+  "identityResults": [
+    {
+      "left": "raw-lamb",
+      "right": "raw-lamb-reordered",
+      "sameConcept": true,
+      "requiresManualApproval": true,
+      "passed": true
+    },
+    {
+      "left": "raw-lamb",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    },
+    {
+      "left": "brand-only",
+      "right": "prepared-lamb",
+      "sameConcept": false,
+      "passed": true
+    }
+  ],
+  "results": [
+    {
+      "id": "sour-cream",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Rømme"
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "rømme"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "d7752f191461d4143c228664",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_0f6ab37604b7ed5183220db1",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "seasoned-scampi",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "scampi"
+        },
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Scampi"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "product_type_ff42539187481d5dd0c35970",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_3088db20a9ef8893ce3a9096",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "raw-lamb-reordered",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "prepared-lamb",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Fårikål"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "is_dish"
+        }
+      ]
+    },
+    {
+      "id": "plain-lamb",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "brand-only",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "low_confidence",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    },
+    {
+      "id": "assortment",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "low_confidence",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    },
+    {
+      "id": "prepared-pizza",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "is_dish",
+          "name": "Pizza"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "is_dish"
+        }
+      ]
+    },
+    {
+      "id": "pizza-base",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Pizza"
+        },
+        {
+          "categoryId": "product_type_v22_pizzabunn",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Pizzabunn"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "product_type_v22_pizzabunn",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_83ee02d0b55694ef9daec611",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "plain-mozzarella",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "72136501d9b3e3cf2def0fed",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Mozzarella"
+        },
+        {
+          "categoryId": "ingredient_e245565283f434175580c4f0",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "ost"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "72136501d9b3e3cf2def0fed",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_e245565283f434175580c4f0",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "garlic-flavor",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "26777a353c05a28fe037c4d7",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kjeks"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "26777a353c05a28fe037c4d7",
+          "facet": "product_type",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "generic-two-words",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "low_confidence",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    },
+    {
+      "id": "plain-chicken",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "marinated-chicken",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "potatoes",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "bd6232b720e354f1d653068e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Poteter"
+        },
+        {
+          "categoryId": "ingredient_045257843d1305a3a99b1825",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "potet"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "bd6232b720e354f1d653068e",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_045257843d1305a3a99b1825",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "fishcakes",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "product_type_v22_fiskekaker",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Fiskekaker"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "product_type_v22_fiskekaker",
+          "facet": "product_type",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "explicit-vegetarian",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dietary_8a40ad5aa9e4ae0ecd527a89",
+          "facet": "dietary",
+          "relation": "",
+          "name": "Vegetar"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "dietary_8a40ad5aa9e4ae0ecd527a89",
+          "facet": "dietary",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "explicit-vegan",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Ferdigretter"
+        },
+        {
+          "categoryId": "dietary_cb15874d8e800f744d2250aa",
+          "facet": "dietary",
+          "relation": "",
+          "name": "Vegansk"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "855f97b2c5713d5e40f27fd0",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "dietary_cb15874d8e800f744d2250aa",
+          "facet": "dietary",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "explicit-glutenfree",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dietary_3b59806a2e5c2727bf9fb189",
+          "facet": "dietary",
+          "relation": "",
+          "name": "Glutenfri"
+        },
+        {
+          "categoryId": "f2e4077d3f8606b8d9c7d99e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Pasta"
+        },
+        {
+          "categoryId": "ingredient_df63c191a666df7b7823ff4c",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "pasta"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f2e4077d3f8606b8d9c7d99e",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_df63c191a666df7b7823ff4c",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dietary_3b59806a2e5c2727bf9fb189",
+          "facet": "dietary",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "plain-flour",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "af61ede5c4c7d86e4cd00e42",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Mel"
+        },
+        {
+          "categoryId": "ingredient_6a10b774462d14e99ac3ce9e",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "mel"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "af61ede5c4c7d86e4cd00e42",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_6a10b774462d14e99ac3ce9e",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "explicit-baking",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "af61ede5c4c7d86e4cd00e42",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Mel"
+        },
+        {
+          "categoryId": "ingredient_6a10b774462d14e99ac3ce9e",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "mel"
+        },
+        {
+          "categoryId": "usage_7772451fb020c540433ac203",
+          "facet": "usage",
+          "relation": "",
+          "name": "Baking"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "af61ede5c4c7d86e4cd00e42",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_6a10b774462d14e99ac3ce9e",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "usage_7772451fb020c540433ac203",
+          "facet": "usage",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "pizza-flavor",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "26777a353c05a28fe037c4d7",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kjeks"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "26777a353c05a28fe037c4d7",
+          "facet": "product_type",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "title-only-chicken",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "title-only-seasoned-chicken",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Kylling"
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "kylling"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "779f5c08855825ab1085e83e",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_f0b30f0827b26d7f7e9b4fb9",
+          "facet": "ingredient",
+          "relation": ""
+        }
+      ]
+    },
+    {
+      "id": "title-only-lamb",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "title-only-lamb-reordered",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": false,
+      "reasons": [],
+      "actual": [
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish",
+          "name": "Fårikål"
+        },
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": "",
+          "name": "Lammekjøtt"
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": "",
+          "name": "lam"
+        }
+      ],
+      "expected": [
+        {
+          "categoryId": "f7968a1682b2900def2c75fe",
+          "facet": "product_type",
+          "relation": ""
+        },
+        {
+          "categoryId": "ingredient_5036181c8d77d7a46e598086",
+          "facet": "ingredient",
+          "relation": ""
+        },
+        {
+          "categoryId": "dish_644f58a7dfcd7b12018ae217",
+          "facet": "dish",
+          "relation": "for_dish"
+        }
+      ]
+    },
+    {
+      "id": "mixed-ready-meals",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "low_confidence",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    },
+    {
+      "id": "dish-name-only",
+      "passed": true,
+      "productTypeCorrect": true,
+      "needsReview": true,
+      "reasons": [
+        "missing_image_for_ambiguous_text",
+        "insufficient_evidence",
+        "no_categories",
+        "low_confidence",
+        "requires_one_product_type"
+      ],
+      "actual": [],
+      "expected": []
+    }
+  ],
+  "metrics": {
+    "exactAccuracy": 1,
+    "productTypeAccuracy": 1,
+    "reviewRate": 0.1724137931034483,
+    "perFacet": {
+      "product_type": {
+        "truePositives": 24,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "ingredient": {
+        "truePositives": 16,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "dish": {
+        "truePositives": 7,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "dietary": {
+        "truePositives": 3,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      },
+      "usage": {
+        "truePositives": 1,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 1,
+        "recall": 1
+      }
+    }
+  }
+}

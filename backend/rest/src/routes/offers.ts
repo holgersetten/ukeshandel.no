@@ -96,10 +96,11 @@ router.post('/offers/update', requireAdminApiKey, async (_req,res) => {
 router.get('/classifications/review', (_req,res) => {
   if(conceptMode()==='concept') {
     const names=new Map((concepts.getConcepts() as {id:string;canonicalName:string}[]).map(c=>[c.id,c.canonicalName]));
-    res.json({classifications:concepts.allClassifications().filter(c=>c.needsReview||concepts.isStale(c)).map(c=>{
-      const stale=concepts.isStale(c);
-      return {...c,stale,needsReview:c.needsReview||stale,normalizedName:normalizeTitle(c.input[0]?.title || names.get(c.conceptId)||c.conceptId),categoryIds:c.assignments.map(a=>a.categoryId),reviewReason:c.reviewReasons.join(', ') || (stale?'stale_classification':null)};
-    })});return;
+    const taxonomy=concepts.getTaxonomy();
+    res.json({classifications:concepts.allClassifications().map(c=>({...c,...concepts.classificationReview(c,taxonomy)}))
+      .filter(c=>c.needsReview).map(c=>({...c,
+        normalizedName:normalizeTitle(c.input[0]?.title || names.get(c.conceptId)||c.conceptId),
+        categoryIds:c.assignments.map(a=>a.categoryId)}))});return;
   }
   res.json({classifications:cache.getAll().filter(c=>c.needsReview)});
 });
