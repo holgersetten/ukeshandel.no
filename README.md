@@ -16,30 +16,22 @@ Backend henter tilbud parallelt for de 12 butikkjedene som er aktivert i konfigu
 
 Hvert tilbud får blant annet tittel, beskrivelse, tilbudspris, eventuell førpris, mengde, bilde, butikk og gyldighetsdatoer når kilden oppgir dem. Katalogens datoer brukes hvis datoene mangler på selve tilbudet. Backend legger også til butikklogo og forsøker å supplere manglende bildelenker. Deretter lagres tilbudene i én JSON-fil per butikk. Et tomt resultat lar den gamle butikkfilen ligge. Flere Tjek-feil returneres som tomme resultater, så en oppdatering som meldes fullført kan fortsatt inneholde eldre tilbud fra enkelte butikker. Butikkonfigurasjon (backend/rest/src/config/stores.ts) · Tjek-integrasjon (backend/persistence/src/services/tjekApiService.ts) · Tilbudstjeneste (backend/core/src/services/offerService.ts)
 
-## 4\. Systemet finner ut hvilken vare tilbudet gjelder
+## 4. Backend gjenbruker kategorier eller ber OpenAI om et forslag
 
-Standardmodusen skiller mellom **tilbudsforekomst** og **produktkonsept**. En tilbudsforekomst er varen slik den står i én bestemt katalog. Produktkonseptet er varen som kategoriene knyttes til, og kan gjenbrukes for flere tilbud.
+Backend normaliserer tilbudstittelen og bruker den som nøkkel i SQLite. Originaltittelen beholdes. Tilbud med samme normaliserte navn deler kategorisering, også på tvers av butikker.
 
-Backend lager en forekomst-ID basert på kilden, butikken, katalogen og tilbudets identifikator der den finnes. Prisen inngår ikke i ID-en. Systemet ser først etter en godkjent kobling for den konkrete forekomsten, deretter etter et godkjent globalt alias som matcher den normaliserte tittelen eksakt. Hvis ingen kobling finnes, opprettes et foreløpig konsept. Dermed kan administratoren skille ulike varer med samme generiske tittel og samtidig koble flere tilbud til samme vare når identiteten er bekreftet. Forekomst-ID (backend/core/src/utils/offerOccurrence.ts) · Produktkonsepter og aliaser (backend/core/src/db/productConceptRepo.ts)
+Ved oppdatering sendes produkter som mangler en lagret klassifisering til OpenAI i grupper på opptil 30. Modellen foreslår 1–3 direkte kategorier. Usikre eller ugyldige resultater flagges for kontroll. AI-kategorisering krever `OPENAI_API_KEY` og kan slås av med `SKIP_AI=true`. [Kategorisering](backend/core/src/services/categoryService.ts) · [AI-kall](backend/core/src/services/aiCategorization.ts)
 
-## 5\. Backend gjenbruker kategorier eller ber OpenAI om et forslag
+## 5. Backend setter sammen det nettleseren trenger
 
-Eksisterende klassifiseringer gjenbrukes. Nye konsepter og klassifiseringer som er blitt utdaterte, kan sendes til OpenAI under oppdateringen. Endringer i modell, instruksjon, kategorihierarki eller relevant produktinformasjon kan utløse ny vurdering. Manuelt låste klassifiseringer beholdes. AI-kjøring krever `OPENAI_API_KEY` og kan slås av med `SKIP_AI=true`.
+Ved `GET /api/offers` leser backend tilbud fra butikkfilene og slår opp klassifiseringene i SQLite. Svaret inneholder direkte kategorier, arvede overkategorier og kontrollstatus. Sidevisning bruker de lagrede dataene. [Tilbudstjeneste](backend/core/src/services/offerService.ts) · [API-ruter](backend/rest/src/routes/offers.ts)
 
-En godkjent klassifisering har én **produkttype** og kan i tillegg ha en primær ingrediens og merkelapper for rett, kosthold og bruk. For eksempel kan en ferdig pizza få produkttypen **Ferdigretter** og rettsmerkelappen **Pizza**. For en pizzabunn kan systemet uttrykke at varen er _til_ pizza. Backend kontrollerer at kategoriene finnes, at kombinasjonen er gyldig, og at produktinformasjonen gir grunnlag for svaret. Ved utilstrekkelig tekst kan systemet prøve med den eksisterende bildelenken. Uavklarte resultater flagges for kontroll. Klassifiseringsflyt (backend/core/src/services/concepts/conceptService.ts) · Kategoriregler og AI-validering (backend/core/src/services/concepts/conceptAI.ts)
-
-## 6\. Backend setter sammen det nettleseren trenger
-
-Når frontend ber om `GET /api/offers`, leser backend tilbudene fra butikkfilene og slår opp klassifiseringene i SQLite. API-et returnerer tilbudet sammen med kategorier, arvede overkategorier og eventuell kontrollstatus. Kategoriarven gjør at et tilbud kan finnes både via en underkategori og via kategorien over den. Når en brukbar konseptklassifisering mangler, kan API-et vise den eldre navnebaserte kategoriseringen og samtidig merke tilbudet for kontroll. Vanlig sidevisning utløser ingen nye Tjek- eller OpenAI-kall. Tilbudstjeneste (backend/core/src/services/offerService.ts) · API-ruter (backend/rest/src/routes/offers.ts)
-
-## 7\. Brukeren finner tilbud på nettsiden
+## 6\. Brukeren finner tilbud på nettsiden
 
 Forsiden viser antall lagrede tilbud og hvor mange butikkjeder de kommer fra. På `/tilbud` kan brukeren velge mellom **Beste tilbud** og **Alle tilbud**, søke i varenavn, beskrivelse, butikk og kategorinavn, velge butikker og kategorier og sortere på pris.
 
 **Beste tilbud** velger opptil ti varer. Når førpris finnes, rangeres de etter prosentvis rabatt, deretter spart beløp i kroner og til slutt laveste pris. Hvis ingen varer kvalifiserer, brukes et tilfeldig utvalg av tilbud med positiv pris. Tilbudskortene viser blant annet vare, butikk, pris og eventuell førpris og rabatt. Selv om forsiden bruker teksten «Tilbud denne uka», teller den de lagrede tilbudene. Tilbudsvisningen filtrerer heller ikke automatisk bort varer etter utløpsdato. Forsiden (frontend/src/pages/HomePage.tsx) · Tilbudssiden (frontend/src/pages/OffersPage.tsx) · Tilbudskort (frontend/src/components/grocery/offer-card.tsx)
 
-## 8\. Administratoren retter klassifiseringer før neste oppdatering
+## 7\. Administratoren retter klassifiseringer før neste oppdatering
 
-I `/admin` kan administratoren se tilbud som trenger kontroll, søke i alle lagrede tilbud og gjennomgå historiske klassifiseringer. En manuell rettelse låser klassifiseringen for konseptet. Administratoren kan også koble et tilbud til et eksisterende konsept og uttrykkelig godkjenne et globalt alias for fremtidige eksakte treff. Kategorihierarkiet administreres på `/kategorier`. Endringene lagres i SQLite, vises ved neste innlasting og gjenbrukes når neste tilbudsrunde hentes. Kontrollkø (frontend/src/components/AdminReview.tsx) · Aliasadministrasjon (frontend/src/components/ConceptAliasManager.tsx) · Kategoriadministrasjon (frontend/src/components/CategoryManager.tsx)
-
-Oversikten følger koden og standardinnstillingene i arbeidsmappen. Jeg startet ingen innhenting og verifiserte ingen levende tilbudstall.
+I `/admin` kan administratoren gjennomgå kategoriseringer som trenger kontroll og lagre manuelle rettelser. Rettelsene lagres i SQLite og gjenbrukes ved neste tilbudsoppdatering. Administratoren kan også be om et nytt AI-forsøk for tidligere AI-resultater som trenger gjennomgang. Kategorihierarkiet administreres på `/kategorier`. [Kontrollkø](frontend/src/components/AdminReview.tsx) · [Kategoriadministrasjon](frontend/src/components/CategoryManager.tsx)
