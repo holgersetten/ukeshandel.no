@@ -62,7 +62,7 @@ app.use((_req: Request, res: Response) => {
 
 // Error handler
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    console.error('❌ Server error:', err);
+    console.error('!!! Server error:', err);
     res.status(500).json({
         error: 'Intern serverfeil',
         message: config.nodeEnv === 'development' ? err.message : undefined
@@ -72,29 +72,29 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 // Start server
 const PORT = config.port || 5000;
 const server = app.listen(PORT, '0.0.0.0', () => {
-    console.log('🚀 =================================');
-    console.log('🚀 Ukeshandel API Server startet');
-    console.log('🚀 =================================');
-    console.log(`🚀 Port: ${PORT}`);
-    console.log(`🚀 Environment: ${config.nodeEnv}`);
-    console.log('🚀 =================================\n');
+    console.log('=================================');
+    console.log('Ukeshandel API Server startet');
+    console.log('=================================');
+    console.log(`Port: ${PORT}`);
+    console.log(`Environment: ${config.nodeEnv}`);
+    console.log('=================================\n');
     
     // API og søndagstimeren bruker offerUpdateService.updateOffers().
 });
 
 // Graceful shutdown
 process.on('SIGINT', () => {
-    console.log('\n📱 SIGINT mottatt, stenger server...');
+    console.log('\nSIGINT mottatt, stenger server...');
     server.close(() => {
-        console.log('✅ Server stengt gracefully');
+        console.log('Server stengt gracefully');
         process.exit(0);
     });
 });
 
 process.on('SIGTERM', () => {
-    console.log('\n📱 SIGTERM mottatt, stenger server...');
+    console.log('\n SIGTERM mottatt, stenger server...');
     server.close(() => {
-        console.log('✅ Server stengt gracefully');
+        console.log('Server stengt gracefully');
         process.exit(0);
     });
 });

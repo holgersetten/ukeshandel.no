@@ -45,10 +45,10 @@ class OfferService {
                 }
             });
             
-            console.log('✅ Oppdatering av alle butikker fullført');
+            console.log(':) Oppdatering av alle butikker fullført');
             return { errors };
         } catch (error) {
-            console.error('❌ Feil under oppdatering av tilbud:', (error as Error).message);
+            console.error('X Feil under oppdatering av tilbud:', (error as Error).message);
             return { errors: { global: (error as Error).message } };
         }
     }
@@ -56,14 +56,14 @@ class OfferService {
     async updateStoreOffers(store: Store): Promise<Offer[] | undefined> {
         try {
             if (!store || !store.name) {
-                console.error(`❌ Ugyldig butikk-objekt:`, store);
+                console.error(`X Ugyldig butikk-objekt:`, store);
                 return;
             }
             
             const offers = await tjekApiService.getStoreOffers(store.dealerId);
             
             if (!offers || offers.length === 0) {
-                console.log(`⚠️ Ingen tilbud funnet for ${store.name}`);
+                console.log(`!!! Ingen tilbud funnet for ${store.name}`);
                 return;
             }
 
@@ -84,7 +84,7 @@ class OfferService {
             return enrichedOffers;
         } catch (error) {
             const storeName = store?.name || 'ukjent butikk';
-            console.error(`❌ Feil ved henting av tilbud fra ${storeName}:`, (error as Error).message);
+            console.error(`X Feil ved henting av tilbud fra ${storeName}:`, (error as Error).message);
             throw error;
         }
     }
@@ -103,7 +103,7 @@ class OfferService {
                     allOffers.push(...offers);
                 }
             } catch (error) {
-                console.log(`⚠️ Kunne ikke laste tilbud for ${store.name}`);
+                console.log(`!!! Kunne ikke laste tilbud for ${store.name}`);
             }
         }
 

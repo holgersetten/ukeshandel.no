@@ -7,9 +7,7 @@ import { migrateCategories } from './categoryMigration';
 // Singleton connection
 let db: Database.Database | null = null;
 
-/**
- * Henter eller oppretter singleton DB-connection
- */
+// Henter eller oppretter singleton DB-connection
 export function getDb(): Database.Database {
     if (!db) {
         const dbPath = config.dbPath;
@@ -32,9 +30,7 @@ export function getDb(): Database.Database {
     return db;
 }
 
-/**
- * Lukker DB-connection (vanligvis ikke nødvendig i dev, men nyttig ved testing/shutdown)
- */
+// Lukker DB-connection (vanligvis ikke nødvendig i dev, men nyttig ved testing/shutdown)
 export function closeDb(): void {
     if (db) {
         db.close();
@@ -43,9 +39,7 @@ export function closeDb(): void {
     }
 }
 
-/**
- * Initialiserer database: lager tabeller og triggers hvis de ikke finnes
- */
+// Initialiserer database: lager tabeller og triggers hvis de ikke finnes
 export function initDb(): void {
     const database = getDb();
     

@@ -203,9 +203,9 @@ class TjekApiService {
                 return {
                     title: offer?.heading || 'Ukjent tilbud',
                     description: offer?.description || '',
-                    price: offer?.pricing?.price || null,
-                    originalPrice: offer?.pricing?.pre_price || null,
-                    discount: offer?.pricing?.discount || null,
+                    price: offer?.pricing?.price ?? null,
+                    originalPrice: offer?.pricing?.pre_price ?? null,
+                    discount: offer?.pricing?.discount ?? null,
                     currency: offer?.pricing?.currency || 'NOK',
                     quantity: quantityText,
                     unit: unit,
