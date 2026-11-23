@@ -1,7 +1,7 @@
 ﻿import { normalizeTitle } from '../utils/normalizeTitle';
 import { directCategories, getCategories, withAncestors } from '../config/categories';
 import * as cache from '../db/categoryCacheRepo';
-import { batchCategorizeWithAI, type AIProduct } from './aiCategorization';
+import { AI_CATEGORY_BATCH_SIZE, batchCategorizeWithAI, type AIProduct } from './aiCategorization';
 
 class CategoryService {
 
@@ -51,13 +51,17 @@ class CategoryService {
     const products = [...missing.values()];
 
     // deler de inn i batches (committer hver batch før ny begynner)
-    for (let i = 0; i < products.length; i += 30) {
-      const batch = products.slice(i, i + 30);
+    for (let i = 0; i < products.length; i += AI_CATEGORY_BATCH_SIZE) {
+      const batch = products.slice(i, i + AI_CATEGORY_BATCH_SIZE);
       const results = await batchCategorizeWithAI(batch);
      
       for (const { normalizedName: name } of batch) {
         const result = results.get(name);
-        cache.save(name,result?.categoryIds || [],'ai',result?.confidence ?? null,result ? null : 'AI returnerte ingen gyldig kategorisering');
+        const ids = result?.categoryIds ?? [];
+        let reviewReason: string | null = null;
+        if (!result) reviewReason = 'AI returnerte ingen gyldig kategorisering';
+        else if (!ids.length) reviewReason = 'KI fant ingen passende kategori';
+        cache.save(name, ids, 'ai', null, reviewReason);
       }
     }
   }

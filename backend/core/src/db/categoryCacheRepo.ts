@@ -68,7 +68,7 @@ export function save(name: string, ids: string[], source: 'manual'|'ai', confide
     // AI skal aldri overskrive lagrede kategoriseringer
     if (source === 'ai' && get(name)) return;
     
-    const needsReview = !!reason || !direct.length || (source === 'ai' && (confidence === null || confidence < .9));
+    const needsReview = !!reason || !direct.length;
     
     db.prepare(`
       INSERT INTO classifications(
