@@ -13,11 +13,11 @@ fs.mkdirSync(process.env.OFFERS_DIR);
 const old=new Database(process.env.DB_PATH);
 old.exec(`CREATE TABLE category_cache(product_key TEXT PRIMARY KEY,main_category TEXT,sub_category TEXT,source TEXT,confidence_main REAL,confidence_sub REAL)`);
 const insert=old.prepare('INSERT INTO category_cache VALUES (?,?,?,?,?,?)');
-insert.run('TINE Melk|1l|x1|meny','Meieri & egg','Melk','manual',1,1);
-insert.run('tine melk|kiwi','Drikke','Juice','ai',.99,.99);
-insert.run('konflikt|meny','Middag','Pasta','manual',1,1);
-insert.run('konflikt|kiwi','Middag','Ris','manual',1,1);
-insert.run('gammel usikker|meny','Middag','Pasta','ai',.7,.7);
+insert.run('TINE Melk|1l|x1|meny','Meieri og egg','Melk','manual',1,1);
+insert.run('tine melk|kiwi','Drikkevarer','Juice og saft','ai',.99,.99);
+insert.run('konflikt|meny','Middag og ferdigmat','Pasta og nudler','manual',1,1);
+insert.run('konflikt|kiwi','Middag og ferdigmat','Ris og korn','manual',1,1);
+insert.run('gammel usikker|meny','Middag og ferdigmat','Pasta og nudler','ai',.7,.7);
 old.close();
 const database=require('../core/src/db/db');database.initDb();
 const db=database.getDb();const categories=require('../core/src/config/categories');
@@ -50,25 +50,25 @@ test('migration preserves manual decisions, marks conflicts and creates a backup
 test('fresh database and empty cache migrate without price tables',()=>{
   const fresh=new Database(':memory:');fresh.pragma('foreign_keys=ON');
   require('../core/src/db/categoryMigration').migrateCategories(fresh);
-  assert.ok(fresh.prepare('SELECT count(*) AS n FROM categories').get().n>1);
+  assert.equal(fresh.prepare('SELECT count(*) AS n FROM categories').get().n,80);
   assert.equal(fresh.prepare("SELECT name FROM sqlite_master WHERE name='price_history'").get(),undefined);fresh.close();
 });
 test('two direct categories inherit their ancestors; title and source offer fields remain untouched',async()=>{
-  service.setManualCategory('vegetarlasagne',[id('Ferdigretter'),id('Vegetar')]);
+  service.setManualCategory('vegetarlasagne',[id('Ferdigretter'),id('Vegetar og vegansk')]);
   const result=(await offers.getAllOffers())[0];
   for(const key of Object.keys(lasagne)) assert.deepEqual(result[key],lasagne[key]);
   assert.ok(!('productKey' in result));assert.ok(!('ingredientKey' in result));
-  assert.deepEqual(new Set(result.categoryIds),new Set([id('Ferdigretter'),id('Vegetar')]));
-  assert.ok(result.effectiveCategoryIds.includes(id('Middag')));
+  assert.deepEqual(new Set(result.categoryIds),new Set([id('Ferdigretter'),id('Vegetar og vegansk')]));
+  assert.ok(result.effectiveCategoryIds.includes(id('Middag og ferdigmat')));
   assert.equal(result.normalizedName,'vegetarlasagne');
   assert.deepEqual(service.categorizeOffer({...lasagne,store:'Kiwi',size:1000}).categoryIds,result.categoryIds);
 });
-test('one AI request per normalized name across stores; low confidence results are reused',async()=>{
+test('one AI request per normalized name across stores; leaf suggestions do not require confidence',async()=>{
   process.env.SKIP_AI='false';process.env.OPENAI_API_KEY='test';
-  const call=mock.method(ai,'batchCategorizeWithAI',async products=>{assert.equal(products.length,1);return new Map([[products[0].normalizedName,{categoryIds:[id('Ferdigretter'),id('Vegetar')],confidence:.6}]]);});
+  const call=mock.method(ai,'batchCategorizeWithAI',async products=>{assert.equal(products.length,1);return new Map([[products[0].normalizedName,{categoryIds:[id('Ferdigretter'),id('Vegetar og vegansk')]}]]);});
   const input=[{...lasagne,title:'NY Lasagne'},{...lasagne,title:'  ny  lasagne ',store:'Kiwi'}];
   await service.categorizeOffers(input);await service.categorizeOffers(input);
-  assert.equal(call.mock.callCount(),1);assert.equal(cache.get('ny lasagne').needsReview,true);
+  assert.equal(call.mock.callCount(),1);assert.equal(cache.get('ny lasagne').needsReview,false);
 });
 test('cached migration conflicts and manual decisions never go back to AI automatically',async()=>{
   process.env.SKIP_AI='false';process.env.OPENAI_API_KEY='test';
@@ -77,38 +77,60 @@ test('cached migration conflicts and manual decisions never go back to AI automa
 });
 test('completed AI batches survive a later network failure',async()=>{
   process.env.SKIP_AI='false';process.env.OPENAI_API_KEY='test';
-  let batches=0;
+  const batchSizes=[];
   mock.method(ai,'batchCategorizeWithAI',async products=>{
-    if(++batches===2) throw Error('network');
-    return new Map(products.map(p=>[p.normalizedName,{categoryIds:[id('Ris')],confidence:.95}]));
+    batchSizes.push(products.length);
+    if(batchSizes.length===2) throw Error('network');
+    return new Map(products.map(p=>[p.normalizedName,{categoryIds:[id('Ris og korn')]}]));
   });
-  const input=Array.from({length:31},(_,i)=>({title:'batch product '+i}));
+  const input=Array.from({length:11},(_,i)=>({title:'batch product '+i}));
   await assert.rejects(service.categorizeOffers(input),/network/);
-  assert.ok(cache.get('batch product 0'));assert.equal(cache.get('batch product 30'),null);
+  assert.ok(cache.get('batch product 0'));assert.equal(cache.get('batch product 10'),null);
   await service.categorizeOffers(input);
-  assert.equal(batches,3);assert.ok(cache.get('batch product 30'));
+  assert.deepEqual(batchSizes,[10,1,1]);assert.ok(cache.get('batch product 10'));
 });
 test('invalid/missing AI answer is reviewed rather than repeatedly billed',async()=>{
   process.env.SKIP_AI='false';process.env.OPENAI_API_KEY='test';
-  const call=mock.method(ai,'batchCategorizeWithAI',async()=>new Map());
-  await service.categorizeOffers([{title:'missing result'}]);await service.categorizeOffers([{title:'missing result'}]);
+  const call=mock.method(ai,'batchCategorizeWithAI',async()=>new Map([
+    ['no suitable category', {categoryIds:[]}],
+  ]));
+  const input=[{title:'missing result'},{title:'no suitable category'}];
+  await service.categorizeOffers(input);await service.categorizeOffers(input);
   assert.equal(call.mock.callCount(),1);assert.equal(cache.get('missing result').needsReview,true);
+  assert.equal(cache.get('missing result').reviewReason,'AI returnerte ingen gyldig kategorisering');
+  const empty=cache.get('no suitable category');
+  assert.equal(empty.needsReview,true);
+  assert.equal(empty.reviewReason,'KI fant ingen passende kategori');
+  assert.deepEqual(empty.categoryIds,[]);
+  assert.equal(empty.confidence,null);
 });
-test('AI validation rejects unknown IDs, more than three categories, duplicates and invalid confidence',()=>{
+test('AI validation accepts empty categories and rejects unknown IDs, excess categories and duplicate IDs',()=>{
   const product=[{normalizedName:'a',title:'A'}];
-  const parse=row=>ai.parseResults(JSON.stringify({results:[{normalizedName:'a',confidence:.95,...row}]}),product);
+  const parse=row=>ai.parseResults(JSON.stringify({results:[{normalizedName:'a',...row}]}),product);
   assert.equal(parse({categoryIds:['fake']}).size,0);
-  assert.equal(parse({categoryIds:[id('Ris'),id('Pasta'),id('Melk'),id('Vegetar')]}).size,0);
-  assert.equal(parse({categoryIds:[id('Ris'),id('Ris')]}).size,0);
-  assert.equal(parse({categoryIds:[id('Ris')],confidence:2}).size,0);
-  assert.deepEqual(parse({categoryIds:[id('Middag'),id('Ferdigretter'),id('Vegetar')]}).get('a').categoryIds,[id('Ferdigretter'),id('Vegetar')]);
+  assert.equal(parse({categoryIds:['Ris og korn']}).size,0);
+  assert.equal(parse({categories:[id('Ris og korn')]}).size,0);
+  assert.deepEqual(parse({categoryIds:[]}).get('a'),{categoryIds:[]});
+  assert.equal(parse({categoryIds:[id('Ris og korn'),id('Pasta og nudler'),id('Melk'),id('Vegetar og vegansk')]}).size,0);
+  assert.equal(parse({categoryIds:[id('Ris og korn'),id('Ris og korn')]}).size,0);
+  assert.deepEqual(parse({categoryIds:[id('Middag og ferdigmat'),id('Ferdigretter'),id('Vegetar og vegansk')]}).get('a').categoryIds,[id('Ferdigretter'),id('Vegetar og vegansk')]);
+});
+test('AI parser rejects every row for a duplicated product name',()=>{
+  const products=[{normalizedName:'a',title:'A'},{normalizedName:'b',title:'B'}];
+  const valid={normalizedName:'a',categoryIds:[id('Ris og korn')]};
+  const invalid={...valid,categoryIds:['fake']};
+  const other={...valid,normalizedName:'b'};
+  for(const duplicates of [[valid,valid],[invalid,valid],[valid,invalid]]) {
+    const results=ai.parseResults(JSON.stringify({results:[...duplicates,other]}),products);
+    assert.deepEqual([...results.keys()],['b']);
+  }
 });
 test('manual correction during an AI request wins',async()=>{
   process.env.SKIP_AI='false';process.env.OPENAI_API_KEY='test';
   mock.method(ai,'batchCategorizeWithAI',async()=>{
-    service.setManualCategory('race',[id('Ris')]);return new Map([['race',{categoryIds:[id('Pasta')],confidence:.99}]]);
+    service.setManualCategory('race',[id('Ris og korn')]);return new Map([['race',{categoryIds:[id('Pasta og nudler')]}]]);
   });
-  await service.categorizeOffers([{title:'race'}]);assert.deepEqual(cache.get('race').categoryIds,[id('Ris')]);
+  await service.categorizeOffers([{title:'race'}]);assert.deepEqual(cache.get('race').categoryIds,[id('Ris og korn')]);
 });
 test('category rename keeps IDs; reparenting changes inheritance; cycles and unsafe deletes are rejected',()=>{
   const parent=categories.saveCategory(undefined,'Test forelder',null);
@@ -118,16 +140,16 @@ test('category rename keeps IDs; reparenting changes inheritance; cycles and uns
   assert.equal(service.categorizeOffer({title:'testvare'}).categories.find(c=>c.id===child.id).name,'Nytt navn');
   assert.throws(()=>categories.saveCategory(parent.id,parent.name,child.id),/forelder/);
   assert.throws(()=>categories.deleteCategory(parent.id),/underkategoriene/);
-  categories.saveCategory(child.id,'Nytt navn',id('Middag'));
-  assert.ok(service.categorizeOffer({title:'testvare'}).effectiveCategoryIds.includes(id('Middag')));
+  categories.saveCategory(child.id,'Nytt navn',id('Middag og ferdigmat'));
+  assert.ok(service.categorizeOffer({title:'testvare'}).effectiveCategoryIds.includes(id('Middag og ferdigmat')));
   assert.ok(!service.categorizeOffer({title:'testvare'}).effectiveCategoryIds.includes(parent.id));
   categories.deleteCategory(child.id);assert.equal(cache.get('testvare').needsReview,true);categories.deleteCategory(parent.id);
 });
 test('manual validation leaves saved classification unchanged on invalid input',()=>{
-  service.setManualCategory('validation',[id('Ris')]);
+  service.setManualCategory('validation',[id('Ris og korn')]);
   assert.throws(()=>service.setManualCategory('validation',['missing']));
-  assert.throws(()=>service.setManualCategory('NOT normalized',[id('Ris')]));
-  assert.deepEqual(cache.get('validation').categoryIds,[id('Ris')]);
+  assert.throws(()=>service.setManualCategory('NOT normalized',[id('Ris og korn')]));
+  assert.deepEqual(cache.get('validation').categoryIds,[id('Ris og korn')]);
 });
 test('fetch saves the original offer title and reports failed writes',async()=>{
   const tjek=require('../persistence/src/services/tjekApiService').default;
@@ -155,8 +177,8 @@ test('HTTP API supports multiple category IDs and rejects the retired key contra
   const server=app.listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));
   const base=`http://127.0.0.1:${server.address().port}/api`;
   try {
-    let response=await fetch(base+'/offers/categorize',{method:'POST',headers:{'Content-Type':'application/json','x-admin-api-key':'test-admin'},body:JSON.stringify({normalizedName:'vegetarlasagne',categoryIds:[id('Ferdigretter'),id('Vegetar')]})});assert.equal(response.status,200);
-    response=await fetch(base+'/offers');const data=await response.json();assert.ok(data.offers[0].effectiveCategoryIds.includes(id('Middag')));
+    let response=await fetch(base+'/offers/categorize',{method:'POST',headers:{'Content-Type':'application/json','x-admin-api-key':'test-admin'},body:JSON.stringify({normalizedName:'vegetarlasagne',categoryIds:[id('Ferdigretter'),id('Vegetar og vegansk')]})});assert.equal(response.status,200);
+    response=await fetch(base+'/offers');const data=await response.json();assert.ok(data.offers[0].effectiveCategoryIds.includes(id('Middag og ferdigmat')));
     response=await fetch(base+'/offers/categorize',{method:'POST',headers:{'Content-Type':'application/json','x-admin-api-key':'test-admin'},body:JSON.stringify({productKey:'old'})});assert.equal(response.status,400);
     response=await fetch(base+'/categories');assert.ok((await response.json()).categories.every(c=>'parentId' in c));
   } finally {await new Promise(r=>server.close(r));}
