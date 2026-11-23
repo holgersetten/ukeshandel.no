@@ -77,9 +77,6 @@ export function migrateCategories(db: Database.Database) {
       for (const sub of subs) add(sub, parent);
     }
 
-    // Cross-cutting category, independent of the existing Middag hierarchy.
-    add('Vegetar', null);
-
     const grouped = new Map<string, LegacyRow[]>();
 
     for (const row of legacy) {
