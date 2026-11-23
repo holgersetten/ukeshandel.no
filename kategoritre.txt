@@ -1,0 +1,91 @@
+Middag og ferdigmat
+├── Ferdigpizza
+├── Ferdigretter
+├── Pasta og nudler
+├── Ris og korn
+├── Supper og grøt
+├── Vegetar og vegansk
+└── Taco og tex-mex
+
+Frukt og grønt
+├── Frukt
+├── Bær
+├── Grønnsaker
+├── Poteter
+├── Salat og urter
+├── Sopp
+└── Fryst frukt og grønt
+
+Kjøtt og fjærkre
+├── Storfe
+├── Svin
+├── Lam
+├── Kylling
+├── Annet kjøtt og fjærkre
+├── Kjøttdeig
+└── Pølser og burgere
+
+Fisk og sjømat
+├── Fisk
+├── Skalldyr og skjell
+└── Fiskeprodukter
+
+Meieri og egg
+├── Melk
+├── Yoghurt
+├── Fløte, rømme og crème fraîche
+├── Smør og margarin
+├── Ost
+├── Egg
+└── Andre meieriprodukter
+
+Brød og bakervarer
+├── Brød og loff
+├── Rundstykker og baguetter
+├── Knekkebrød og riskaker
+├── Lefser og lomper
+├── Burger- og pølsebrød
+└── Boller og søtbakst
+
+Pålegg og frokost
+├── Kjøttpålegg
+├── Fiskepålegg
+├── Leverpostei og posteier
+├── Syltetøy og honning
+├── Frokostblandinger og müsli
+└── Andre pålegg
+
+Matlaging og baking
+├── Mel og bakeingredienser
+├── Sukker
+├── Krydder og urter
+├── Olje og eddik
+├── Sauser og dressinger
+├── Hermetikk
+└── Kraft og buljong
+
+Snacks og søtsaker
+├── Sjokolade
+├── Godteri og pastiller
+├── Potetgull og snacks
+├── Nøtter og tørket frukt
+├── Kjeks og kaker
+└── Popcorn
+
+Dessert og is
+├── Is
+├── Desserter
+└── Dessertsauser og tilbehør
+
+Drikkevarer
+├── Brus og leskedrikk
+├── Vann
+├── Juice og saft
+├── Energidrikk
+├── Kaffe
+├── Te
+├── Iskaffe og iste
+├── Øl og cider
+└── Andre drikker
+
+Øvrige varer
