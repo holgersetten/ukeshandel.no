@@ -1,12 +1,28 @@
 ﻿import { randomUUID } from 'crypto';
+import fs from 'node:fs';
 import { getDb } from '../db/db';
+import config from '../../../rest/src/config';
 
 export interface Category { id: string; name: string; parentId: string | null }
 
+let configuredOrder: Map<string, number> | undefined;
+
 export function getCategories(): Category[] {
-  return getDb()
+  if (!configuredOrder) {
+    const tree = JSON.parse(fs.readFileSync(config.categoriesFile, 'utf8')) as Record<string, string[]>;
+    configuredOrder = new Map(Object.entries(tree)
+      .flatMap(([parent, children]) => [[null, parent], ...children.map(child => [parent, child])])
+      .map((path, index) => [JSON.stringify(path), index]));
+  }
+  const order = configuredOrder;
+  const categories = getDb()
     .prepare('SELECT id,name,parent_id AS parentId FROM categories ORDER BY name,id')
     .all() as Category[];
+  const names = new Map(categories.map(category => [category.id, category.name]));
+  const position = (category: Category) => order.get(JSON.stringify([
+    category.parentId === null ? null : names.get(category.parentId), category.name,
+  ])) ?? order.size;
+  return categories.sort((a, b) => position(a) - position(b));
 }
 
 // ta imot kategori-ID-er og returnere dem sammen med alle foreldrekategoriers ID-er (overordnet kategori, f.eks Meieri <- Melk)
@@ -40,15 +56,13 @@ export function withAncestors(ids: string[], categories = getCategories()): stri
 }
 
 // validere kategori-ID-er og fjerne overflødige foreldrekategorier
-export function directCategories(value: unknown, max = 3): string[] {
+export function directCategories(value: unknown, max = 3, categories = getCategories()): string[] {
 
   if (!Array.isArray(value) || !value.length || value.length > max || value.some(id => typeof id !== 'string')) {
     throw new Error('Velg 1–' + max + ' kategorier');
   }
 
   if (new Set(value).size !== value.length) throw new Error('Dupliserte kategorier');
-
-  const categories = getCategories();
 
   withAncestors(value, categories);
 

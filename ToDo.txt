@@ -8,7 +8,12 @@
 
 
 ToDo (forbedringer, ikke rangert etter viktighet):
-
+- samme tilbud med forskjellig hotspot vises flere ganger
+- overfør gammel database-data til ny database (verdifull data)
+- tilbudskort: legg til kilospris og vurder om kategori skal bort
+- kategorisiden er ikke bak admin-vegg!!
+- from-to velger alltid from, går glipp av intervaller.
+- Ved henting av manglende produktbilder fra /offers/{id}, lagre også description og pre_price, og undersøk hvor mange tilbud som faktisk har førprisdata.
 - Søkemotor:    gjerne vise mest relevant produkt først
 - Beste tilbud: må vise ukens mest relevante tilbud
 - Alle tilbud:  trenger ikke laste alle ~600 tilbud samtidig, gjerne kun 30 om gangen
