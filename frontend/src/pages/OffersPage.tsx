@@ -187,48 +187,7 @@ export default function OffersPage() {
     }
   };
 
-  const getCategoriesSorted = () => {
-    if (!categories) return [];
-    
-    const categoryPriority = [
-      'Middag',
-      'Frukt & grønt',
-      'Kjøtt',
-      'Kylling og fjærkre',
-      'Fisk & skalldyr',
-      'Meieri & egg',
-      'Brød',
-      'Pålegg & frokost',
-      'Tilbehør',
-      'Drikke',
-      'Snacks, godteri & sjokolade',
-      'Ost',
-      'Dessert og iskrem',
-      'Baking',
-      'Barneprodukter',
-      'Dyr',
-      'Personlige artikler',
-      'Hus & hjem',
-      'Blomster og planter',
-      'Ukategorisert'
-    ];
-
-    const allCategories = [...Object.keys(categories), 'uncategorized'];
-    
-    return allCategories.sort((a, b) => {
-      const indexA = categoryPriority.indexOf(categoryLabel(a));
-      const indexB = categoryPriority.indexOf(categoryLabel(b));
-      
-      if (indexA !== -1 && indexB !== -1) {
-        return indexA - indexB;
-      }
-      
-      if (indexA !== -1) return -1;
-      if (indexB !== -1) return 1;
-      
-      return categoryLabel(a).localeCompare(categoryLabel(b), 'nb-NO');
-    });
-  };
+  const categoryOrder = [...Object.keys(categories), 'uncategorized'];
 
   const categoryMenu = (
             <Card className="max-h-[48vh] overflow-y-auto md:max-h-none">
@@ -276,7 +235,7 @@ export default function OffersPage() {
                 <div>
                   <h3 className="text-sm font-semibold text-foreground mb-3">Kategorier</h3>
                   <div className="space-y-1">
-                    {getCategoriesSorted().slice(0, showAllCategories ? undefined : 7).map(cat => {
+                    {categoryOrder.slice(0, showAllCategories ? undefined : 7).map(cat => {
                       const isMainSelected = selectedMainCategory === cat;
                       const subCats = categories?.[cat] || [];
                       return (
@@ -314,7 +273,7 @@ export default function OffersPage() {
                       );
                     })}
                     
-                    {getCategoriesSorted().length > 7 && (
+                    {categoryOrder.length > 7 && (
                       <button
                         onClick={() => setShowAllCategories(!showAllCategories)}
                         className="w-full text-left px-3 py-2 text-sm rounded-md transition-all duration-200 cursor-pointer mt-2 text-foreground hover:bg-muted hover:translate-x-0.5"

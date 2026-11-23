@@ -32,10 +32,10 @@ export default function CategoryManager() {
     <div className="grid md:grid-cols-2 gap-4">
       <Card><CardHeader><CardTitle>Kategorioversikt</CardTitle></CardHeader><CardContent className="space-y-1">
         <Button variant="outline" onClick={()=>choose('')}>Ny kategori</Button>
-        {categories.filter(c => !c.parentId).sort((a,b)=>a.name.localeCompare(b.name,'nb')).map(parent => <div key={parent.id} className="space-y-1">
+        {categories.filter(c => !c.parentId).map(parent => <div key={parent.id} className="space-y-1">
           <button className={`block w-full text-left rounded p-2 hover:bg-muted font-semibold ${selected===parent.id?'bg-muted':''}`} onClick={()=>choose(parent.id)}>{parent.name}</button>
           <div className="ml-4 border-l pl-2 space-y-1">
-            {categories.filter(c => c.parentId === parent.id).sort((a,b)=>a.name.localeCompare(b.name,'nb')).map(child => <button key={child.id} className={`block w-full text-left rounded p-1.5 text-sm hover:bg-muted ${selected===child.id?'bg-muted font-semibold':''}`} onClick={()=>choose(child.id)}>↳ {child.name}</button>)}
+            {categories.filter(c => c.parentId === parent.id).map(child => <button key={child.id} className={`block w-full text-left rounded p-1.5 text-sm hover:bg-muted ${selected===child.id?'bg-muted font-semibold':''}`} onClick={()=>choose(child.id)}>↳ {child.name}</button>)}
           </div>
         </div>)}
       </CardContent></Card>
