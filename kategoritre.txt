@@ -21,14 +21,14 @@ Kjøtt og fjærkre
 ├── Svin
 ├── Lam
 ├── Kylling
-├── Annet kjøtt og fjærkre
+├── Pølser og burgere 
 ├── Kjøttdeig
-└── Pølser og burgere
+└── Annet kjøtt og fjærkre
 
 Fisk og sjømat
 ├── Fisk
 ├── Skalldyr og skjell
-└── Fiskeprodukter
+└── Andre fiskeprodukter
 
 Meieri og egg
 ├── Melk

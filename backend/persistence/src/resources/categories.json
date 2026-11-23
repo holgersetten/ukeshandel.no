@@ -1,228 +1,93 @@
 {
-  "Frukt & grønt": [
-    "Bær",
-    "Frosne bær og grønnsaker",
-    "Frukt",
-    "Fruktkurv",
-    "Grønnsaker",
-    "Krydderurter",
-    "Poteter",
-    "Sopp",
-    "Salat"
-  ],
-  "Fisk & skalldyr": [
-    "Fisk",
-    "Fiskeburger",
-    "Hvalkjøtt",
-    "Skalldyr",
-    "Skjell",
-    "Sushi",
-    "Tørket fisk"
-  ],
-  "Brød": [
-    "Boller og småkaker",
-    "Brød",
-    "Hamburgerbrød",
-    "Knekkebrød",
-    "Lefser",
-    "Loff",
-    "Lomper",
-    "Maiskaker",
-    "Pita og nan",
-    "Pølsebrød",
-    "Baguetter",
-    "Riskaker",
-    "Rundstykker"
-  ],
-  "Middag": [
+  "Middag og ferdigmat": [
+    "Ferdigpizza",
     "Ferdigretter",
-    "Fiskeretter",
-    "Grøt",
-    "Middagshermetikk",
-    "Nudler",
-    "Pasta",
-    "Ris",
-    "Wok",
-    "Pizza",
-    "Supper",
-    "Taco",
-    "Vegetarretter"
+    "Pasta og nudler",
+    "Ris og korn",
+    "Supper og grøt",
+    "Vegetar og vegansk",
+    "Taco og tex-mex"
   ],
-  "Kylling og fjærkre": [
-    "And",
-    "Kalkun",
+  "Frukt og grønt": [
+    "Frukt",
+    "Bær",
+    "Grønnsaker",
+    "Poteter",
+    "Salat og urter",
+    "Sopp",
+    "Fryst frukt og grønt"
+  ],
+  "Kjøtt og fjærkre": [
+    "Storfe",
+    "Svin",
+    "Lam",
     "Kylling",
-    "Rype"
+    "Pølser og burgere",
+    "Kjøttdeig",
+    "Annet kjøtt og fjærkre"
   ],
-  "Meieri & egg": [
-    "Cottage cheese",
-    "Creme fraiche",
-    "Egg",
-    "Fløte",
-    "Kesam",
+  "Fisk og sjømat": [
+    "Fisk",
+    "Skalldyr og skjell",
+    "Andre fiskeprodukter"
+  ],
+  "Meieri og egg": [
     "Melk",
-    "Smør og margarin",
-    "Proteinpudding",
-    "Rømme",
     "Yoghurt",
-    "Drikkeyoghurt"
+    "Fløte, rømme og crème fraîche",
+    "Smør og margarin",
+    "Ost",
+    "Egg",
+    "Andre meieriprodukter"
   ],
-  "Pålegg & frokost": [
-    "Bacon",
-    "Fiskepålegg",
-    "Frokostblandinger og müsli",
+  "Brød og bakervarer": [
+    "Brød og loff",
+    "Rundstykker og baguetter",
+    "Knekkebrød og riskaker",
+    "Lefser og lomper",
+    "Burger- og pølsebrød",
+    "Boller og søtbakst"
+  ],
+  "Pålegg og frokost": [
     "Kjøttpålegg",
-    "Leverpostei",
-    "Påleggsalat",
+    "Fiskepålegg",
+    "Leverpostei og posteier",
     "Syltetøy og honning",
-    "Vegansk pålegg",
-    "Tubeost"
+    "Frokostblandinger og müsli",
+    "Andre pålegg"
   ],
-  "Kjøtt": [
-    "Hamburger",
-    "Kjøttdeig og farse",
-    "Lammekjøtt",
-    "Pølser",
-    "Storfekjøtt",
-    "Svinekjøtt",
-    "Viltkjøtt",
-    "Kjøttkaker og kjøttboller"
-  ],
-  "Tilbehør": [
-    "Eddik",
-    "Dip",
-    "Hermetisk grønt",
-    "Ketchup og sennep",
-    "Kokosmelk",
-    "Kraft og buljong",
-    "Krydder",
-    "Linser og bønner",
-    "Marinader og BBQ-saus",
-    "Matoljer",
-    "Middagssalat",
-    "Oliven",
-    "Pizzatopping",
-    "Potetsalat",
-    "Sauser og dressing",
-    "Stuinger",
-    "Sushitilbehør",
-    "Fries"
-  ],
-  "Drikke": [
-    "Brus",
-    "Drinkmikser",
-    "Energidrikk",
-    "Ferdigdrinker",
-    "Iskaffe",
-    "Iste",
-    "Juice",
-    "Kaffe",
-    "Leskedrikk",
-    "Saft",
-    "Sjokoladedrikk",
-    "Smoothie",
-    "Te",
-    "Toddy",
-    "Vann",
-    "Øl og cider"
-  ],
-  "Ost": [
-    "Blåmuggost",
-    "Brunost",
-    "Cheddar",
-    "Fetaost",
-    "Gulost",
-    "Halloumi",
-    "Mozzarella",
-    "Parmesan",
-    "Plantebasert ost",
-    "Revet ost",
-    "Smøreoster",
-    "Øvrig ost"
-  ],
-  "Dessert og iskrem": [
-    "Dessertpuddinger",
-    "Dessertsaucer",
-    "Dessertsuppe",
-    "Gele",
-    "Hermetisk frukt og bær",
-    "Is",
-    "Mousse",
-    "Riskrem",
-    "Tiramisu"
-  ],
-  "Baking": [
-    "Bakemixer",
-    "Melis",
-    "Bakepulver",
-    "Gjær",
-    "Mel",
-    "Havregryn",
+  "Matlaging og baking": [
+    "Mel og bakeingredienser",
     "Sukker",
-    "Sukkerbiter",
-    "Tørket frukt og nøtter"
+    "Krydder og urter",
+    "Olje og eddik",
+    "Sauser og dressinger",
+    "Hermetikk",
+    "Kraft og buljong"
   ],
-  "Snacks, godteri & sjokolade": [
-    "Dip",
-    "Godteri",
-    "Nøtter",
-    "Pastiller",
-    "Popcorn",
+  "Snacks og søtsaker": [
     "Sjokolade",
-    "Tyggegummi",
-    "Mellommåltid",
-    "Muffins",
-    "Kjeks",
-    "Potetgull"
+    "Godteri og pastiller",
+    "Potetgull og snacks",
+    "Nøtter og tørket frukt",
+    "Kjeks og kaker",
+    "Popcorn"
   ],
-  "Barneprodukter": [
-    "Babyartikler",
-    "Barnemat"
+  "Dessert og is": [
+    "Is",
+    "Desserter",
+    "Dessertsauser og tilbehør"
   ],
-  "Personlige artikler": [
-    "Barbering",
-    "Bind og tamponger",
-    "Briller",
-    "Helsekost",
-    "Hår og hud",
-    "Klær",
-    "Personlig hygiene",
-    "Sminke",
-    "Tannpleie"
+  "Drikkevarer": [
+    "Brus og leskedrikk",
+    "Vann",
+    "Juice og saft",
+    "Energidrikk",
+    "Kaffe",
+    "Te",
+    "Iskaffe og iste",
+    "Øl og cider",
+    "Andre drikker"
   ],
-  "Hus & hjem": [
-    "Belysning",
-    "Bilpleie",
-    "Borddekning og servietter",
-    "Byggevarer",
-    "Dopapir og tørkerull",
-    "Grill",
-    "Kjøkken",
-    "Klesvask",
-    "Klær og sko",
-    "Kontorrekvisita",
-    "Oppvarming",
-    "Poser, papir og folie",
-    "Renhold",
-    "Sikkerhet",
-    "Fest",
-    "Sport",
-    "Verktøy",
-    "Leker"
-  ],
-  "Dyr": [
-    "Dyreartikler",
-    "Fuglemat",
-    "Hundemat",
-    "Kattemat"
-  ],
-  "Blomster og planter": [
-    "Blomster",
-    "Plantejord",
-    "Plantenæring",
-    "Potteplanter"
-  ],
-  "Ukategorisert": [
-    "Ukategorisert"
-  ]
+  "Øvrige varer": []
 }
